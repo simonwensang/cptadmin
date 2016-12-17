@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <title>
+        红星家装ERP后台
+    </title>
+    #parse("tags.vm")
+</head>
+<body class="no-skin">
+<div id="navbar" class="navbar navbar-default ace-save-state">
+    <div class="navbar-container ace-save-state" id="navbar-container">
+
+        <div class="navbar-header pull-left">
+            <a href="#" class="navbar-brand">
+                <small>
+                    <i class="fa fa-leaf"></i>
+                    红星家装ERP后台
+                </small>
+            </a>
+        </div>
+
+    </div>
+</div>
+
+<div class="main-container ace-save-state" id="main-container">
+
+    <div class="sidebar responsive ace-save-state" id="sidebar">
+        <ul class="nav nav-list">
+            <li class="active open">
+                <a href="#" class="dropdown-toggle">
+                    <i class="menu-icon fa fa-list"></i>
+                    <span class="menu-text"> Quick Start </span>
+                    <b class="arrow fa fa-angle-down"></b>
+                </a>
+                <ul class="submenu">
+                    <li>
+                        <a href="javascript:;"
+                           onclick="addNewTabs({title:'Demo列表',url: '$!contentPath'+'/demo/list'})">
+                            <i class="icon-double-angle-right"></i>
+                            Demo列表
+                        </a>
+                    </li>
+					<li>
+                        <a href="javascript:;"
+                           onclick="addNewTabs({title:'审核公司',url: '$!contentPath'+'/companyPend/list'})">
+                            <i class="icon-double-angle-right"></i>
+                          审核公司
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:;"
+                           onclick="addNewTabs({title:'审核设计师',url: '$!contentPath'+'/designerPend/list'})">
+                            <i class="icon-double-angle-right"></i>
+                            审核设计师
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:;"
+                           onclick="addNewTabs({title:'公司资料管理',url: '$!contentPath'+'/company/list'})">
+                            <i class="icon-double-angle-right"></i>
+                            公司资料管理
+                        </a>
+                    </li>
+					 <li>
+                        <a href="javascript:;"
+                           onclick="addNewTabs({title:'设计师管理',url: '$!contentPath'+'/designer/list'})">
+                            <i class="icon-double-angle-right"></i>
+                            设计师管理
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:;"
+                           onclick="addNewTabs({title:'辅材供应商管理',url: '$!contentPath'+'/supplier/list'})">
+                            <i class="icon-double-angle-right"></i>
+                            辅材供应商管理
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:;"
+                           onclick="addNewTabs({title:'模板设计',url: '$!contentPath'+ '/template/list'})">
+                            <i class="icon-double-angle-right"></i>
+                            模板设计
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:;"
+                           onclick="addNewTabs({title:'订单进度列表',url: '$!contentPath'+ '/order/list'})">
+                            <i class="icon-double-angle-right"></i>
+                            订单进度列表
+                        </a>
+                    </li>
+
+                </ul>
+            </li>
+
+        </ul><!-- /.nav-list -->
+
+        <!--左侧滑动栏-->
+        <div class="sidebar-toggle sidebar-collapse" id="sidebar-collapse">
+            <i id="sidebar-toggle-icon" class="ace-icon fa fa-angle-double-left ace-save-state"
+               data-icon1="ace-icon fa fa-angle-double-left"
+               data-icon2="ace-icon fa fa-angle-double-right"></i>
+        </div>
+    </div>
+
+#*页面的tab*#
+    <div class="main-content">
+        <div class="main-content-inner">
+            <div class="page-content">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li class="active" name="tab_Index">
+                                <a href="#Index" role="tab" data-toggle="tab">首页</a>
+                            </li>
+                        </ul>
+                        <div class="tab-content">
+                            <div role="tabpanel" class="tab-pane active" id="Index" name="tab_Index">
+                            ##dashboard面板
+                                <div class="row">
+                                    <div class="space-6"></div>
+                                    <div class="col-sm-7 infobox-container">
+                                        <div class="infobox infobox-green">
+                                            <div class="infobox-icon">
+                                                <i class="ace-icon fa fa-bar-chart-o"></i>
+                                            </div>
+                                            <div class="infobox-data">
+                                                <span class="infobox-data-number">32</span>
+                                                <div class="infobox-content">登录次数
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="infobox infobox-blue">
+                                            <div class="infobox-icon">
+                                                <i class="ace-icon fa fa-calendar"></i>
+                                            </div>
+
+                                            <div class="infobox-data">
+                                                <span class="infobox-small">2016-09-01 20:30:10</span>
+                                                <div class="infobox-content">最后登录时间</div>
+                                            </div>
+                                        </div>
+                                        <div class="infobox infobox-pink">
+                                            <div class="infobox-icon">
+                                                <i class="ace-icon fa fa-map-marker"></i>
+                                            </div>
+
+                                            <div class="infobox-data">
+                                                <span class="infobox-small">192.168.1.1</span>
+                                                <div class="infobox-content">上次登录IP</div>
+                                            </div>
+                                        </div>
+                                        <div class="space-6"></div>
+                                    </div>
+                                    <div class="vspace-12-sm"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

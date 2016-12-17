@@ -1,0 +1,125 @@
+#debug: true
+
+# PROFILES
+## dev | test | prod
+spring: 
+  profiles.active: dev
+
+# EMBEDDED SERVER CONFIGURATION (ServerProperties)
+server: 
+  port:  8080
+  session-timeout:  30
+  tomcat.max-threads:  50
+  tomcat.uri-encoding:  UTF-8
+  
+# LOGGING
+logging: 
+  path: /var/log
+  file: cptadmin.log
+  level.com.cpt: INFO
+
+# Connection url for the database "cpt"
+jdbc: 
+  url:  jdbc:mysql://localhost:3306/cpt
+  username :  root
+  password :  123
+  driverClassName :  com.mysql.jdbc.Driver
+
+## druid
+druid:
+ pool:
+  initialSize:  10
+  minIdle:  10
+  maxActive:  200
+  maxWait:  15000
+  timeBetweenEvictionRunsMillis:  60000
+  minEvictableIdleTimeMillis:  300000
+  validationQuery:  SELECT 'x'
+  testWhileIdle:  true
+  testOnBorrow:  false
+  testOnReturn:  false
+  poolPreparedStatements:  true
+  maxPoolPreparedStatementPerConnectionSize:  50
+  slowSqlMillis:  15000
+  logSlowSql:  true
+  mergeSql:  true
+
+# VELOCITY TEMPLATES (VelocityAutoConfiguration)
+spring.velocity.allow-request-override: false
+spring.velocity.allow-session-override: false
+spring.velocity.cache: true
+spring.velocity.charset: UTF-8
+spring.velocity.check-template-location: true
+spring.velocity.content-type: text/html
+spring.velocity.date-tool-attribute: date
+spring.velocity.enabled: true
+spring.velocity.expose-request-attributes: true
+spring.velocity.expose-session-attributes: false
+spring.velocity.expose-spring-macro-helpers: true
+spring.velocity.number-tool-attribute: number
+spring.velocity.prefer-file-system-access: true
+spring.velocity.resource-loader-path: classpath:/templates/
+spring.velocity.request-context-attribute: rc
+spring.velocity.suffix: .vm
+spring.velocity.toolbox-config-location: toolbox.xml
+---
+spring:
+  profiles: test
+
+# EMBEDDED SERVER CONFIGURATION (ServerProperties)
+server: 
+  port:  8080
+  session-timeout:  30
+  tomcat.max-threads:  50
+  tomcat.uri-encoding:  UTF-8
+  
+# LOGGING
+logging: 
+  path: /var/log
+  file: cptadmin.log
+  level.com.cpt: INFO
+
+# Connection url for the database "cpt"
+jdbc: 
+  url:  jdbc:mysql://192.168.1.41:3306/cpt
+  username :  mall
+  password :  mall
+  driverClassName :  com.mysql.jdbc.Driver
+
+## druid
+druid:
+ pool:
+  initialSize:  10
+  minIdle:  10
+  maxActive:  200
+  maxWait:  15000
+  timeBetweenEvictionRunsMillis:  60000
+  minEvictableIdleTimeMillis:  300000
+  validationQuery:  SELECT 'x'
+  testWhileIdle:  true
+  testOnBorrow:  false
+  testOnReturn:  false
+  poolPreparedStatements:  true
+  maxPoolPreparedStatementPerConnectionSize:  50
+  slowSqlMillis:  15000
+  logSlowSql:  true
+  mergeSql:  true
+
+# VELOCITY TEMPLATES (VelocityAutoConfiguration)
+spring.velocity.allow-request-override: false
+spring.velocity.allow-session-override: false
+spring.velocity.cache: true
+spring.velocity.charset: UTF-8
+spring.velocity.check-template-location: true
+spring.velocity.content-type: text/html
+spring.velocity.date-tool-attribute: date
+spring.velocity.enabled: true
+spring.velocity.expose-request-attributes: true
+spring.velocity.expose-session-attributes: false
+spring.velocity.expose-spring-macro-helpers: true
+spring.velocity.number-tool-attribute: number
+spring.velocity.prefer-file-system-access: true
+spring.velocity.resource-loader-path: classpath:/templates/
+spring.velocity.request-context-attribute: rc
+spring.velocity.suffix: .vm
+spring.velocity.toolbox-config-location: toolbox.xml

@@ -1,0 +1,50 @@
+<script src="#springUrl('/ace/js/ace-extra.min.js')"></script>
+<script src="#springUrl('/ace/js/jquery-2.1.4.min.js')"></script>
+<script src="#springUrl('/ace/js/bootstrap.min.js')"></script>
+<!-- page specific plugin scripts -->
+<script src="#springUrl('/ace/js/jquery.jqGrid.min.js')"></script>
+<script src="#springUrl('/ace/js/grid.locale-cn.js')"></script>
+<!-- ace scripts -->
+<script src="#springUrl('/ace/js/ace-elements.min.js')"></script>
+<script src="#springUrl('/ace/js/ace.min.js')"></script>
+<script src="#springUrl('/ace/js/bootstrap-tag.min.js')"></script>
+<script src="#springUrl('/js/common.js')"></script>
+<script src="#springUrl('/js/urms.common.js')"></script>
+<script src="#springUrl('/ace/js/chosen.jquery.min.js')"></script>
+<script src="#springUrl('/ace/js/moment.min.js')"></script>
+<script src="#springUrl('/ace/js/bootstrap-datetimepicker.min.js')"></script>
+<script src="#springUrl('/My97DatePicker/WdatePicker.js')"></script>
+<!--jquery validation-->
+<script src="#springUrl('/js/jquery.validate.js')"></script>
+<script src="#springUrl('/js/additional-methods.js')"></script>
+<script src="#springUrl('/js/messages_zh.js')"></script>
+<!--select2-->
+<script src="#springUrl('/ace/js/select2.min.js')"></script>
+<!--jquery.form.js-->
+<script src="#springUrl('/js/jquery.form.js')"></script>
+<script src="#springUrl('/ace/js/jquery.inputlimiter.min.js')"></script>
+<script src="#springUrl('/ace/js/bootstrap-markdown.min.js')"></script>
+
+
+## css引入
+<link rel="stylesheet" href="#springUrl('/ace/css/bootstrap.min.css')"/>
+<link rel="stylesheet" href="#springUrl('/ace/font-awesome/4.5.0/css/font-awesome.min.css')"/>
+<!--select2-->
+<link rel="stylesheet" href="#springUrl('/ace/css/select2.min.css')"/>
+<!-- page specific plugin styles -->
+<link rel="stylesheet" href="#springUrl('/ace/css/jquery-ui.min.css')"/>
+<link rel="stylesheet" href="#springUrl('/ace/css/ui.jqgrid.min.css')"/>
+<!-- ace styles -->
+<link rel="stylesheet" href="#springUrl('/ace/css/chosen.min.css')"/>
+<link rel="stylesheet" href="#springUrl('/ace/css/ace.min.css')"/>
+<link rel="stylesheet" href="#springUrl('/ace/css/font-awesome.min.css')"/>
+<link rel="stylesheet" href="#springUrl('/ace/css/jquery-ui.custom.min.css')"/>
+<link rel="stylesheet" href="#springUrl('/css/base.css')"/>
+<link rel="stylesheet" href="#springUrl('/css/special.css')"/>
+##validate depend on
+<script src="#springUrl('/validate/jqExtend.js')"></script>
+<link rel="stylesheet" href="#springUrl('/validate/validate.css')"/>
+<script src="#springUrl('/validate/validate.js')"></script>
+<!--全局变量 路径 -->
+#set($contentPath = "/jzerp")
+
