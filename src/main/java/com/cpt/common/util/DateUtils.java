@@ -1,4 +1,4 @@
-package com.cpt.util;
+package com.cpt.common.util;
 
 
 import org.slf4j.Logger;

@@ -5,17 +5,19 @@ import java.util.Date;
 public class User {
     private Long id;
 
-    private String loginName;
+    private String userName;
+
+    private String passWord;
 
     private Long mobile;
 
     private String name;
 
-    private Date lastLoginTime;
-
     private Date updateTime;
 
     private Date createTime;
+
+    private Date lastLoginTime;
 
     public Long getId() {
         return id;
@@ -25,12 +27,20 @@ public class User {
         this.id = id;
     }
 
-    public String getLoginName() {
-        return loginName;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setLoginName(String loginName) {
-        this.loginName = loginName == null ? null : loginName.trim();
+    public void setUserName(String userName) {
+        this.userName = userName == null ? null : userName.trim();
+    }
+
+    public String getPassWord() {
+        return passWord;
+    }
+
+    public void setPassWord(String passWord) {
+        this.passWord = passWord == null ? null : passWord.trim();
     }
 
     public Long getMobile() {
@@ -49,14 +59,6 @@ public class User {
         this.name = name == null ? null : name.trim();
     }
 
-    public Date getLastLoginTime() {
-        return lastLoginTime;
-    }
-
-    public void setLastLoginTime(Date lastLoginTime) {
-        this.lastLoginTime = lastLoginTime;
-    }
-
     public Date getUpdateTime() {
         return updateTime;
     }
@@ -71,5 +73,13 @@ public class User {
 
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
+    }
+
+    public Date getLastLoginTime() {
+        return lastLoginTime;
+    }
+
+    public void setLastLoginTime(Date lastLoginTime) {
+        this.lastLoginTime = lastLoginTime;
     }
 }

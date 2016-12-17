@@ -1,4 +1,4 @@
-package com.cpt.config;
+package com.cpt.config.db;
 
 import java.util.Properties;
 
