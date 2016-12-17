@@ -384,7 +384,7 @@ public class DateUtils {
         return "";
     }
 
-    public static void main(String[] args) {
+    //public static void main(String[] args) {
 //        String dateString1 = "1234-5-06 11:22:33";
 //        Pattern p = Pattern.compile(DATE_REGEX_MAP.get("yyyy-MM-dd HH:mm:ss"));
 //        Matcher m = p.matcher(dateString1);
@@ -394,10 +394,10 @@ public class DateUtils {
 //        Date d = new Date();
 //        System.out.println(getDayOfWeek(d));
 //
-        System.out.println(getCurrentDay());
-        System.out.println(getMondayOfThisWeek());
+       // System.out.println(getCurrentDay());
+      //  System.out.println(getMondayOfThisWeek());
 
-    }
+    //}
 
     public static String getSystemDateTime() {
         Date result = new Date();

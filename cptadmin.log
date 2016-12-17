@@ -1408,3 +1408,43 @@ Caused by: java.lang.ClassNotFoundException: com.chinaredstar.erp.util.DateUtils
 2016-12-16 11:51:09.865  INFO 12748 --- [http-nio-8080-exec-1] o.a.v.t.v.servlet.ServletToolboxManager  : Using config file '/toolbox.xml'
 2016-12-16 11:51:09.865  WARN 12748 --- [http-nio-8080-exec-1] o.a.v.tools.view.XMLToolboxManager       : XMLToolboxManager has been deprecated. Please use org.apache.velocity.tools.ToolboxFactory instead.
 2016-12-16 11:51:09.865  WARN 12748 --- [http-nio-8080-exec-1] o.a.v.t.v.servlet.ServletToolboxManager  : ServletToolboxManager has been deprecated. Please use org.apache.velocity.tools.ToolboxFactory instead.
+2016-12-17 15:36:45.822  INFO 8468 --- [main] com.cpt.Application                      : Starting Application on RSMYJNB0352 with PID 8468 (D:\eclipse\workspace\cptadmin\target\classes started by yiwen.sang in D:\eclipse\workspace\cptadmin)
+2016-12-17 15:36:45.832  INFO 8468 --- [main] com.cpt.Application                      : The following profiles are active: dev
+2016-12-17 15:36:45.921  INFO 8468 --- [main] ationConfigEmbeddedWebApplicationContext : Refreshing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@4712451a: startup date [Sat Dec 17 15:36:45 CST 2016]; root of context hierarchy
+2016-12-17 15:36:47.641  INFO 8468 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'dbConfig' of type [class com.cpt.config.DbConfig$$EnhancerBySpringCGLIB$$dee0ff51] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2016-12-17 15:36:47.779  INFO 8468 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'dataSource' of type [class com.alibaba.druid.pool.DruidDataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2016-12-17 15:36:48.031  INFO 8468 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'sqlSessionFactory' of type [class org.apache.ibatis.session.defaults.DefaultSqlSessionFactory] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2016-12-17 15:36:48.042  INFO 8468 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'userMapper' of type [class org.mybatis.spring.mapper.MapperFactoryBean] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2016-12-17 15:36:48.071  INFO 8468 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [class org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$2be60874] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2016-12-17 15:36:48.723  INFO 8468 --- [main] s.b.c.e.t.TomcatEmbeddedServletContainer : Tomcat initialized with port(s): 8080 (http)
+2016-12-17 15:36:48.739  INFO 8468 --- [main] o.apache.catalina.core.StandardService   : Starting service Tomcat
+2016-12-17 15:36:48.740  INFO 8468 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/8.5.6
+2016-12-17 15:36:48.839  INFO 8468 --- [localhost-startStop-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2016-12-17 15:36:48.840  INFO 8468 --- [localhost-startStop-1] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 2921 ms
+2016-12-17 15:36:49.025  INFO 8468 --- [localhost-startStop-1] o.s.b.w.servlet.ServletRegistrationBean  : Mapping servlet: 'dispatcherServlet' to [/]
+2016-12-17 15:36:49.031  INFO 8468 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'characterEncodingFilter' to: [/*]
+2016-12-17 15:36:49.032  INFO 8468 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+2016-12-17 15:36:49.032  INFO 8468 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'httpPutFormContentFilter' to: [/*]
+2016-12-17 15:36:49.032  INFO 8468 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'requestContextFilter' to: [/*]
+2016-12-17 15:36:49.519  INFO 8468 --- [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : Looking for @ControllerAdvice: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@4712451a: startup date [Sat Dec 17 15:36:45 CST 2016]; root of context hierarchy
+2016-12-17 15:36:49.617  INFO 8468 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/user/get]}" onto public org.springframework.web.servlet.ModelAndView com.cpt.user.controller.UserController.get(org.springframework.web.servlet.ModelAndView)
+2016-12-17 15:36:49.618  INFO 8468 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/user/query]}" onto public com.cpt.user.entity.User com.cpt.user.controller.UserController.queryInfo()
+2016-12-17 15:36:49.622  INFO 8468 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+2016-12-17 15:36:49.622  INFO 8468 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2016-12-17 15:36:49.686  INFO 8468 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2016-12-17 15:36:49.686  INFO 8468 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2016-12-17 15:36:49.760  INFO 8468 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2016-12-17 15:36:49.874  INFO 8468 --- [main] s.b.w.s.v.v.EmbeddedVelocityViewResolver : Using EmbeddedVelocityToolboxView instead of default VelocityView due to specified toolboxConfigLocation
+2016-12-17 15:36:50.231  INFO 8468 --- [main] o.s.w.s.v.velocity.VelocityConfigurer    : ClasspathResourceLoader with name 'springMacro' added to configured VelocityEngine
+2016-12-17 15:36:50.827  INFO 8468 --- [main] o.s.j.e.a.AnnotationMBeanExporter        : Registering beans for JMX exposure on startup
+2016-12-17 15:36:50.829  INFO 8468 --- [main] o.s.j.e.a.AnnotationMBeanExporter        : Bean with name 'dataSource' has been autodetected for JMX exposure
+2016-12-17 15:36:50.835  INFO 8468 --- [main] o.s.j.e.a.AnnotationMBeanExporter        : Located MBean 'dataSource': registering with JMX server as MBean [com.alibaba.druid.pool:name=dataSource,type=DruidDataSource]
+2016-12-17 15:36:50.924  INFO 8468 --- [main] s.b.c.e.t.TomcatEmbeddedServletContainer : Tomcat started on port(s): 8080 (http)
+2016-12-17 15:36:50.930  INFO 8468 --- [main] com.cpt.Application                      : Started Application in 5.77 seconds (JVM running for 6.253)
+2016-12-17 15:37:15.777  INFO 8468 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring FrameworkServlet 'dispatcherServlet'
+2016-12-17 15:37:15.778  INFO 8468 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : FrameworkServlet 'dispatcherServlet': initialization started
+2016-12-17 15:37:15.798  INFO 8468 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : FrameworkServlet 'dispatcherServlet': initialization completed in 20 ms
+2016-12-17 15:37:16.115  INFO 8468 --- [http-nio-8080-exec-1] com.alibaba.druid.pool.DruidDataSource   : {dataSource-1} inited
+2016-12-17 15:37:28.387  INFO 8468 --- [http-nio-8080-exec-1] o.a.v.t.v.servlet.ServletToolboxManager  : Using config file '/toolbox.xml'
+2016-12-17 15:37:28.387  WARN 8468 --- [http-nio-8080-exec-1] o.a.v.tools.view.XMLToolboxManager       : XMLToolboxManager has been deprecated. Please use org.apache.velocity.tools.ToolboxFactory instead.
+2016-12-17 15:37:28.387  WARN 8468 --- [http-nio-8080-exec-1] o.a.v.t.v.servlet.ServletToolboxManager  : ServletToolboxManager has been deprecated. Please use org.apache.velocity.tools.ToolboxFactory instead.
