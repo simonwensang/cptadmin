@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8"/>
     <title>
-        红星家装ERP后台
+        ERP后台
     </title>
     #parse("tags.vm")
 </head>
@@ -15,7 +15,7 @@
             <a href="#" class="navbar-brand">
                 <small>
                     <i class="fa fa-leaf"></i>
-                    红星家装ERP后台
+                    ERP后台
                 </small>
             </a>
         </div>
