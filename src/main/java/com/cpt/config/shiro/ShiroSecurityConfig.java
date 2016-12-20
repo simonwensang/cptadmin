@@ -8,6 +8,7 @@ import javax.servlet.Filter;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.shiro.session.mgt.SessionManager;
+import org.apache.shiro.spring.LifecycleBeanPostProcessor;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
@@ -21,6 +22,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.factory.config.MethodInvokingFactoryBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.DependsOn;
 
 import com.cpt.user.mapper.UserMapper;
 
@@ -83,8 +85,11 @@ public class ShiroSecurityConfig {
     }
     
     @Bean
+   // @DependsOn(value="lifecycleBeanPostProcessor")
     public CustomSecurityRealm customSecurityRealm(){
-    	return new CustomSecurityRealm();
+    	CustomSecurityRealm customSecurityRealm = new CustomSecurityRealm();
+    	customSecurityRealm.setCacheManager(redisCacheManager());
+    	return  customSecurityRealm;
     }
     
     @Bean
@@ -122,10 +127,10 @@ public class ShiroSecurityConfig {
      * 保证实现了Shiro内部lifecycle函数的bean执行
      * @return
      */
-//    @Bean
-//    public LifecycleBeanPostProcessor lifecycleBeanPostProcessor(){
-//    	return new LifecycleBeanPostProcessor();
-//    }
+ /*   @Bean
+	public LifecycleBeanPostProcessor lifecycleBeanPostProcessor() {
+		return new LifecycleBeanPostProcessor();
+	}*/
     
     @Bean
     public MethodInvokingFactoryBean methodInvokingFactoryBean(){

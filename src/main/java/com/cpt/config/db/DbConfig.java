@@ -20,6 +20,7 @@ import com.github.pagehelper.PageHelper;
 
 @Configuration
 @EnableTransactionManagement
+@MapperScan(basePackages="com.cpt.*.mapper")
 public class DbConfig {
 
     /**

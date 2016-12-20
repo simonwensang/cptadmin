@@ -8988,3 +8988,537 @@ Caused by: java.lang.NullPointerException: null
 2016-12-20 13:56:12.054  WARN 3212 --- [http-nio-8080-exec-1] o.a.v.t.v.servlet.ServletToolboxManager  : ServletToolboxManager has been deprecated. Please use org.apache.velocity.tools.ToolboxFactory instead.
 2016-12-20 13:56:16.112  INFO 3212 --- [http-nio-8080-exec-8] com.cpt.user.controller.LoginController  : toLogin
 2016-12-20 13:56:27.414 ERROR 3212 --- [http-nio-8080-exec-8] com.cpt.user.controller.LoginController  : 登录失败错误信息:org.apache.shiro.authc.AuthenticationException: Authentication failed for token submission [org.apache.shiro.authc.UsernamePasswordToken - test, rememberMe=true].  Possible unexpected error? (Typical or expected login exceptions should extend from AuthenticationException).
+2016-12-20 19:43:51.001  INFO 10292 --- [main] com.cpt.Application                      : Starting Application on RSMYJNB0352 with PID 10292 (D:\eclipse\workspace\cptadmin\target\classes started by yiwen.sang in D:\eclipse\workspace\cptadmin)
+2016-12-20 19:43:51.005  INFO 10292 --- [main] com.cpt.Application                      : The following profiles are active: dev
+2016-12-20 19:43:51.086  INFO 10292 --- [main] ationConfigEmbeddedWebApplicationContext : Refreshing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@1c3cbf4f: startup date [Tue Dec 20 19:43:51 CST 2016]; root of context hierarchy
+2016-12-20 19:43:52.254  INFO 10292 --- [main] o.s.b.f.s.DefaultListableBeanFactory     : Overriding bean definition for bean 'customSecurityRealm' with a different definition: replacing [Generic bean: class [com.cpt.config.shiro.CustomSecurityRealm]; scope=singleton; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null; defined in file [D:\eclipse\workspace\cptadmin\target\classes\com\cpt\config\shiro\CustomSecurityRealm.class]] with [Root bean: class [null]; scope=; abstract=false; lazyInit=false; autowireMode=3; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=shiroSecurityConfig; factoryMethodName=customSecurityRealm; initMethodName=null; destroyMethodName=(inferred); defined in class path resource [com/cpt/config/shiro/ShiroSecurityConfig.class]]
+2016-12-20 19:43:52.507  INFO 10292 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2016-12-20 19:43:53.058  INFO 10292 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'shiroSecurityConfig' of type [class com.cpt.config.shiro.ShiroSecurityConfig$$EnhancerBySpringCGLIB$$43f0acab] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2016-12-20 19:43:53.134  WARN 10292 --- [main] ationConfigEmbeddedWebApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'dataSourceInitializerPostProcessor': Unsatisfied dependency expressed through field 'beanFactory'; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'methodInvokingFactoryBean' defined in class path resource [com/cpt/config/shiro/ShiroSecurityConfig.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.springframework.beans.factory.config.MethodInvokingFactoryBean]: Factory method 'methodInvokingFactoryBean' threw exception; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'securityManager' defined in class path resource [com/cpt/config/shiro/ShiroSecurityConfig.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.apache.shiro.web.mgt.WebSecurityManager]: Factory method 'securityManager' threw exception; nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No bean named 'lifecycleBeanPostProcessor' available
+2016-12-20 19:43:53.137 ERROR 10292 --- [main] o.s.b.f.s.DefaultListableBeanFactory     : Destroy method on bean with name 'org.springframework.boot.context.properties.ConfigurationPropertiesBindingPostProcessor' threw an exception
+
+java.lang.IllegalStateException: ApplicationEventMulticaster not initialized - call 'refresh' before multicasting events via the context: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@1c3cbf4f: startup date [Tue Dec 20 19:43:51 CST 2016]; root of context hierarchy
+	at org.springframework.context.support.AbstractApplicationContext.getApplicationEventMulticaster(AbstractApplicationContext.java:404) [spring-context-4.3.5.BUILD-SNAPSHOT.jar:4.3.5.BUILD-SNAPSHOT]
+	at org.springframework.context.support.ApplicationListenerDetector.postProcessBeforeDestruction(ApplicationListenerDetector.java:97) ~[spring-context-4.3.5.BUILD-SNAPSHOT.jar:4.3.5.BUILD-SNAPSHOT]
+	at org.springframework.beans.factory.support.DisposableBeanAdapter.destroy(DisposableBeanAdapter.java:253) ~[spring-beans-4.3.5.BUILD-SNAPSHOT.jar:4.3.5.BUILD-SNAPSHOT]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.destroyBean(DefaultSingletonBeanRegistry.java:578) [spring-beans-4.3.5.BUILD-SNAPSHOT.jar:4.3.5.BUILD-SNAPSHOT]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.destroySingleton(DefaultSingletonBeanRegistry.java:554) [spring-beans-4.3.5.BUILD-SNAPSHOT.jar:4.3.5.BUILD-SNAPSHOT]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.destroySingleton(DefaultListableBeanFactory.java:959) [spring-beans-4.3.5.BUILD-SNAPSHOT.jar:4.3.5.BUILD-SNAPSHOT]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.destroySingletons(DefaultSingletonBeanRegistry.java:523) [spring-beans-4.3.5.BUILD-SNAPSHOT.jar:4.3.5.BUILD-SNAPSHOT]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.destroySingletons(DefaultListableBeanFactory.java:966) [spring-beans-4.3.5.BUILD-SNAPSHOT.jar:4.3.5.BUILD-SNAPSHOT]
+	at org.springframework.context.support.AbstractApplicationContext.destroyBeans(AbstractApplicationContext.java:1033) [spring-context-4.3.5.BUILD-SNAPSHOT.jar:4.3.5.BUILD-SNAPSHOT]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:555) [spring-context-4.3.5.BUILD-SNAPSHOT.jar:4.3.5.BUILD-SNAPSHOT]
+	at org.springframework.boot.context.embedded.EmbeddedWebApplicationContext.refresh(EmbeddedWebApplicationContext.java:122) [spring-boot-1.4.3.BUILD-SNAPSHOT.jar:1.4.3.BUILD-SNAPSHOT]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:761) [spring-boot-1.4.3.BUILD-SNAPSHOT.jar:1.4.3.BUILD-SNAPSHOT]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:371) [spring-boot-1.4.3.BUILD-SNAPSHOT.jar:1.4.3.BUILD-SNAPSHOT]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:315) [spring-boot-1.4.3.BUILD-SNAPSHOT.jar:1.4.3.BUILD-SNAPSHOT]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1186) [spring-boot-1.4.3.BUILD-SNAPSHOT.jar:1.4.3.BUILD-SNAPSHOT]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1175) [spring-boot-1.4.3.BUILD-SNAPSHOT.jar:1.4.3.BUILD-SNAPSHOT]
+	at com.cpt.Application.main(Application.java:10) [classes/:na]
+
+2016-12-20 19:43:53.138 ERROR 10292 --- [main] o.s.b.f.s.DefaultListableBeanFactory     : Destroy method on bean with name 'org.springframework.boot.autoconfigure.internalCachingMetadataReaderFactory' threw an exception
+
+java.lang.IllegalStateException: ApplicationEventMulticaster not initialized - call 'refresh' before multicasting events via the context: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@1c3cbf4f: startup date [Tue Dec 20 19:43:51 CST 2016]; root of context hierarchy
+	at org.springframework.context.support.AbstractApplicationContext.getApplicationEventMulticaster(AbstractApplicationContext.java:404) [spring-context-4.3.5.BUILD-SNAPSHOT.jar:4.3.5.BUILD-SNAPSHOT]
+	at org.springframework.context.support.ApplicationListenerDetector.postProcessBeforeDestruction(ApplicationListenerDetector.java:97) ~[spring-context-4.3.5.BUILD-SNAPSHOT.jar:4.3.5.BUILD-SNAPSHOT]
+	at org.springframework.beans.factory.support.DisposableBeanAdapter.destroy(DisposableBeanAdapter.java:253) ~[spring-beans-4.3.5.BUILD-SNAPSHOT.jar:4.3.5.BUILD-SNAPSHOT]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.destroyBean(DefaultSingletonBeanRegistry.java:578) [spring-beans-4.3.5.BUILD-SNAPSHOT.jar:4.3.5.BUILD-SNAPSHOT]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.destroySingleton(DefaultSingletonBeanRegistry.java:554) [spring-beans-4.3.5.BUILD-SNAPSHOT.jar:4.3.5.BUILD-SNAPSHOT]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.destroySingleton(DefaultListableBeanFactory.java:959) [spring-beans-4.3.5.BUILD-SNAPSHOT.jar:4.3.5.BUILD-SNAPSHOT]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.destroySingletons(DefaultSingletonBeanRegistry.java:523) [spring-beans-4.3.5.BUILD-SNAPSHOT.jar:4.3.5.BUILD-SNAPSHOT]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.destroySingletons(DefaultListableBeanFactory.java:966) [spring-beans-4.3.5.BUILD-SNAPSHOT.jar:4.3.5.BUILD-SNAPSHOT]
+	at org.springframework.context.support.AbstractApplicationContext.destroyBeans(AbstractApplicationContext.java:1033) [spring-context-4.3.5.BUILD-SNAPSHOT.jar:4.3.5.BUILD-SNAPSHOT]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:555) [spring-context-4.3.5.BUILD-SNAPSHOT.jar:4.3.5.BUILD-SNAPSHOT]
+	at org.springframework.boot.context.embedded.EmbeddedWebApplicationContext.refresh(EmbeddedWebApplicationContext.java:122) [spring-boot-1.4.3.BUILD-SNAPSHOT.jar:1.4.3.BUILD-SNAPSHOT]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:761) [spring-boot-1.4.3.BUILD-SNAPSHOT.jar:1.4.3.BUILD-SNAPSHOT]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:371) [spring-boot-1.4.3.BUILD-SNAPSHOT.jar:1.4.3.BUILD-SNAPSHOT]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:315) [spring-boot-1.4.3.BUILD-SNAPSHOT.jar:1.4.3.BUILD-SNAPSHOT]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1186) [spring-boot-1.4.3.BUILD-SNAPSHOT.jar:1.4.3.BUILD-SNAPSHOT]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1175) [spring-boot-1.4.3.BUILD-SNAPSHOT.jar:1.4.3.BUILD-SNAPSHOT]
+	at com.cpt.Application.main(Application.java:10) [classes/:na]
+
+2016-12-20 19:43:53.273 ERROR 10292 --- [main] o.s.b.d.LoggingFailureAnalysisReporter   : 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Field beanFactory in org.springframework.boot.autoconfigure.jdbc.DataSourceInitializerPostProcessor required a bean named 'lifecycleBeanPostProcessor' that could not be found.
+
+
+Action:
+
+Consider defining a bean named 'lifecycleBeanPostProcessor' in your configuration.
+
+2016-12-20 19:46:04.420  INFO 10940 --- [main] com.cpt.Application                      : Starting Application on RSMYJNB0352 with PID 10940 (D:\eclipse\workspace\cptadmin\target\classes started by yiwen.sang in D:\eclipse\workspace\cptadmin)
+2016-12-20 19:46:04.424  INFO 10940 --- [main] com.cpt.Application                      : The following profiles are active: dev
+2016-12-20 19:46:04.519  INFO 10940 --- [main] ationConfigEmbeddedWebApplicationContext : Refreshing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@30ec6243: startup date [Tue Dec 20 19:46:04 CST 2016]; root of context hierarchy
+2016-12-20 19:46:05.707  INFO 10940 --- [main] o.s.b.f.s.DefaultListableBeanFactory     : Overriding bean definition for bean 'customSecurityRealm' with a different definition: replacing [Generic bean: class [com.cpt.config.shiro.CustomSecurityRealm]; scope=singleton; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null; defined in file [D:\eclipse\workspace\cptadmin\target\classes\com\cpt\config\shiro\CustomSecurityRealm.class]] with [Root bean: class [null]; scope=; abstract=false; lazyInit=false; autowireMode=3; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=shiroSecurityConfig; factoryMethodName=customSecurityRealm; initMethodName=null; destroyMethodName=(inferred); defined in class path resource [com/cpt/config/shiro/ShiroSecurityConfig.class]]
+2016-12-20 19:46:05.971  INFO 10940 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2016-12-20 19:46:06.499  INFO 10940 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'shiroSecurityConfig' of type [class com.cpt.config.shiro.ShiroSecurityConfig$$EnhancerBySpringCGLIB$$bfa0490] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2016-12-20 19:46:06.679  INFO 10940 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'redisManager' of type [class org.crazycake.shiro.RedisManager] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2016-12-20 19:46:06.699  INFO 10940 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'redisSessionDAO' of type [class org.crazycake.shiro.RedisSessionDAO] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2016-12-20 19:46:06.711  INFO 10940 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'sessionManager' of type [class org.apache.shiro.web.session.mgt.DefaultWebSessionManager] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2016-12-20 19:46:06.715  INFO 10940 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'redisCacheManager' of type [class org.crazycake.shiro.RedisCacheManager] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2016-12-20 19:46:06.730  INFO 10940 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'securityManager' of type [class org.apache.shiro.web.mgt.DefaultWebSecurityManager] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2016-12-20 19:46:06.743  INFO 10940 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'kickoutSessionControlFilter' of type [class com.cpt.config.shiro.KickoutSessionControlFilter] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2016-12-20 19:46:06.749  WARN 10940 --- [main] ationConfigEmbeddedWebApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'dataSourceInitializerPostProcessor': Unsatisfied dependency expressed through field 'beanFactory'; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'methodInvokingFactoryBean' defined in class path resource [com/cpt/config/shiro/ShiroSecurityConfig.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.springframework.beans.factory.config.MethodInvokingFactoryBean]: Factory method 'methodInvokingFactoryBean' threw exception; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'securityManager' defined in class path resource [com/cpt/config/shiro/ShiroSecurityConfig.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.apache.shiro.web.mgt.WebSecurityManager]: Factory method 'securityManager' threw exception; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'customSecurityRealm': Unsatisfied dependency expressed through field 'userMapper'; nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type 'com.cpt.user.mapper.UserMapper' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {@org.springframework.beans.factory.annotation.Autowired(required=true)}
+2016-12-20 19:46:06.755 ERROR 10940 --- [main] o.s.b.f.s.DefaultListableBeanFactory     : Destroy method on bean with name 'org.springframework.boot.context.properties.ConfigurationPropertiesBindingPostProcessor' threw an exception
+
+java.lang.IllegalStateException: ApplicationEventMulticaster not initialized - call 'refresh' before multicasting events via the context: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@30ec6243: startup date [Tue Dec 20 19:46:04 CST 2016]; root of context hierarchy
+	at org.springframework.context.support.AbstractApplicationContext.getApplicationEventMulticaster(AbstractApplicationContext.java:404) [spring-context-4.3.5.BUILD-SNAPSHOT.jar:4.3.5.BUILD-SNAPSHOT]
+	at org.springframework.context.support.ApplicationListenerDetector.postProcessBeforeDestruction(ApplicationListenerDetector.java:97) ~[spring-context-4.3.5.BUILD-SNAPSHOT.jar:4.3.5.BUILD-SNAPSHOT]
+	at org.springframework.beans.factory.support.DisposableBeanAdapter.destroy(DisposableBeanAdapter.java:253) ~[spring-beans-4.3.5.BUILD-SNAPSHOT.jar:4.3.5.BUILD-SNAPSHOT]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.destroyBean(DefaultSingletonBeanRegistry.java:578) [spring-beans-4.3.5.BUILD-SNAPSHOT.jar:4.3.5.BUILD-SNAPSHOT]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.destroySingleton(DefaultSingletonBeanRegistry.java:554) [spring-beans-4.3.5.BUILD-SNAPSHOT.jar:4.3.5.BUILD-SNAPSHOT]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.destroySingleton(DefaultListableBeanFactory.java:959) [spring-beans-4.3.5.BUILD-SNAPSHOT.jar:4.3.5.BUILD-SNAPSHOT]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.destroySingletons(DefaultSingletonBeanRegistry.java:523) [spring-beans-4.3.5.BUILD-SNAPSHOT.jar:4.3.5.BUILD-SNAPSHOT]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.destroySingletons(DefaultListableBeanFactory.java:966) [spring-beans-4.3.5.BUILD-SNAPSHOT.jar:4.3.5.BUILD-SNAPSHOT]
+	at org.springframework.context.support.AbstractApplicationContext.destroyBeans(AbstractApplicationContext.java:1033) [spring-context-4.3.5.BUILD-SNAPSHOT.jar:4.3.5.BUILD-SNAPSHOT]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:555) [spring-context-4.3.5.BUILD-SNAPSHOT.jar:4.3.5.BUILD-SNAPSHOT]
+	at org.springframework.boot.context.embedded.EmbeddedWebApplicationContext.refresh(EmbeddedWebApplicationContext.java:122) [spring-boot-1.4.3.BUILD-SNAPSHOT.jar:1.4.3.BUILD-SNAPSHOT]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:761) [spring-boot-1.4.3.BUILD-SNAPSHOT.jar:1.4.3.BUILD-SNAPSHOT]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:371) [spring-boot-1.4.3.BUILD-SNAPSHOT.jar:1.4.3.BUILD-SNAPSHOT]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:315) [spring-boot-1.4.3.BUILD-SNAPSHOT.jar:1.4.3.BUILD-SNAPSHOT]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1186) [spring-boot-1.4.3.BUILD-SNAPSHOT.jar:1.4.3.BUILD-SNAPSHOT]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1175) [spring-boot-1.4.3.BUILD-SNAPSHOT.jar:1.4.3.BUILD-SNAPSHOT]
+	at com.cpt.Application.main(Application.java:10) [classes/:na]
+
+2016-12-20 19:46:06.757 ERROR 10940 --- [main] o.s.b.f.s.DefaultListableBeanFactory     : Destroy method on bean with name 'org.springframework.boot.autoconfigure.internalCachingMetadataReaderFactory' threw an exception
+
+java.lang.IllegalStateException: ApplicationEventMulticaster not initialized - call 'refresh' before multicasting events via the context: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@30ec6243: startup date [Tue Dec 20 19:46:04 CST 2016]; root of context hierarchy
+	at org.springframework.context.support.AbstractApplicationContext.getApplicationEventMulticaster(AbstractApplicationContext.java:404) [spring-context-4.3.5.BUILD-SNAPSHOT.jar:4.3.5.BUILD-SNAPSHOT]
+	at org.springframework.context.support.ApplicationListenerDetector.postProcessBeforeDestruction(ApplicationListenerDetector.java:97) ~[spring-context-4.3.5.BUILD-SNAPSHOT.jar:4.3.5.BUILD-SNAPSHOT]
+	at org.springframework.beans.factory.support.DisposableBeanAdapter.destroy(DisposableBeanAdapter.java:253) ~[spring-beans-4.3.5.BUILD-SNAPSHOT.jar:4.3.5.BUILD-SNAPSHOT]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.destroyBean(DefaultSingletonBeanRegistry.java:578) [spring-beans-4.3.5.BUILD-SNAPSHOT.jar:4.3.5.BUILD-SNAPSHOT]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.destroySingleton(DefaultSingletonBeanRegistry.java:554) [spring-beans-4.3.5.BUILD-SNAPSHOT.jar:4.3.5.BUILD-SNAPSHOT]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.destroySingleton(DefaultListableBeanFactory.java:959) [spring-beans-4.3.5.BUILD-SNAPSHOT.jar:4.3.5.BUILD-SNAPSHOT]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.destroySingletons(DefaultSingletonBeanRegistry.java:523) [spring-beans-4.3.5.BUILD-SNAPSHOT.jar:4.3.5.BUILD-SNAPSHOT]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.destroySingletons(DefaultListableBeanFactory.java:966) [spring-beans-4.3.5.BUILD-SNAPSHOT.jar:4.3.5.BUILD-SNAPSHOT]
+	at org.springframework.context.support.AbstractApplicationContext.destroyBeans(AbstractApplicationContext.java:1033) [spring-context-4.3.5.BUILD-SNAPSHOT.jar:4.3.5.BUILD-SNAPSHOT]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:555) [spring-context-4.3.5.BUILD-SNAPSHOT.jar:4.3.5.BUILD-SNAPSHOT]
+	at org.springframework.boot.context.embedded.EmbeddedWebApplicationContext.refresh(EmbeddedWebApplicationContext.java:122) [spring-boot-1.4.3.BUILD-SNAPSHOT.jar:1.4.3.BUILD-SNAPSHOT]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:761) [spring-boot-1.4.3.BUILD-SNAPSHOT.jar:1.4.3.BUILD-SNAPSHOT]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:371) [spring-boot-1.4.3.BUILD-SNAPSHOT.jar:1.4.3.BUILD-SNAPSHOT]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:315) [spring-boot-1.4.3.BUILD-SNAPSHOT.jar:1.4.3.BUILD-SNAPSHOT]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1186) [spring-boot-1.4.3.BUILD-SNAPSHOT.jar:1.4.3.BUILD-SNAPSHOT]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1175) [spring-boot-1.4.3.BUILD-SNAPSHOT.jar:1.4.3.BUILD-SNAPSHOT]
+	at com.cpt.Application.main(Application.java:10) [classes/:na]
+
+2016-12-20 19:46:06.896 ERROR 10940 --- [main] o.s.b.d.LoggingFailureAnalysisReporter   : 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Field userMapper in com.cpt.config.shiro.CustomSecurityRealm required a bean of type 'com.cpt.user.mapper.UserMapper' that could not be found.
+
+
+Action:
+
+Consider defining a bean of type 'com.cpt.user.mapper.UserMapper' in your configuration.
+
+2016-12-20 19:48:34.215  INFO 9896 --- [main] com.cpt.Application                      : Starting Application on RSMYJNB0352 with PID 9896 (D:\eclipse\workspace\cptadmin\target\classes started by yiwen.sang in D:\eclipse\workspace\cptadmin)
+2016-12-20 19:48:34.219  INFO 9896 --- [main] com.cpt.Application                      : The following profiles are active: dev
+2016-12-20 19:48:34.299  INFO 9896 --- [main] ationConfigEmbeddedWebApplicationContext : Refreshing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@639d564: startup date [Tue Dec 20 19:48:34 CST 2016]; root of context hierarchy
+2016-12-20 19:48:35.419  INFO 9896 --- [main] o.s.b.f.s.DefaultListableBeanFactory     : Overriding bean definition for bean 'customSecurityRealm' with a different definition: replacing [Generic bean: class [com.cpt.config.shiro.CustomSecurityRealm]; scope=singleton; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null; defined in file [D:\eclipse\workspace\cptadmin\target\classes\com\cpt\config\shiro\CustomSecurityRealm.class]] with [Root bean: class [null]; scope=; abstract=false; lazyInit=false; autowireMode=3; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=shiroSecurityConfig; factoryMethodName=customSecurityRealm; initMethodName=null; destroyMethodName=(inferred); defined in class path resource [com/cpt/config/shiro/ShiroSecurityConfig.class]]
+2016-12-20 19:48:35.671  INFO 9896 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2016-12-20 19:48:36.163  INFO 9896 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'shiroSecurityConfig' of type [class com.cpt.config.shiro.ShiroSecurityConfig$$EnhancerBySpringCGLIB$$7cbc61cf] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2016-12-20 19:48:36.350  INFO 9896 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'redisManager' of type [class org.crazycake.shiro.RedisManager] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2016-12-20 19:48:36.369  INFO 9896 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'redisSessionDAO' of type [class org.crazycake.shiro.RedisSessionDAO] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2016-12-20 19:48:36.380  INFO 9896 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'sessionManager' of type [class org.apache.shiro.web.session.mgt.DefaultWebSessionManager] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2016-12-20 19:48:36.384  INFO 9896 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'redisCacheManager' of type [class org.crazycake.shiro.RedisCacheManager] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2016-12-20 19:48:36.397  INFO 9896 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'securityManager' of type [class org.apache.shiro.web.mgt.DefaultWebSecurityManager] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2016-12-20 19:48:36.412  INFO 9896 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'kickoutSessionControlFilter' of type [class com.cpt.config.shiro.KickoutSessionControlFilter] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2016-12-20 19:48:36.422  WARN 9896 --- [main] o.s.b.f.s.DefaultListableBeanFactory     : Bean creation exception on non-lazy FactoryBean type check: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'userMapper' defined in file [D:\eclipse\workspace\cptadmin\target\classes\com\cpt\user\mapper\UserMapper.class]: Unsatisfied dependency expressed through bean property 'sqlSessionFactory'; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'methodInvokingFactoryBean' defined in class path resource [com/cpt/config/shiro/ShiroSecurityConfig.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.springframework.beans.factory.config.MethodInvokingFactoryBean]: Factory method 'methodInvokingFactoryBean' threw exception; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'securityManager' defined in class path resource [com/cpt/config/shiro/ShiroSecurityConfig.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.apache.shiro.web.mgt.WebSecurityManager]: Factory method 'securityManager' threw exception; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'customSecurityRealm': Unsatisfied dependency expressed through field 'userMapper'; nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type 'com.cpt.user.mapper.UserMapper' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {@org.springframework.beans.factory.annotation.Autowired(required=true)}
+2016-12-20 19:48:36.450  INFO 9896 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'dbConfig' of type [class com.cpt.config.db.DbConfig$$EnhancerBySpringCGLIB$$23dedea9] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2016-12-20 19:48:36.545  INFO 9896 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'dataSource' of type [class com.alibaba.druid.pool.DruidDataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2016-12-20 19:48:36.611  INFO 9896 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'sqlSessionFactory' of type [class org.apache.ibatis.session.defaults.DefaultSqlSessionFactory] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2016-12-20 19:48:36.803  INFO 9896 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'userMapper' of type [class org.mybatis.spring.mapper.MapperFactoryBean] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2016-12-20 19:48:36.809  INFO 9896 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'userMapper' of type [class com.sun.proxy.$Proxy47] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2016-12-20 19:48:36.810  INFO 9896 --- [main] org.apache.shiro.realm.AuthorizingRealm  : No cache or cacheManager properties have been set.  Authorization cache cannot be obtained.
+2016-12-20 19:48:36.811  INFO 9896 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'customSecurityRealm' of type [class com.cpt.config.shiro.CustomSecurityRealm] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2016-12-20 19:48:36.812  INFO 9896 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'securityManager' of type [class org.apache.shiro.web.mgt.DefaultWebSecurityManager] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2016-12-20 19:48:36.829  INFO 9896 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'methodInvokingFactoryBean' of type [class org.springframework.beans.factory.config.MethodInvokingFactoryBean] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2016-12-20 19:48:36.886  INFO 9896 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'authorizationAttributeSourceAdvisor' of type [class org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2016-12-20 19:48:36.926  INFO 9896 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [class org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$3ffcd54c] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2016-12-20 19:48:37.786  INFO 9896 --- [main] s.b.c.e.t.TomcatEmbeddedServletContainer : Tomcat initialized with port(s): 8080 (http)
+2016-12-20 19:48:37.805  INFO 9896 --- [main] o.apache.catalina.core.StandardService   : Starting service Tomcat
+2016-12-20 19:48:37.806  INFO 9896 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/8.5.6
+2016-12-20 19:48:37.924  INFO 9896 --- [localhost-startStop-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2016-12-20 19:48:37.924  INFO 9896 --- [localhost-startStop-1] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 3628 ms
+2016-12-20 19:48:38.262  INFO 9896 --- [localhost-startStop-1] o.s.b.w.servlet.ServletRegistrationBean  : Mapping servlet: 'dispatcherServlet' to [/]
+2016-12-20 19:48:38.266  INFO 9896 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'characterEncodingFilter' to: [/*]
+2016-12-20 19:48:38.267  INFO 9896 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+2016-12-20 19:48:38.267  INFO 9896 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'httpPutFormContentFilter' to: [/*]
+2016-12-20 19:48:38.267  INFO 9896 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'requestContextFilter' to: [/*]
+2016-12-20 19:48:38.267  INFO 9896 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'kickoutSessionControlFilter' to: [/*]
+2016-12-20 19:48:38.267  INFO 9896 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'shiroFilter' to: [/*]
+2016-12-20 19:48:38.775  INFO 9896 --- [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : Looking for @ControllerAdvice: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@639d564: startup date [Tue Dec 20 19:48:34 CST 2016]; root of context hierarchy
+2016-12-20 19:48:38.911  INFO 9896 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/unlogin]}" onto public java.lang.String com.cpt.user.controller.LoginController.unlogin()
+2016-12-20 19:48:38.915  INFO 9896 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/ || ]}" onto public java.lang.String com.cpt.user.controller.LoginController.login(org.springframework.ui.ModelMap)
+2016-12-20 19:48:38.916  INFO 9896 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/toLogin],methods=[POST]}" onto public java.lang.String com.cpt.user.controller.LoginController.toLogin(com.cpt.user.entity.User)
+2016-12-20 19:48:38.916  INFO 9896 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/logout],methods=[GET]}" onto public java.lang.String com.cpt.user.controller.LoginController.logout()
+2016-12-20 19:48:38.920  INFO 9896 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/user/get]}" onto public org.springframework.web.servlet.ModelAndView com.cpt.user.controller.UserController.get(org.springframework.web.servlet.ModelAndView)
+2016-12-20 19:48:38.920  INFO 9896 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/user/query]}" onto public com.cpt.user.entity.User com.cpt.user.controller.UserController.queryInfo()
+2016-12-20 19:48:38.923  INFO 9896 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+2016-12-20 19:48:38.924  INFO 9896 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2016-12-20 19:48:39.072  INFO 9896 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2016-12-20 19:48:39.072  INFO 9896 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2016-12-20 19:48:39.213  INFO 9896 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2016-12-20 19:48:39.396  INFO 9896 --- [main] s.b.w.s.v.v.EmbeddedVelocityViewResolver : Using EmbeddedVelocityToolboxView instead of default VelocityView due to specified toolboxConfigLocation
+2016-12-20 19:48:40.322  INFO 9896 --- [main] o.s.w.s.v.velocity.VelocityConfigurer    : ClasspathResourceLoader with name 'springMacro' added to configured VelocityEngine
+2016-12-20 19:48:40.990  INFO 9896 --- [main] o.s.j.e.a.AnnotationMBeanExporter        : Registering beans for JMX exposure on startup
+2016-12-20 19:48:40.991  INFO 9896 --- [main] o.s.j.e.a.AnnotationMBeanExporter        : Bean with name 'dataSource' has been autodetected for JMX exposure
+2016-12-20 19:48:40.997  INFO 9896 --- [main] o.s.j.e.a.AnnotationMBeanExporter        : Located MBean 'dataSource': registering with JMX server as MBean [com.alibaba.druid.pool:name=dataSource,type=DruidDataSource]
+2016-12-20 19:48:41.088  INFO 9896 --- [main] s.b.c.e.t.TomcatEmbeddedServletContainer : Tomcat started on port(s): 8080 (http)
+2016-12-20 19:48:41.096  INFO 9896 --- [main] com.cpt.Application                      : Started Application in 7.399 seconds (JVM running for 7.792)
+2016-12-20 19:52:40.210  INFO 9896 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring FrameworkServlet 'dispatcherServlet'
+2016-12-20 19:52:40.210  INFO 9896 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : FrameworkServlet 'dispatcherServlet': initialization started
+2016-12-20 19:52:40.240  INFO 9896 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : FrameworkServlet 'dispatcherServlet': initialization completed in 30 ms
+2016-12-20 19:52:40.270 ERROR 9896 --- [http-nio-8080-exec-1] o.a.c.c.C.[.[.[/].[dispatcherServlet]    : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Filtered request failed.] with root cause
+
+java.lang.NullPointerException: null
+	at org.apache.shiro.mgt.SessionsSecurityManager.getSession(SessionsSecurityManager.java:125) ~[shiro-core-1.2.4.jar:1.2.4]
+	at org.apache.shiro.mgt.DefaultSecurityManager.resolveContextSession(DefaultSecurityManager.java:456) ~[shiro-core-1.2.4.jar:1.2.4]
+	at org.apache.shiro.mgt.DefaultSecurityManager.resolveSession(DefaultSecurityManager.java:442) ~[shiro-core-1.2.4.jar:1.2.4]
+	at org.apache.shiro.mgt.DefaultSecurityManager.createSubject(DefaultSecurityManager.java:338) ~[shiro-core-1.2.4.jar:1.2.4]
+	at org.apache.shiro.subject.Subject$Builder.buildSubject(Subject.java:846) ~[shiro-core-1.2.4.jar:1.2.4]
+	at org.apache.shiro.web.subject.WebSubject$Builder.buildWebSubject(WebSubject.java:148) ~[shiro-web-1.2.4.jar:1.2.4]
+	at org.apache.shiro.web.servlet.AbstractShiroFilter.createSubject(AbstractShiroFilter.java:292) ~[shiro-web-1.2.4.jar:1.2.4]
+	at org.apache.shiro.web.servlet.AbstractShiroFilter.doFilterInternal(AbstractShiroFilter.java:359) ~[shiro-web-1.2.4.jar:1.2.4]
+	at org.apache.shiro.web.servlet.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:125) ~[shiro-web-1.2.4.jar:1.2.4]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:192) ~[tomcat-embed-core-8.5.6.jar:8.5.6]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:165) ~[tomcat-embed-core-8.5.6.jar:8.5.6]
+	at org.apache.shiro.web.servlet.AdviceFilter.executeChain(AdviceFilter.java:108) ~[shiro-web-1.2.4.jar:1.2.4]
+	at org.apache.shiro.web.servlet.AdviceFilter.doFilterInternal(AdviceFilter.java:137) ~[shiro-web-1.2.4.jar:1.2.4]
+	at org.apache.shiro.web.servlet.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:125) ~[shiro-web-1.2.4.jar:1.2.4]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:192) ~[tomcat-embed-core-8.5.6.jar:8.5.6]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:165) ~[tomcat-embed-core-8.5.6.jar:8.5.6]
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:99) ~[spring-web-4.3.5.BUILD-SNAPSHOT.jar:4.3.5.BUILD-SNAPSHOT]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107) ~[spring-web-4.3.5.BUILD-SNAPSHOT.jar:4.3.5.BUILD-SNAPSHOT]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:192) ~[tomcat-embed-core-8.5.6.jar:8.5.6]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:165) ~[tomcat-embed-core-8.5.6.jar:8.5.6]
+	at org.springframework.web.filter.HttpPutFormContentFilter.doFilterInternal(HttpPutFormContentFilter.java:89) ~[spring-web-4.3.5.BUILD-SNAPSHOT.jar:4.3.5.BUILD-SNAPSHOT]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107) ~[spring-web-4.3.5.BUILD-SNAPSHOT.jar:4.3.5.BUILD-SNAPSHOT]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:192) ~[tomcat-embed-core-8.5.6.jar:8.5.6]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:165) ~[tomcat-embed-core-8.5.6.jar:8.5.6]
+	at org.springframework.web.filter.HiddenHttpMethodFilter.doFilterInternal(HiddenHttpMethodFilter.java:77) ~[spring-web-4.3.5.BUILD-SNAPSHOT.jar:4.3.5.BUILD-SNAPSHOT]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107) ~[spring-web-4.3.5.BUILD-SNAPSHOT.jar:4.3.5.BUILD-SNAPSHOT]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:192) ~[tomcat-embed-core-8.5.6.jar:8.5.6]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:165) ~[tomcat-embed-core-8.5.6.jar:8.5.6]
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:197) ~[spring-web-4.3.5.BUILD-SNAPSHOT.jar:4.3.5.BUILD-SNAPSHOT]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107) ~[spring-web-4.3.5.BUILD-SNAPSHOT.jar:4.3.5.BUILD-SNAPSHOT]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:192) ~[tomcat-embed-core-8.5.6.jar:8.5.6]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:165) ~[tomcat-embed-core-8.5.6.jar:8.5.6]
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:198) ~[tomcat-embed-core-8.5.6.jar:8.5.6]
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:108) [tomcat-embed-core-8.5.6.jar:8.5.6]
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:472) [tomcat-embed-core-8.5.6.jar:8.5.6]
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:140) [tomcat-embed-core-8.5.6.jar:8.5.6]
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:79) [tomcat-embed-core-8.5.6.jar:8.5.6]
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:87) [tomcat-embed-core-8.5.6.jar:8.5.6]
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:349) [tomcat-embed-core-8.5.6.jar:8.5.6]
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:784) [tomcat-embed-core-8.5.6.jar:8.5.6]
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:66) [tomcat-embed-core-8.5.6.jar:8.5.6]
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:802) [tomcat-embed-core-8.5.6.jar:8.5.6]
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1410) [tomcat-embed-core-8.5.6.jar:8.5.6]
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49) [tomcat-embed-core-8.5.6.jar:8.5.6]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145) [na:1.7.0_79]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615) [na:1.7.0_79]
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61) [tomcat-embed-core-8.5.6.jar:8.5.6]
+	at java.lang.Thread.run(Thread.java:745) [na:1.7.0_79]
+
+2016-12-20 19:52:40.545  INFO 9896 --- [http-nio-8080-exec-1] o.a.v.t.v.servlet.ServletToolboxManager  : Using config file '/toolbox.xml'
+2016-12-20 19:52:40.546  WARN 9896 --- [http-nio-8080-exec-1] o.a.v.tools.view.XMLToolboxManager       : XMLToolboxManager has been deprecated. Please use org.apache.velocity.tools.ToolboxFactory instead.
+2016-12-20 19:52:40.546  WARN 9896 --- [http-nio-8080-exec-1] o.a.v.t.v.servlet.ServletToolboxManager  : ServletToolboxManager has been deprecated. Please use org.apache.velocity.tools.ToolboxFactory instead.
+2016-12-20 19:55:09.251  INFO 11940 --- [main] com.cpt.Application                      : Starting Application on RSMYJNB0352 with PID 11940 (D:\eclipse\workspace\cptadmin\target\classes started by yiwen.sang in D:\eclipse\workspace\cptadmin)
+2016-12-20 19:55:09.257  INFO 11940 --- [main] com.cpt.Application                      : The following profiles are active: dev
+2016-12-20 19:55:09.352  INFO 11940 --- [main] ationConfigEmbeddedWebApplicationContext : Refreshing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@253b56ce: startup date [Tue Dec 20 19:55:09 CST 2016]; root of context hierarchy
+2016-12-20 19:55:10.609  INFO 11940 --- [main] o.s.b.f.s.DefaultListableBeanFactory     : Overriding bean definition for bean 'customSecurityRealm' with a different definition: replacing [Generic bean: class [com.cpt.config.shiro.CustomSecurityRealm]; scope=singleton; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null; defined in file [D:\eclipse\workspace\cptadmin\target\classes\com\cpt\config\shiro\CustomSecurityRealm.class]] with [Root bean: class [null]; scope=; abstract=false; lazyInit=false; autowireMode=3; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=shiroSecurityConfig; factoryMethodName=customSecurityRealm; initMethodName=null; destroyMethodName=(inferred); defined in class path resource [com/cpt/config/shiro/ShiroSecurityConfig.class]]
+2016-12-20 19:55:10.874  INFO 11940 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2016-12-20 19:55:11.383  INFO 11940 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'shiroSecurityConfig' of type [class com.cpt.config.shiro.ShiroSecurityConfig$$EnhancerBySpringCGLIB$$63d09ba0] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2016-12-20 19:55:11.592  INFO 11940 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'redisManager' of type [class org.crazycake.shiro.RedisManager] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2016-12-20 19:55:11.596  INFO 11940 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'redisCacheManager' of type [class org.crazycake.shiro.RedisCacheManager] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2016-12-20 19:55:11.661  INFO 11940 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'redisSessionDAO' of type [class org.crazycake.shiro.RedisSessionDAO] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2016-12-20 19:55:11.680  INFO 11940 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'sessionManager' of type [class org.apache.shiro.web.session.mgt.DefaultWebSessionManager] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2016-12-20 19:55:11.700  INFO 11940 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'securityManager' of type [class org.apache.shiro.web.mgt.DefaultWebSecurityManager] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2016-12-20 19:55:11.727  INFO 11940 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'kickoutSessionControlFilter' of type [class com.cpt.config.shiro.KickoutSessionControlFilter] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2016-12-20 19:55:11.743  WARN 11940 --- [main] o.s.b.f.s.DefaultListableBeanFactory     : Bean creation exception on non-lazy FactoryBean type check: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'userMapper' defined in file [D:\eclipse\workspace\cptadmin\target\classes\com\cpt\user\mapper\UserMapper.class]: Unsatisfied dependency expressed through bean property 'sqlSessionFactory'; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'methodInvokingFactoryBean' defined in class path resource [com/cpt/config/shiro/ShiroSecurityConfig.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.springframework.beans.factory.config.MethodInvokingFactoryBean]: Factory method 'methodInvokingFactoryBean' threw exception; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'securityManager' defined in class path resource [com/cpt/config/shiro/ShiroSecurityConfig.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.apache.shiro.web.mgt.WebSecurityManager]: Factory method 'securityManager' threw exception; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'customSecurityRealm': Unsatisfied dependency expressed through field 'userMapper'; nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type 'com.cpt.user.mapper.UserMapper' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {@org.springframework.beans.factory.annotation.Autowired(required=true)}
+2016-12-20 19:55:11.764  INFO 11940 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'dbConfig' of type [class com.cpt.config.db.DbConfig$$EnhancerBySpringCGLIB$$af3187a] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2016-12-20 19:55:11.860  INFO 11940 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'dataSource' of type [class com.alibaba.druid.pool.DruidDataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2016-12-20 19:55:11.941  INFO 11940 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'sqlSessionFactory' of type [class org.apache.ibatis.session.defaults.DefaultSqlSessionFactory] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2016-12-20 19:55:12.162  INFO 11940 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'userMapper' of type [class org.mybatis.spring.mapper.MapperFactoryBean] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2016-12-20 19:55:12.168  INFO 11940 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'userMapper' of type [class com.sun.proxy.$Proxy47] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2016-12-20 19:55:12.169  INFO 11940 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'customSecurityRealm' of type [class com.cpt.config.shiro.CustomSecurityRealm] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2016-12-20 19:55:12.174  INFO 11940 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'securityManager' of type [class org.apache.shiro.web.mgt.DefaultWebSecurityManager] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2016-12-20 19:55:12.187  INFO 11940 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'methodInvokingFactoryBean' of type [class org.springframework.beans.factory.config.MethodInvokingFactoryBean] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2016-12-20 19:55:12.259  INFO 11940 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'authorizationAttributeSourceAdvisor' of type [class org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2016-12-20 19:55:12.303  INFO 11940 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [class org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$27110f1d] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2016-12-20 19:55:13.287  INFO 11940 --- [main] s.b.c.e.t.TomcatEmbeddedServletContainer : Tomcat initialized with port(s): 8080 (http)
+2016-12-20 19:55:13.304  INFO 11940 --- [main] o.apache.catalina.core.StandardService   : Starting service Tomcat
+2016-12-20 19:55:13.305  INFO 11940 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/8.5.6
+2016-12-20 19:55:13.418  INFO 11940 --- [localhost-startStop-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2016-12-20 19:55:13.419  INFO 11940 --- [localhost-startStop-1] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 4071 ms
+2016-12-20 19:55:13.917  INFO 11940 --- [localhost-startStop-1] o.s.b.w.servlet.ServletRegistrationBean  : Mapping servlet: 'dispatcherServlet' to [/]
+2016-12-20 19:55:13.923  INFO 11940 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'characterEncodingFilter' to: [/*]
+2016-12-20 19:55:13.924  INFO 11940 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+2016-12-20 19:55:13.924  INFO 11940 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'httpPutFormContentFilter' to: [/*]
+2016-12-20 19:55:13.924  INFO 11940 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'requestContextFilter' to: [/*]
+2016-12-20 19:55:13.925  INFO 11940 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'kickoutSessionControlFilter' to: [/*]
+2016-12-20 19:55:13.925  INFO 11940 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'shiroFilter' to: [/*]
+2016-12-20 19:55:14.568  INFO 11940 --- [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : Looking for @ControllerAdvice: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@253b56ce: startup date [Tue Dec 20 19:55:09 CST 2016]; root of context hierarchy
+2016-12-20 19:55:14.820  INFO 11940 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/unlogin]}" onto public java.lang.String com.cpt.user.controller.LoginController.unlogin()
+2016-12-20 19:55:14.821  INFO 11940 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/ || ]}" onto public java.lang.String com.cpt.user.controller.LoginController.login(org.springframework.ui.ModelMap)
+2016-12-20 19:55:14.822  INFO 11940 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/toLogin],methods=[POST]}" onto public java.lang.String com.cpt.user.controller.LoginController.toLogin(com.cpt.user.entity.User)
+2016-12-20 19:55:14.822  INFO 11940 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/logout],methods=[GET]}" onto public java.lang.String com.cpt.user.controller.LoginController.logout()
+2016-12-20 19:55:14.825  INFO 11940 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/user/get]}" onto public org.springframework.web.servlet.ModelAndView com.cpt.user.controller.UserController.get(org.springframework.web.servlet.ModelAndView)
+2016-12-20 19:55:14.826  INFO 11940 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/user/query]}" onto public com.cpt.user.entity.User com.cpt.user.controller.UserController.queryInfo()
+2016-12-20 19:55:14.830  INFO 11940 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+2016-12-20 19:55:14.830  INFO 11940 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2016-12-20 19:55:15.084  INFO 11940 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2016-12-20 19:55:15.084  INFO 11940 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2016-12-20 19:55:15.331  INFO 11940 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2016-12-20 19:55:15.654  INFO 11940 --- [main] s.b.w.s.v.v.EmbeddedVelocityViewResolver : Using EmbeddedVelocityToolboxView instead of default VelocityView due to specified toolboxConfigLocation
+2016-12-20 19:55:16.834  INFO 11940 --- [main] o.s.w.s.v.velocity.VelocityConfigurer    : ClasspathResourceLoader with name 'springMacro' added to configured VelocityEngine
+2016-12-20 19:55:17.345  INFO 11940 --- [main] o.s.j.e.a.AnnotationMBeanExporter        : Registering beans for JMX exposure on startup
+2016-12-20 19:55:17.347  INFO 11940 --- [main] o.s.j.e.a.AnnotationMBeanExporter        : Bean with name 'dataSource' has been autodetected for JMX exposure
+2016-12-20 19:55:17.354  INFO 11940 --- [main] o.s.j.e.a.AnnotationMBeanExporter        : Located MBean 'dataSource': registering with JMX server as MBean [com.alibaba.druid.pool:name=dataSource,type=DruidDataSource]
+2016-12-20 19:55:17.460  INFO 11940 --- [main] s.b.c.e.t.TomcatEmbeddedServletContainer : Tomcat started on port(s): 8080 (http)
+2016-12-20 19:55:17.470  INFO 11940 --- [main] com.cpt.Application                      : Started Application in 8.802 seconds (JVM running for 9.291)
+2016-12-20 19:55:22.767  INFO 11940 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring FrameworkServlet 'dispatcherServlet'
+2016-12-20 19:55:22.767  INFO 11940 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : FrameworkServlet 'dispatcherServlet': initialization started
+2016-12-20 19:55:22.796  INFO 11940 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : FrameworkServlet 'dispatcherServlet': initialization completed in 29 ms
+2016-12-20 19:55:22.825 ERROR 11940 --- [http-nio-8080-exec-1] o.a.c.c.C.[.[.[/].[dispatcherServlet]    : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Filtered request failed.] with root cause
+
+java.lang.NullPointerException: null
+	at org.apache.shiro.mgt.SessionsSecurityManager.getSession(SessionsSecurityManager.java:125) ~[shiro-core-1.2.4.jar:1.2.4]
+	at org.apache.shiro.mgt.DefaultSecurityManager.resolveContextSession(DefaultSecurityManager.java:456) ~[shiro-core-1.2.4.jar:1.2.4]
+	at org.apache.shiro.mgt.DefaultSecurityManager.resolveSession(DefaultSecurityManager.java:442) ~[shiro-core-1.2.4.jar:1.2.4]
+	at org.apache.shiro.mgt.DefaultSecurityManager.createSubject(DefaultSecurityManager.java:338) ~[shiro-core-1.2.4.jar:1.2.4]
+	at org.apache.shiro.subject.Subject$Builder.buildSubject(Subject.java:846) ~[shiro-core-1.2.4.jar:1.2.4]
+	at org.apache.shiro.web.subject.WebSubject$Builder.buildWebSubject(WebSubject.java:148) ~[shiro-web-1.2.4.jar:1.2.4]
+	at org.apache.shiro.web.servlet.AbstractShiroFilter.createSubject(AbstractShiroFilter.java:292) ~[shiro-web-1.2.4.jar:1.2.4]
+	at org.apache.shiro.web.servlet.AbstractShiroFilter.doFilterInternal(AbstractShiroFilter.java:359) ~[shiro-web-1.2.4.jar:1.2.4]
+	at org.apache.shiro.web.servlet.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:125) ~[shiro-web-1.2.4.jar:1.2.4]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:192) ~[tomcat-embed-core-8.5.6.jar:8.5.6]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:165) ~[tomcat-embed-core-8.5.6.jar:8.5.6]
+	at org.apache.shiro.web.servlet.AdviceFilter.executeChain(AdviceFilter.java:108) ~[shiro-web-1.2.4.jar:1.2.4]
+	at org.apache.shiro.web.servlet.AdviceFilter.doFilterInternal(AdviceFilter.java:137) ~[shiro-web-1.2.4.jar:1.2.4]
+	at org.apache.shiro.web.servlet.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:125) ~[shiro-web-1.2.4.jar:1.2.4]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:192) ~[tomcat-embed-core-8.5.6.jar:8.5.6]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:165) ~[tomcat-embed-core-8.5.6.jar:8.5.6]
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:99) ~[spring-web-4.3.5.BUILD-SNAPSHOT.jar:4.3.5.BUILD-SNAPSHOT]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107) ~[spring-web-4.3.5.BUILD-SNAPSHOT.jar:4.3.5.BUILD-SNAPSHOT]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:192) ~[tomcat-embed-core-8.5.6.jar:8.5.6]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:165) ~[tomcat-embed-core-8.5.6.jar:8.5.6]
+	at org.springframework.web.filter.HttpPutFormContentFilter.doFilterInternal(HttpPutFormContentFilter.java:89) ~[spring-web-4.3.5.BUILD-SNAPSHOT.jar:4.3.5.BUILD-SNAPSHOT]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107) ~[spring-web-4.3.5.BUILD-SNAPSHOT.jar:4.3.5.BUILD-SNAPSHOT]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:192) ~[tomcat-embed-core-8.5.6.jar:8.5.6]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:165) ~[tomcat-embed-core-8.5.6.jar:8.5.6]
+	at org.springframework.web.filter.HiddenHttpMethodFilter.doFilterInternal(HiddenHttpMethodFilter.java:77) ~[spring-web-4.3.5.BUILD-SNAPSHOT.jar:4.3.5.BUILD-SNAPSHOT]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107) ~[spring-web-4.3.5.BUILD-SNAPSHOT.jar:4.3.5.BUILD-SNAPSHOT]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:192) ~[tomcat-embed-core-8.5.6.jar:8.5.6]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:165) ~[tomcat-embed-core-8.5.6.jar:8.5.6]
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:197) ~[spring-web-4.3.5.BUILD-SNAPSHOT.jar:4.3.5.BUILD-SNAPSHOT]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107) ~[spring-web-4.3.5.BUILD-SNAPSHOT.jar:4.3.5.BUILD-SNAPSHOT]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:192) ~[tomcat-embed-core-8.5.6.jar:8.5.6]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:165) ~[tomcat-embed-core-8.5.6.jar:8.5.6]
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:198) ~[tomcat-embed-core-8.5.6.jar:8.5.6]
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:108) [tomcat-embed-core-8.5.6.jar:8.5.6]
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:472) [tomcat-embed-core-8.5.6.jar:8.5.6]
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:140) [tomcat-embed-core-8.5.6.jar:8.5.6]
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:79) [tomcat-embed-core-8.5.6.jar:8.5.6]
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:87) [tomcat-embed-core-8.5.6.jar:8.5.6]
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:349) [tomcat-embed-core-8.5.6.jar:8.5.6]
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:784) [tomcat-embed-core-8.5.6.jar:8.5.6]
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:66) [tomcat-embed-core-8.5.6.jar:8.5.6]
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:802) [tomcat-embed-core-8.5.6.jar:8.5.6]
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1410) [tomcat-embed-core-8.5.6.jar:8.5.6]
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49) [tomcat-embed-core-8.5.6.jar:8.5.6]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145) [na:1.7.0_79]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615) [na:1.7.0_79]
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61) [tomcat-embed-core-8.5.6.jar:8.5.6]
+	at java.lang.Thread.run(Thread.java:745) [na:1.7.0_79]
+
+2016-12-20 19:55:23.148  INFO 11940 --- [http-nio-8080-exec-1] o.a.v.t.v.servlet.ServletToolboxManager  : Using config file '/toolbox.xml'
+2016-12-20 19:55:23.148  WARN 11940 --- [http-nio-8080-exec-1] o.a.v.tools.view.XMLToolboxManager       : XMLToolboxManager has been deprecated. Please use org.apache.velocity.tools.ToolboxFactory instead.
+2016-12-20 19:55:23.148  WARN 11940 --- [http-nio-8080-exec-1] o.a.v.t.v.servlet.ServletToolboxManager  : ServletToolboxManager has been deprecated. Please use org.apache.velocity.tools.ToolboxFactory instead.
+2016-12-20 19:56:14.941  INFO 6516 --- [main] com.cpt.Application                      : Starting Application on RSMYJNB0352 with PID 6516 (D:\eclipse\workspace\cptadmin\target\classes started by yiwen.sang in D:\eclipse\workspace\cptadmin)
+2016-12-20 19:56:14.948  INFO 6516 --- [main] com.cpt.Application                      : The following profiles are active: dev
+2016-12-20 19:56:15.031  INFO 6516 --- [main] ationConfigEmbeddedWebApplicationContext : Refreshing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@ca2596a: startup date [Tue Dec 20 19:56:15 CST 2016]; root of context hierarchy
+2016-12-20 19:56:16.321  INFO 6516 --- [main] o.s.b.f.s.DefaultListableBeanFactory     : Overriding bean definition for bean 'customSecurityRealm' with a different definition: replacing [Generic bean: class [com.cpt.config.shiro.CustomSecurityRealm]; scope=singleton; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null; defined in file [D:\eclipse\workspace\cptadmin\target\classes\com\cpt\config\shiro\CustomSecurityRealm.class]] with [Root bean: class [null]; scope=; abstract=false; lazyInit=false; autowireMode=3; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=shiroSecurityConfig; factoryMethodName=customSecurityRealm; initMethodName=null; destroyMethodName=(inferred); defined in class path resource [com/cpt/config/shiro/ShiroSecurityConfig.class]]
+2016-12-20 19:56:16.610  INFO 6516 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2016-12-20 19:56:17.143  INFO 6516 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'shiroSecurityConfig' of type [class com.cpt.config.shiro.ShiroSecurityConfig$$EnhancerBySpringCGLIB$$63d09ba0] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2016-12-20 19:56:17.359  INFO 6516 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'redisManager' of type [class org.crazycake.shiro.RedisManager] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2016-12-20 19:56:17.364  INFO 6516 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'redisCacheManager' of type [class org.crazycake.shiro.RedisCacheManager] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2016-12-20 19:56:17.427  INFO 6516 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'redisSessionDAO' of type [class org.crazycake.shiro.RedisSessionDAO] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2016-12-20 19:56:17.446  INFO 6516 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'sessionManager' of type [class org.apache.shiro.web.session.mgt.DefaultWebSessionManager] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2016-12-20 19:56:17.470  INFO 6516 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'securityManager' of type [class org.apache.shiro.web.mgt.DefaultWebSecurityManager] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2016-12-20 19:56:17.504  INFO 6516 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'kickoutSessionControlFilter' of type [class com.cpt.config.shiro.KickoutSessionControlFilter] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2016-12-20 19:56:17.517  WARN 6516 --- [main] o.s.b.f.s.DefaultListableBeanFactory     : Bean creation exception on non-lazy FactoryBean type check: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'userMapper' defined in file [D:\eclipse\workspace\cptadmin\target\classes\com\cpt\user\mapper\UserMapper.class]: Unsatisfied dependency expressed through bean property 'sqlSessionFactory'; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'methodInvokingFactoryBean' defined in class path resource [com/cpt/config/shiro/ShiroSecurityConfig.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.springframework.beans.factory.config.MethodInvokingFactoryBean]: Factory method 'methodInvokingFactoryBean' threw exception; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'securityManager' defined in class path resource [com/cpt/config/shiro/ShiroSecurityConfig.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.apache.shiro.web.mgt.WebSecurityManager]: Factory method 'securityManager' threw exception; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'customSecurityRealm': Unsatisfied dependency expressed through field 'userMapper'; nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type 'com.cpt.user.mapper.UserMapper' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {@org.springframework.beans.factory.annotation.Autowired(required=true)}
+2016-12-20 19:56:17.547  INFO 6516 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'dbConfig' of type [class com.cpt.config.db.DbConfig$$EnhancerBySpringCGLIB$$af3187a] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2016-12-20 19:56:17.656  INFO 6516 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'dataSource' of type [class com.alibaba.druid.pool.DruidDataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2016-12-20 19:56:17.747  INFO 6516 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'sqlSessionFactory' of type [class org.apache.ibatis.session.defaults.DefaultSqlSessionFactory] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2016-12-20 19:56:18.016  INFO 6516 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'userMapper' of type [class org.mybatis.spring.mapper.MapperFactoryBean] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2016-12-20 19:56:18.034  INFO 6516 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'userMapper' of type [class com.sun.proxy.$Proxy46] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2016-12-20 19:56:18.038  INFO 6516 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'customSecurityRealm' of type [class com.cpt.config.shiro.CustomSecurityRealm] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2016-12-20 19:56:18.041  INFO 6516 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'securityManager' of type [class org.apache.shiro.web.mgt.DefaultWebSecurityManager] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2016-12-20 19:56:18.060  INFO 6516 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'methodInvokingFactoryBean' of type [class org.springframework.beans.factory.config.MethodInvokingFactoryBean] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2016-12-20 19:56:18.145  INFO 6516 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'authorizationAttributeSourceAdvisor' of type [class org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2016-12-20 19:56:18.202  INFO 6516 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [class org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$27110f1d] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2016-12-20 19:56:19.241  INFO 6516 --- [main] s.b.c.e.t.TomcatEmbeddedServletContainer : Tomcat initialized with port(s): 8080 (http)
+2016-12-20 19:56:19.266  INFO 6516 --- [main] o.apache.catalina.core.StandardService   : Starting service Tomcat
+2016-12-20 19:56:19.267  INFO 6516 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/8.5.6
+2016-12-20 19:56:19.388  INFO 6516 --- [localhost-startStop-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2016-12-20 19:56:19.389  INFO 6516 --- [localhost-startStop-1] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 4362 ms
+2016-12-20 19:56:19.903  INFO 6516 --- [localhost-startStop-1] o.s.b.w.servlet.ServletRegistrationBean  : Mapping servlet: 'dispatcherServlet' to [/]
+2016-12-20 19:56:19.911  INFO 6516 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'characterEncodingFilter' to: [/*]
+2016-12-20 19:56:19.912  INFO 6516 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+2016-12-20 19:56:19.912  INFO 6516 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'httpPutFormContentFilter' to: [/*]
+2016-12-20 19:56:19.913  INFO 6516 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'requestContextFilter' to: [/*]
+2016-12-20 19:56:19.913  INFO 6516 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'kickoutSessionControlFilter' to: [/*]
+2016-12-20 19:56:19.913  INFO 6516 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'shiroFilter' to: [/*]
+2016-12-20 19:56:20.613  INFO 6516 --- [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : Looking for @ControllerAdvice: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@ca2596a: startup date [Tue Dec 20 19:56:15 CST 2016]; root of context hierarchy
+2016-12-20 19:56:20.872  INFO 6516 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/unlogin]}" onto public java.lang.String com.cpt.user.controller.LoginController.unlogin()
+2016-12-20 19:56:20.874  INFO 6516 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/ || ]}" onto public java.lang.String com.cpt.user.controller.LoginController.login(org.springframework.ui.ModelMap)
+2016-12-20 19:56:20.874  INFO 6516 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/toLogin],methods=[POST]}" onto public java.lang.String com.cpt.user.controller.LoginController.toLogin(com.cpt.user.entity.User)
+2016-12-20 19:56:20.875  INFO 6516 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/logout],methods=[GET]}" onto public java.lang.String com.cpt.user.controller.LoginController.logout()
+2016-12-20 19:56:20.878  INFO 6516 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/user/get]}" onto public org.springframework.web.servlet.ModelAndView com.cpt.user.controller.UserController.get(org.springframework.web.servlet.ModelAndView)
+2016-12-20 19:56:20.879  INFO 6516 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/user/query]}" onto public com.cpt.user.entity.User com.cpt.user.controller.UserController.queryInfo()
+2016-12-20 19:56:20.883  INFO 6516 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+2016-12-20 19:56:20.884  INFO 6516 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2016-12-20 19:56:21.208  INFO 6516 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2016-12-20 19:56:21.208  INFO 6516 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2016-12-20 19:56:21.430  INFO 6516 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2016-12-20 19:56:21.736  INFO 6516 --- [main] s.b.w.s.v.v.EmbeddedVelocityViewResolver : Using EmbeddedVelocityToolboxView instead of default VelocityView due to specified toolboxConfigLocation
+2016-12-20 19:56:22.955  INFO 6516 --- [main] o.s.w.s.v.velocity.VelocityConfigurer    : ClasspathResourceLoader with name 'springMacro' added to configured VelocityEngine
+2016-12-20 19:56:23.479  INFO 6516 --- [main] o.s.j.e.a.AnnotationMBeanExporter        : Registering beans for JMX exposure on startup
+2016-12-20 19:56:23.481  INFO 6516 --- [main] o.s.j.e.a.AnnotationMBeanExporter        : Bean with name 'dataSource' has been autodetected for JMX exposure
+2016-12-20 19:56:23.488  INFO 6516 --- [main] o.s.j.e.a.AnnotationMBeanExporter        : Located MBean 'dataSource': registering with JMX server as MBean [com.alibaba.druid.pool:name=dataSource,type=DruidDataSource]
+2016-12-20 19:56:23.607  INFO 6516 --- [main] s.b.c.e.t.TomcatEmbeddedServletContainer : Tomcat started on port(s): 8080 (http)
+2016-12-20 19:56:23.627  INFO 6516 --- [main] com.cpt.Application                      : Started Application in 9.292 seconds (JVM running for 9.82)
+2016-12-20 19:56:30.598  INFO 6516 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring FrameworkServlet 'dispatcherServlet'
+2016-12-20 19:56:30.598  INFO 6516 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : FrameworkServlet 'dispatcherServlet': initialization started
+2016-12-20 19:56:30.634  INFO 6516 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : FrameworkServlet 'dispatcherServlet': initialization completed in 36 ms
+2016-12-20 19:56:30.683 ERROR 6516 --- [http-nio-8080-exec-1] o.a.c.c.C.[.[.[/].[dispatcherServlet]    : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Filtered request failed.] with root cause
+
+java.lang.NullPointerException: null
+	at org.apache.shiro.mgt.SessionsSecurityManager.getSession(SessionsSecurityManager.java:125) ~[shiro-core-1.2.4.jar:1.2.4]
+	at org.apache.shiro.mgt.DefaultSecurityManager.resolveContextSession(DefaultSecurityManager.java:456) ~[shiro-core-1.2.4.jar:1.2.4]
+	at org.apache.shiro.mgt.DefaultSecurityManager.resolveSession(DefaultSecurityManager.java:442) ~[shiro-core-1.2.4.jar:1.2.4]
+	at org.apache.shiro.mgt.DefaultSecurityManager.createSubject(DefaultSecurityManager.java:338) ~[shiro-core-1.2.4.jar:1.2.4]
+	at org.apache.shiro.subject.Subject$Builder.buildSubject(Subject.java:846) ~[shiro-core-1.2.4.jar:1.2.4]
+	at org.apache.shiro.web.subject.WebSubject$Builder.buildWebSubject(WebSubject.java:148) ~[shiro-web-1.2.4.jar:1.2.4]
+	at org.apache.shiro.web.servlet.AbstractShiroFilter.createSubject(AbstractShiroFilter.java:292) ~[shiro-web-1.2.4.jar:1.2.4]
+	at org.apache.shiro.web.servlet.AbstractShiroFilter.doFilterInternal(AbstractShiroFilter.java:359) ~[shiro-web-1.2.4.jar:1.2.4]
+	at org.apache.shiro.web.servlet.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:125) ~[shiro-web-1.2.4.jar:1.2.4]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:192) ~[tomcat-embed-core-8.5.6.jar:8.5.6]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:165) ~[tomcat-embed-core-8.5.6.jar:8.5.6]
+	at org.apache.shiro.web.servlet.AdviceFilter.executeChain(AdviceFilter.java:108) ~[shiro-web-1.2.4.jar:1.2.4]
+	at org.apache.shiro.web.servlet.AdviceFilter.doFilterInternal(AdviceFilter.java:137) ~[shiro-web-1.2.4.jar:1.2.4]
+	at org.apache.shiro.web.servlet.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:125) ~[shiro-web-1.2.4.jar:1.2.4]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:192) ~[tomcat-embed-core-8.5.6.jar:8.5.6]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:165) ~[tomcat-embed-core-8.5.6.jar:8.5.6]
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:99) ~[spring-web-4.3.5.BUILD-SNAPSHOT.jar:4.3.5.BUILD-SNAPSHOT]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107) ~[spring-web-4.3.5.BUILD-SNAPSHOT.jar:4.3.5.BUILD-SNAPSHOT]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:192) ~[tomcat-embed-core-8.5.6.jar:8.5.6]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:165) ~[tomcat-embed-core-8.5.6.jar:8.5.6]
+	at org.springframework.web.filter.HttpPutFormContentFilter.doFilterInternal(HttpPutFormContentFilter.java:89) ~[spring-web-4.3.5.BUILD-SNAPSHOT.jar:4.3.5.BUILD-SNAPSHOT]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107) ~[spring-web-4.3.5.BUILD-SNAPSHOT.jar:4.3.5.BUILD-SNAPSHOT]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:192) ~[tomcat-embed-core-8.5.6.jar:8.5.6]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:165) ~[tomcat-embed-core-8.5.6.jar:8.5.6]
+	at org.springframework.web.filter.HiddenHttpMethodFilter.doFilterInternal(HiddenHttpMethodFilter.java:77) ~[spring-web-4.3.5.BUILD-SNAPSHOT.jar:4.3.5.BUILD-SNAPSHOT]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107) ~[spring-web-4.3.5.BUILD-SNAPSHOT.jar:4.3.5.BUILD-SNAPSHOT]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:192) ~[tomcat-embed-core-8.5.6.jar:8.5.6]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:165) ~[tomcat-embed-core-8.5.6.jar:8.5.6]
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:197) ~[spring-web-4.3.5.BUILD-SNAPSHOT.jar:4.3.5.BUILD-SNAPSHOT]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107) ~[spring-web-4.3.5.BUILD-SNAPSHOT.jar:4.3.5.BUILD-SNAPSHOT]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:192) ~[tomcat-embed-core-8.5.6.jar:8.5.6]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:165) ~[tomcat-embed-core-8.5.6.jar:8.5.6]
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:198) ~[tomcat-embed-core-8.5.6.jar:8.5.6]
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:108) [tomcat-embed-core-8.5.6.jar:8.5.6]
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:472) [tomcat-embed-core-8.5.6.jar:8.5.6]
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:140) [tomcat-embed-core-8.5.6.jar:8.5.6]
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:79) [tomcat-embed-core-8.5.6.jar:8.5.6]
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:87) [tomcat-embed-core-8.5.6.jar:8.5.6]
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:349) [tomcat-embed-core-8.5.6.jar:8.5.6]
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:784) [tomcat-embed-core-8.5.6.jar:8.5.6]
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:66) [tomcat-embed-core-8.5.6.jar:8.5.6]
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:802) [tomcat-embed-core-8.5.6.jar:8.5.6]
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1410) [tomcat-embed-core-8.5.6.jar:8.5.6]
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49) [tomcat-embed-core-8.5.6.jar:8.5.6]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145) [na:1.7.0_79]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615) [na:1.7.0_79]
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61) [tomcat-embed-core-8.5.6.jar:8.5.6]
+	at java.lang.Thread.run(Thread.java:745) [na:1.7.0_79]
+
+2016-12-20 19:56:31.014  INFO 6516 --- [http-nio-8080-exec-1] o.a.v.t.v.servlet.ServletToolboxManager  : Using config file '/toolbox.xml'
+2016-12-20 19:56:31.014  WARN 6516 --- [http-nio-8080-exec-1] o.a.v.tools.view.XMLToolboxManager       : XMLToolboxManager has been deprecated. Please use org.apache.velocity.tools.ToolboxFactory instead.
+2016-12-20 19:56:31.015  WARN 6516 --- [http-nio-8080-exec-1] o.a.v.t.v.servlet.ServletToolboxManager  : ServletToolboxManager has been deprecated. Please use org.apache.velocity.tools.ToolboxFactory instead.
+2016-12-20 19:58:19.673  INFO 11960 --- [main] com.cpt.Application                      : Starting Application on RSMYJNB0352 with PID 11960 (D:\eclipse\workspace\cptadmin\target\classes started by yiwen.sang in D:\eclipse\workspace\cptadmin)
+2016-12-20 19:58:19.680  INFO 11960 --- [main] com.cpt.Application                      : The following profiles are active: dev
+2016-12-20 19:58:19.771  INFO 11960 --- [main] ationConfigEmbeddedWebApplicationContext : Refreshing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@693ec1db: startup date [Tue Dec 20 19:58:19 CST 2016]; root of context hierarchy
+2016-12-20 19:58:21.024  INFO 11960 --- [main] o.s.b.f.s.DefaultListableBeanFactory     : Overriding bean definition for bean 'customSecurityRealm' with a different definition: replacing [Generic bean: class [com.cpt.config.shiro.CustomSecurityRealm]; scope=singleton; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null; defined in file [D:\eclipse\workspace\cptadmin\target\classes\com\cpt\config\shiro\CustomSecurityRealm.class]] with [Root bean: class [null]; scope=; abstract=false; lazyInit=false; autowireMode=3; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=shiroSecurityConfig; factoryMethodName=customSecurityRealm; initMethodName=null; destroyMethodName=(inferred); defined in class path resource [com/cpt/config/shiro/ShiroSecurityConfig.class]]
+2016-12-20 19:58:21.291  INFO 11960 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2016-12-20 19:58:21.900  INFO 11960 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'shiroSecurityConfig' of type [class com.cpt.config.shiro.ShiroSecurityConfig$$EnhancerBySpringCGLIB$$bb8c4b8c] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2016-12-20 19:58:22.009  INFO 11960 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'redisManager' of type [class org.crazycake.shiro.RedisManager] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2016-12-20 19:58:22.014  INFO 11960 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'redisCacheManager' of type [class org.crazycake.shiro.RedisCacheManager] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2016-12-20 19:58:22.084  INFO 11960 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'redisSessionDAO' of type [class org.crazycake.shiro.RedisSessionDAO] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2016-12-20 19:58:22.103  INFO 11960 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'sessionManager' of type [class org.apache.shiro.web.session.mgt.DefaultWebSessionManager] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2016-12-20 19:58:22.124  INFO 11960 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'securityManager' of type [class org.apache.shiro.web.mgt.DefaultWebSecurityManager] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2016-12-20 19:58:22.143  INFO 11960 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'kickoutSessionControlFilter' of type [class com.cpt.config.shiro.KickoutSessionControlFilter] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2016-12-20 19:58:22.151  WARN 11960 --- [main] o.s.b.f.s.DefaultListableBeanFactory     : Bean creation exception on non-lazy FactoryBean type check: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'userMapper' defined in file [D:\eclipse\workspace\cptadmin\target\classes\com\cpt\user\mapper\UserMapper.class]: Unsatisfied dependency expressed through bean property 'sqlSessionFactory'; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'methodInvokingFactoryBean' defined in class path resource [com/cpt/config/shiro/ShiroSecurityConfig.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.springframework.beans.factory.config.MethodInvokingFactoryBean]: Factory method 'methodInvokingFactoryBean' threw exception; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'securityManager' defined in class path resource [com/cpt/config/shiro/ShiroSecurityConfig.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.apache.shiro.web.mgt.WebSecurityManager]: Factory method 'securityManager' threw exception; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'customSecurityRealm': Unsatisfied dependency expressed through field 'userMapper'; nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type 'com.cpt.user.mapper.UserMapper' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {@org.springframework.beans.factory.annotation.Autowired(required=true)}
+2016-12-20 19:58:22.168  INFO 11960 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'dbConfig' of type [class com.cpt.config.db.DbConfig$$EnhancerBySpringCGLIB$$62aec866] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2016-12-20 19:58:22.263  INFO 11960 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'dataSource' of type [class com.alibaba.druid.pool.DruidDataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2016-12-20 19:58:22.346  INFO 11960 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'sqlSessionFactory' of type [class org.apache.ibatis.session.defaults.DefaultSqlSessionFactory] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2016-12-20 19:58:22.557  INFO 11960 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'userMapper' of type [class org.mybatis.spring.mapper.MapperFactoryBean] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2016-12-20 19:58:22.562  INFO 11960 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'userMapper' of type [class com.sun.proxy.$Proxy46] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2016-12-20 19:58:22.564  INFO 11960 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'customSecurityRealm' of type [class com.cpt.config.shiro.CustomSecurityRealm] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2016-12-20 19:58:22.565  INFO 11960 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'securityManager' of type [class org.apache.shiro.web.mgt.DefaultWebSecurityManager] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2016-12-20 19:58:22.610  INFO 11960 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'methodInvokingFactoryBean' of type [class org.springframework.beans.factory.config.MethodInvokingFactoryBean] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2016-12-20 19:58:22.651  INFO 11960 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'authorizationAttributeSourceAdvisor' of type [class org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2016-12-20 19:58:22.699  INFO 11960 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [class org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$7eccbf09] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2016-12-20 19:58:23.672  INFO 11960 --- [main] s.b.c.e.t.TomcatEmbeddedServletContainer : Tomcat initialized with port(s): 8080 (http)
+2016-12-20 19:58:23.695  INFO 11960 --- [main] o.apache.catalina.core.StandardService   : Starting service Tomcat
+2016-12-20 19:58:23.696  INFO 11960 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/8.5.6
+2016-12-20 19:58:23.833  INFO 11960 --- [localhost-startStop-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2016-12-20 19:58:23.834  INFO 11960 --- [localhost-startStop-1] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 4067 ms
+2016-12-20 19:58:24.283  INFO 11960 --- [localhost-startStop-1] o.s.b.w.servlet.ServletRegistrationBean  : Mapping servlet: 'dispatcherServlet' to [/]
+2016-12-20 19:58:24.289  INFO 11960 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'characterEncodingFilter' to: [/*]
+2016-12-20 19:58:24.290  INFO 11960 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+2016-12-20 19:58:24.290  INFO 11960 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'httpPutFormContentFilter' to: [/*]
+2016-12-20 19:58:24.291  INFO 11960 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'requestContextFilter' to: [/*]
+2016-12-20 19:58:24.291  INFO 11960 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'kickoutSessionControlFilter' to: [/*]
+2016-12-20 19:58:24.291  INFO 11960 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'shiroFilter' to: [/*]
+2016-12-20 19:58:24.892  INFO 11960 --- [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : Looking for @ControllerAdvice: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@693ec1db: startup date [Tue Dec 20 19:58:19 CST 2016]; root of context hierarchy
+2016-12-20 19:58:25.140  INFO 11960 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/ || ]}" onto public java.lang.String com.cpt.user.controller.LoginController.login(org.springframework.ui.ModelMap)
+2016-12-20 19:58:25.141  INFO 11960 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/toLogin],methods=[POST]}" onto public java.lang.String com.cpt.user.controller.LoginController.toLogin(com.cpt.user.entity.User)
+2016-12-20 19:58:25.142  INFO 11960 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/unlogin]}" onto public java.lang.String com.cpt.user.controller.LoginController.unlogin()
+2016-12-20 19:58:25.142  INFO 11960 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/logout],methods=[GET]}" onto public java.lang.String com.cpt.user.controller.LoginController.logout()
+2016-12-20 19:58:25.144  INFO 11960 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/user/get]}" onto public org.springframework.web.servlet.ModelAndView com.cpt.user.controller.UserController.get(org.springframework.web.servlet.ModelAndView)
+2016-12-20 19:58:25.144  INFO 11960 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/user/query]}" onto public com.cpt.user.entity.User com.cpt.user.controller.UserController.queryInfo()
+2016-12-20 19:58:25.148  INFO 11960 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+2016-12-20 19:58:25.149  INFO 11960 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2016-12-20 19:58:25.452  INFO 11960 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2016-12-20 19:58:25.453  INFO 11960 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2016-12-20 19:58:25.688  INFO 11960 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2016-12-20 19:58:25.999  INFO 11960 --- [main] s.b.w.s.v.v.EmbeddedVelocityViewResolver : Using EmbeddedVelocityToolboxView instead of default VelocityView due to specified toolboxConfigLocation
+2016-12-20 19:58:27.135  INFO 11960 --- [main] o.s.w.s.v.velocity.VelocityConfigurer    : ClasspathResourceLoader with name 'springMacro' added to configured VelocityEngine
+2016-12-20 19:58:27.648  INFO 11960 --- [main] o.s.j.e.a.AnnotationMBeanExporter        : Registering beans for JMX exposure on startup
+2016-12-20 19:58:27.649  INFO 11960 --- [main] o.s.j.e.a.AnnotationMBeanExporter        : Bean with name 'dataSource' has been autodetected for JMX exposure
+2016-12-20 19:58:27.657  INFO 11960 --- [main] o.s.j.e.a.AnnotationMBeanExporter        : Located MBean 'dataSource': registering with JMX server as MBean [com.alibaba.druid.pool:name=dataSource,type=DruidDataSource]
+2016-12-20 19:58:27.763  INFO 11960 --- [main] s.b.c.e.t.TomcatEmbeddedServletContainer : Tomcat started on port(s): 8080 (http)
+2016-12-20 19:58:27.772  INFO 11960 --- [main] com.cpt.Application                      : Started Application in 8.721 seconds (JVM running for 9.251)
+2016-12-20 19:58:32.482  INFO 11960 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring FrameworkServlet 'dispatcherServlet'
+2016-12-20 19:58:32.483  INFO 11960 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : FrameworkServlet 'dispatcherServlet': initialization started
+2016-12-20 19:58:32.517  INFO 11960 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : FrameworkServlet 'dispatcherServlet': initialization completed in 34 ms
+2016-12-20 19:58:32.548  INFO 11960 --- [http-nio-8080-exec-1] a.s.s.m.AbstractValidatingSessionManager : Enabling session validation scheduler...
+2016-12-20 19:58:32.979  INFO 11960 --- [http-nio-8080-exec-1] o.a.v.t.v.servlet.ServletToolboxManager  : Using config file '/toolbox.xml'
+2016-12-20 19:58:32.979  WARN 11960 --- [http-nio-8080-exec-1] o.a.v.tools.view.XMLToolboxManager       : XMLToolboxManager has been deprecated. Please use org.apache.velocity.tools.ToolboxFactory instead.
+2016-12-20 19:58:32.980  WARN 11960 --- [http-nio-8080-exec-1] o.a.v.t.v.servlet.ServletToolboxManager  : ServletToolboxManager has been deprecated. Please use org.apache.velocity.tools.ToolboxFactory instead.
+2016-12-20 19:58:39.717  INFO 11960 --- [http-nio-8080-exec-6] com.cpt.user.controller.LoginController  : toLogin
+2016-12-20 19:59:02.962 ERROR 11960 --- [http-nio-8080-exec-6] com.cpt.user.controller.LoginController  : 登录失败错误信息:org.apache.shiro.authc.AuthenticationException: Authentication failed for token submission [org.apache.shiro.authc.UsernamePasswordToken - test, rememberMe=true].  Possible unexpected error? (Typical or expected login exceptions should extend from AuthenticationException).
