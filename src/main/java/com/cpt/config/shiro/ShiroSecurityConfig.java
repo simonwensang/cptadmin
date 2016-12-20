@@ -5,8 +5,6 @@ import java.util.Map;
 
 import javax.servlet.Filter;
 
-import org.apache.ibatis.session.SqlSession;
-import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.shiro.session.mgt.SessionManager;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
@@ -21,8 +19,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.factory.config.MethodInvokingFactoryBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
-import com.cpt.user.mapper.UserMapper;
+import org.springframework.context.annotation.DependsOn;
 
 
 @Configuration
@@ -83,8 +80,11 @@ public class ShiroSecurityConfig {
     }
     
     @Bean
+    @DependsOn(value="lifecycleBeanPostProcessor")
     public CustomSecurityRealm customSecurityRealm(){
-    	return new CustomSecurityRealm();
+    	CustomSecurityRealm userRealm = new CustomSecurityRealm();
+    	userRealm.setCacheManager(redisCacheManager());
+    	return userRealm;
     }
     
     @Bean
