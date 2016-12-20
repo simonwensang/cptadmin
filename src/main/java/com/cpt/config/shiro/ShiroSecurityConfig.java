@@ -5,6 +5,8 @@ import java.util.Map;
 
 import javax.servlet.Filter;
 
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.shiro.session.mgt.SessionManager;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
@@ -19,6 +21,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.factory.config.MethodInvokingFactoryBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import com.cpt.user.mapper.UserMapper;
 
 
 @Configuration
@@ -73,10 +77,10 @@ public class ShiroSecurityConfig {
     @Bean
     public RedisSessionDAO redisSessionDAO(){
     	RedisSessionDAO redisSessionDAO = new RedisSessionDAO();
+    	redisSessionDAO.setKeyPrefix("cpt_shiro_redis_session:");
     	redisSessionDAO.setRedisManager(redisManager());
     	return redisSessionDAO;
     }
-
     
     @Bean
     public CustomSecurityRealm customSecurityRealm(){
@@ -158,10 +162,13 @@ public class ShiroSecurityConfig {
         Map<String, String> definitionsMap = new HashMap<>();
         
         definitionsMap.put("/login", "anon");//anon
-        definitionsMap.put("/login/toLogin", "anon");//anon
-        definitionsMap.put("/static/**", "anon");//anon
-        definitionsMap.put("/**", "authc");//authc
+        definitionsMap.put("/unlogin", "anon");//anon
+        definitionsMap.put("/toLogin", "anon");//anon
+        //definitionsMap.put("/**", "authc");//authc
+        definitionsMap.put("/", "anon");//anon
+       
         shiroFilter.setFilterChainDefinitionMap(definitionsMap);
         return shiroFilter;
     }
+    
 }

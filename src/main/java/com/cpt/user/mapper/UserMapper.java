@@ -1,12 +1,14 @@
 package com.cpt.user.mapper;
 
+import org.apache.ibatis.annotations.Select;
+
 import com.cpt.user.entity.User;
-import com.cpt.user.entity.UserExample;
-import java.util.List;
-import org.apache.ibatis.annotations.Param;
 
 public interface UserMapper {
-    int countByExample(UserExample example);
+	@Select("select * from t_user where id=#{id}")
+	User select(Long id);
+	
+   /* int countByExample(UserExample example);
 
     int deleteByExample(UserExample example);
 
@@ -26,5 +28,5 @@ public interface UserMapper {
 
     int updateByPrimaryKeySelective(User record);
 
-    int updateByPrimaryKey(User record);
+    int updateByPrimaryKey(User record);*/
 }

@@ -11,9 +11,6 @@ import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
@@ -23,7 +20,6 @@ import com.github.pagehelper.PageHelper;
 
 @Configuration
 @EnableTransactionManagement
-@MapperScan(basePackages="com.cpt.*.mapper.**")
 public class DbConfig {
 
     /**
@@ -89,7 +85,7 @@ public class DbConfig {
         final SqlSessionFactoryBean sessionFactory = new SqlSessionFactoryBean();
         sessionFactory.setDataSource(dataSource);
         //Resource resource = new ClassPathResource();
-        sessionFactory.setMapperLocations(new PathMatchingResourcePatternResolver().getResources("classpath:com/cpt/*/mapper/**.xml"));
+       // sessionFactory.setMapperLocations(new PathMatchingResourcePatternResolver().getResources("classpath:com/cpt/*/mapper/**.xml"));
         
         //增加分页插件
 	    PageHelper pageHelper = new PageHelper();

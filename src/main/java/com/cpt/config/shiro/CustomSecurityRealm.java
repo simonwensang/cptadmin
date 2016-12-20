@@ -14,16 +14,20 @@ import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.cache.CacheManager;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 import com.cpt.user.entity.User;
 import com.cpt.user.entity.UserExample;
 import com.cpt.user.mapper.UserMapper;
+import com.google.common.collect.Lists;
 
 @Component("customSecurityRealm")
 public class CustomSecurityRealm extends AuthorizingRealm {
-//	private static final Logger logger = LogManager.getLogger(AuthorizingRealm.class);
+	private static final Logger logger = LoggerFactory.getLogger(AuthorizingRealm.class);
 	@Resource
 	private CacheManager shiroCacheManager;
 	
@@ -62,8 +66,10 @@ public class CustomSecurityRealm extends AuthorizingRealm {
         UserExample example= new UserExample();
         UserExample.Criteria  criteria= example.createCriteria();
         criteria.andUserNameEqualTo(token.getUsername());
-        List<User>  userEntityList = userMapper.selectByExample(example);
-        
+        //List<User>  userEntityList = userMapper.selectByExample(example);
+        User user = userMapper.select(1L);
+        List<User>  userEntityList = Lists.newArrayList();
+        userEntityList.add(user);
         if ( userEntityList.size()>0) {
         	//SecurityUtils.getSubject().getSession().setAttribute("user", userEntity);
         	return new SimpleAuthenticationInfo(userEntityList.get(0), userEntityList.get(0).getPassWord(), getName());

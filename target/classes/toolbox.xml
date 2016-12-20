@@ -20,7 +20,7 @@
     <tool>
         <key>dateTimeUtil</key>
         <scope>application</scope>
-        <class>com.cpt.util.DateUtils</class>
+        <class>com.cpt.common.util.DateUtils</class>
     </tool>
 </toolbox>
 

@@ -46,5 +46,5 @@
 <link rel="stylesheet" href="#springUrl('/validate/validate.css')"/>
 <script src="#springUrl('/validate/validate.js')"></script>
 <!--全局变量 路径 -->
-#set($contentPath = "/jzerp")
+#set($contentPath = "/")
 
