@@ -18,12 +18,6 @@ logging:
   file: cptadmin.log
   level.com.cpt: INFO
 
-# Connection url for the database "cpt"
-jdbc: 
-  url:  jdbc:mysql://localhost:3306/cpt
-  username :  root
-  password :  123
-  driverClassName :  com.mysql.jdbc.Driver
 ## redis
 redis.ip: localhost
 redis.port: 6379
@@ -41,24 +35,37 @@ shiro.login.url: /login
 shiro.unlogin.url: /unlogin
 shiro.unauthorized.url: /unauth
 shiro.login.limit: 5
-## druid
-druid:
- pool:
-  initialSize:  10
-  minIdle:  10
-  maxActive:  200
-  maxWait:  15000
-  timeBetweenEvictionRunsMillis:  60000
-  minEvictableIdleTimeMillis:  300000
-  validationQuery:  SELECT 'x'
-  testWhileIdle:  true
-  testOnBorrow:  false
-  testOnReturn:  false
-  poolPreparedStatements:  true
-  maxPoolPreparedStatementPerConnectionSize:  50
-  slowSqlMillis:  15000
-  logSlowSql:  true
-  mergeSql:  true
+
+#MYBATIS
+mybatis.mapper-locations: classpath*:/com/cpt/*/mapper/**.xml
+mybatis.configuration.map-underscore-to-camel-case: true
+mybatis.configuration.use-generated-keys: true
+mybatis.configuration.default-fetch-size: 100
+mybatis.configuration.default-statement-timeout: 30
+
+#DATASOURCE
+spring.datasource.schema: classpath:init-sql/schema.sql
+spring.datasource.continueOnError: true
+
+spring.datasource.type: com.alibaba.druid.pool.DruidDataSource
+spring.datasource.url: jdbc:mysql://localhost:3306/cpt
+spring.datasource.username: root
+spring.datasource.password: 123
+spring.datasource.driver-class-name: com.mysql.jdbc.Driver
+
+spring.datasource.initialSize: 5
+spring.datasource.minIdle: 5
+spring.datasource.maxActive: 20
+spring.datasource.maxWait: 60000
+spring.datasource.timeBetweenEvictionRunsMillis: 60000
+spring.datasource.validationQuery: SELECT 1
+spring.datasource.testWhileIdle: true
+spring.datasource.testOnBorrow: false
+spring.datasource.testOnReturn: false
+spring.datasource.poolPreparedStatements: true
+spring.datasource.maxPoolPreparedStatementPerConnectionSize: 20
+spring.datasource.filters: stat
+spring.datasource.connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
 
 # VELOCITY TEMPLATES (VelocityAutoConfiguration)
 spring.velocity.allow-request-override: false
