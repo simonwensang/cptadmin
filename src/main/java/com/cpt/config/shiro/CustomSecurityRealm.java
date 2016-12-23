@@ -3,7 +3,6 @@ package com.cpt.config.shiro;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.annotation.Resource;
 
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
@@ -13,7 +12,6 @@ import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.authz.AuthorizationInfo;
-import org.apache.shiro.cache.CacheManager;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.slf4j.Logger;
@@ -29,16 +27,13 @@ import com.google.common.collect.Lists;
 @Component("customSecurityRealm")
 public class CustomSecurityRealm extends AuthorizingRealm {
 	private static final Logger logger = LoggerFactory.getLogger(AuthorizingRealm.class);
-	@Resource
-	private CacheManager shiroCacheManager;
-	
 	@Autowired
 	private UserMapper userMapper;
-
+	
 	public CustomSecurityRealm() {
 		setName("cptShiroDbRealm");
 		// 采用MD5加密
-		setCredentialsMatcher(new HashedCredentialsMatcher("md5"));
+		//setCredentialsMatcher(new HashedCredentialsMatcher("md5"));
 		// 认证
 //		super.setAuthenticationCacheName(Constants.AUTHENTICATIONCACHENAME);
 //		super.setAuthenticationCachingEnabled(false);
@@ -69,7 +64,7 @@ public class CustomSecurityRealm extends AuthorizingRealm {
         UserExample.Criteria  criteria= example.createCriteria();
         criteria.andUserNameEqualTo(token.getUsername());
         //List<User>  userEntityList = userMapper.selectByExample(example);
-        User user = userMapper.select(1L);
+        User user = userMapper.selectByPrimaryKey(1L);
         List<User>  userEntityList = Lists.newArrayList();
         userEntityList.add(user);
         if ( userEntityList.size()>0) {

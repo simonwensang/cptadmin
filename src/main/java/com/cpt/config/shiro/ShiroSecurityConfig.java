@@ -3,107 +3,108 @@ package com.cpt.config.shiro;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.DispatcherType;
 import javax.servlet.Filter;
 
-import org.apache.shiro.session.mgt.SessionManager;
 import org.apache.shiro.spring.LifecycleBeanPostProcessor;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
+import org.apache.shiro.web.filter.authc.AnonymousFilter;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
-import org.apache.shiro.web.mgt.WebSecurityManager;
 import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
-import org.crazycake.shiro.RedisCacheManager;
-import org.crazycake.shiro.RedisManager;
-import org.crazycake.shiro.RedisSessionDAO;
 import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.beans.factory.config.MethodInvokingFactoryBean;
+import org.springframework.boot.context.embedded.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
+import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.web.filter.DelegatingFilterProxy;
 
 
 @Configuration
 public class ShiroSecurityConfig {
-	@Value("${redis.ip}")
-	private String redisIp;
-
-	@Value("${redis.port}")
-	private int redisPort;
-
-	@Value("${redis.expire}")
-	private int redisExpire;
 	
-	@Value("${redis.timeout}")
-	private int redisTimeout;
+	/**
+	 * FilterRegistrationBean
+	 * @return
+	 */
+	@Bean
+	public FilterRegistrationBean filterRegistrationBean() {
+		FilterRegistrationBean filterRegistration = new FilterRegistrationBean();
+        filterRegistration.setFilter(new DelegatingFilterProxy("shiroFilter")); 
+        filterRegistration.setEnabled(true);
+        filterRegistration.addUrlPatterns("/*"); 
+        filterRegistration.setDispatcherTypes(DispatcherType.REQUEST);
+        return filterRegistration;
+	}
 	
-	@Value("${shiro.session.timeout}")
-	private int shiroSessionTimeout;
+	/**
+	 * @see org.apache.shiro.spring.web.ShiroFilterFactoryBean
+	 * @return
+	 */
+	@Bean(name = "shiroFilter")
+	    public ShiroFilterFactoryBean shiroFilter(){
+	        ShiroFilterFactoryBean shiroFilter = new ShiroFilterFactoryBean();
+	        shiroFilter.setSecurityManager(securityManager());
+	        shiroFilter.setLoginUrl("/login");
+	        shiroFilter.setUnauthorizedUrl("/unauthor");
+	        
+	        Map<String, Filter> filters = new HashMap<>();
+	       // filters.put("kickout", kickoutSessionControlFilter());
+//	      filters.put("authc", wswyAuthenticationFilter());
+	        filters.put("anon", new AnonymousFilter());
+	        shiroFilter.setFilters(filters);
+	        
+	        Map<String, String> definitionsMap = new HashMap<>();
+	        
+	        definitionsMap.put("/login", "anon");//anon
+	        definitionsMap.put("/unlogin", "anon");//anon
+	        definitionsMap.put("/toLogin", "anon");//anon
+	        //definitionsMap.put("/**", "authc");//authc
+	        definitionsMap.put("/", "anon");//anon
+	       
+	        shiroFilter.setFilterChainDefinitionMap(definitionsMap);
+	        return shiroFilter;
+	    }
 	
-	@Value("${shiro.session.maxcount}")
-	private int shiroSessionMaxcount;
-
-	@Value("${shiro.kickout.url}")
-	private String shiroSessionKickoutUrl;
+	/**
+	 * @see org.apache.shiro.mgt.SecurityManager
+	 * @return
+	 */
+	@Bean(name="securityManager")
+	public DefaultWebSecurityManager securityManager() {
+		DefaultWebSecurityManager manager = new DefaultWebSecurityManager();
+		manager.setRealm(customSecurityRealm());
+		manager.setCacheManager(redisCacheManager());
+		manager.setSessionManager(defaultWebSessionManager());
+		return manager;
+	}
 	
-	@Value("${shiro.login.url}")
-	private String shiroLoginUrl;
-	
-	@Value("${shiro.unlogin.url}")
-	private String shiroUnLoginUrl;
-	
-	@Value("${shiro.unauthorized.url}")
-	private String shiroUnauthorizedUrl;
-	
+	/**
+	 * @see DefaultWebSessionManager
+	 * @return
+	 */
+	@Bean(name="sessionManager")
+	public DefaultWebSessionManager defaultWebSessionManager() {
+		DefaultWebSessionManager sessionManager = new DefaultWebSessionManager();
+		sessionManager.setCacheManager(redisCacheManager());
+		sessionManager.setGlobalSessionTimeout(1800000);
+		sessionManager.setDeleteInvalidSessions(true);
+		sessionManager.setSessionValidationSchedulerEnabled(true);
+		sessionManager.setDeleteInvalidSessions(true);
+		return sessionManager;
+	}
+   
     @Bean
-    public RedisManager redisManager(){
-    	RedisManager redisManager = new RedisManager();
-    	redisManager.setHost(redisIp);
-    	redisManager.setPort(redisPort);
-    	redisManager.setExpire(redisExpire);
-    	redisManager.setTimeout(redisTimeout);
-    	return redisManager;
-    }
-
-    @Bean
-    public RedisCacheManager redisCacheManager(){
-    	RedisCacheManager rcm =  new RedisCacheManager();
-    	rcm.setRedisManager(redisManager());
-    	return rcm;
-    }
-    
-    @Bean
-    public RedisSessionDAO redisSessionDAO(){
-    	RedisSessionDAO redisSessionDAO = new RedisSessionDAO();
-    	redisSessionDAO.setKeyPrefix("cpt_shiro_redis_session:");
-    	redisSessionDAO.setRedisManager(redisManager());
-    	return redisSessionDAO;
-    }
-    
-    @Bean
-    @DependsOn(value="lifecycleBeanPostProcessor")
+    @DependsOn(value={"lifecycleBeanPostProcessor", "shrioRedisCacheManager"})
     public CustomSecurityRealm customSecurityRealm(){
     	CustomSecurityRealm userRealm = new CustomSecurityRealm();
     	userRealm.setCacheManager(redisCacheManager());
+    	userRealm.setCachingEnabled(true);
+		userRealm.setAuthenticationCachingEnabled(true);
+		userRealm.setAuthorizationCachingEnabled(true);
     	return userRealm;
-    }
-    
-    @Bean
-    public WebSecurityManager securityManager(){
-        DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
-        securityManager.setRealm(customSecurityRealm());
-        securityManager.setSessionManager(sessionManager());
-        securityManager.setCacheManager(redisCacheManager());
-        return securityManager;
-    }
-
-    @Bean
-    public SessionManager sessionManager(){
-    	DefaultWebSessionManager defaultWebSessionManager = new DefaultWebSessionManager();
-    	defaultWebSessionManager.setGlobalSessionTimeout(shiroSessionTimeout);
-    	defaultWebSessionManager.setSessionDAO(redisSessionDAO());
-    	defaultWebSessionManager.setSessionValidationSchedulerEnabled(true);
-    	return defaultWebSessionManager;
     }
     
     @Bean
@@ -119,58 +120,35 @@ public class ShiroSecurityConfig {
         return authorizationAttributeSourceAdvisor;
     }
     
+    @Bean(name="shrioRedisCacheManager")
+	@DependsOn(value="redisTemplate")
+	public ShrioRedisCacheManager redisCacheManager() {
+		ShrioRedisCacheManager cacheManager = new ShrioRedisCacheManager(redisTemplate());
+		return cacheManager;
+	}
+	
+	@Bean(name="redisTemplate")
+	public RedisTemplate<byte[], Object> redisTemplate() {
+	    RedisTemplate<byte[], Object> template = new RedisTemplate<>();
+	    template.setConnectionFactory(connectionFactory());
+	    return template;
+	}
+	
+	@Bean
+	public JedisConnectionFactory connectionFactory(){
+		JedisConnectionFactory conn = new JedisConnectionFactory();
+		conn.setDatabase(3);
+		conn.setHostName("127.0.0.1");
+		//conn.setPassword("123456");
+		conn.setPort(6379);
+		conn.setTimeout(3000);
+		return conn;
+	}
+    
     /**
      * 保证实现了Shiro内部lifecycle函数的bean执行
      * @return
      */
-//    @Bean
-//    public LifecycleBeanPostProcessor lifecycleBeanPostProcessor(){
-//    	return new LifecycleBeanPostProcessor();
-//    }
-    
-    @Bean
-    public MethodInvokingFactoryBean methodInvokingFactoryBean(){
-        MethodInvokingFactoryBean methodInvokingFactoryBean = new MethodInvokingFactoryBean();
-        methodInvokingFactoryBean.setStaticMethod("org.apache.shiro.SecurityUtils.setSecurityManager");
-        methodInvokingFactoryBean.setArguments(new Object[]{securityManager()});
-        return methodInvokingFactoryBean;
-    }
-    
-    @Bean
-    public KickoutSessionControlFilter kickoutSessionControlFilter(){
-    	KickoutSessionControlFilter kickoutSessionControlFilter = new KickoutSessionControlFilter();
-    	kickoutSessionControlFilter.setCacheManager(redisCacheManager());
-    	kickoutSessionControlFilter.setSessionManager(sessionManager());
-    	kickoutSessionControlFilter.setKickoutAfter(false);
-    	kickoutSessionControlFilter.setMaxSession(shiroSessionMaxcount);
-    	kickoutSessionControlFilter.setKickoutUrl(shiroSessionKickoutUrl);
-    	return kickoutSessionControlFilter;
-    }
-    
-    
-    @Bean
-    public ShiroFilterFactoryBean shiroFilter(){
-        ShiroFilterFactoryBean shiroFilter = new ShiroFilterFactoryBean();
-        shiroFilter.setSecurityManager(securityManager());
-        shiroFilter.setLoginUrl(shiroUnLoginUrl);
-        shiroFilter.setUnauthorizedUrl(shiroUnauthorizedUrl);
-        
-        Map<String, Filter> filters = new HashMap<>();
-        filters.put("kickout", kickoutSessionControlFilter());
-//      filters.put("authc", wswyAuthenticationFilter());
-        shiroFilter.setFilters(filters);
-        
-        Map<String, String> definitionsMap = new HashMap<>();
-        
-        definitionsMap.put("/login", "anon");//anon
-        definitionsMap.put("/unlogin", "anon");//anon
-        definitionsMap.put("/toLogin", "anon");//anon
-        //definitionsMap.put("/**", "authc");//authc
-        definitionsMap.put("/", "anon");//anon
-       
-        shiroFilter.setFilterChainDefinitionMap(definitionsMap);
-        return shiroFilter;
-    }
     @Bean
 	public LifecycleBeanPostProcessor lifecycleBeanPostProcessor() {
 		return new LifecycleBeanPostProcessor();

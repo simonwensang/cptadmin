@@ -4,6 +4,10 @@
 ## dev | test | prod
 spring: 
   profiles.active: dev
+  
+# IDENTITY (ContextIdApplicationContextInitializer)
+spring.application.index: MyBatis.v1.1
+spring.application.name: MyBatis Boot
 
 # EMBEDDED SERVER CONFIGURATION (ServerProperties)
 server: 
@@ -18,33 +22,27 @@ logging:
   file: cptadmin.log
   level.com.cpt: INFO
 
-## redis
-redis.ip: localhost
-redis.port: 6379
-redis.expire: 172800
-redis.timeout: 10000
-redis.pool.maxActive: 1024
-redis.pool.maxIdle: 200
-redis.pool.maxWait: 1000
-redis.pool.testOnBorrow: true
-## shiro
-shiro.session.timeout: 172800000
-shiro.session.maxcount: 1
-shiro.kickout.url: /unlogin-kickout
-shiro.login.url: /login
-shiro.unlogin.url: /unlogin
-shiro.unauthorized.url: /unauth
-shiro.login.limit: 5
+# REDIS (RedisProperties)
+spring.redis.database: 2 
+spring.redis.host: 127.0.0.1
+spring.redis.pool.max-active: 8 
+spring.redis.pool.max-total: 50
+spring.redis.pool.max-wait-millis: 15000
+spring.redis.pool.test-on-borrow: true
+spring.redis.pool.max-idle: 10
+spring.redis.pool.max-wait: -1 
+spring.redis.pool.min-idle: 0 
+spring.redis.port: 6379 
+spring.redis.timeout: 3000
 
 #MYBATIS
-mybatis.mapper-locations: classpath*:/com/cpt/*/mapper/**.xml
+mybatis.mapper-locations: classpath*:/com/cpt/*/mapper/*.xml
 mybatis.configuration.map-underscore-to-camel-case: true
 mybatis.configuration.use-generated-keys: true
 mybatis.configuration.default-fetch-size: 100
 mybatis.configuration.default-statement-timeout: 30
 
 #DATASOURCE
-spring.datasource.schema: classpath:init-sql/schema.sql
 spring.datasource.continueOnError: true
 
 spring.datasource.type: com.alibaba.druid.pool.DruidDataSource

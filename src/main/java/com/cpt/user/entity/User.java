@@ -1,9 +1,13 @@
 package com.cpt.user.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class User {
-    private Long id;
+public class User implements Serializable{
+    
+	private static final long serialVersionUID = -201607838026361446L;
+
+	private Long id;
 
     private String userName;
 
