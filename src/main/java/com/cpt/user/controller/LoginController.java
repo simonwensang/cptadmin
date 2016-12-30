@@ -38,7 +38,7 @@ public class LoginController {
         token.setRememberMe(true);
         try {
         	SecurityUtils.getSubject().login(token);
-        	return "redirect:/index";
+        	return "redirect:/main";
         }catch (AuthenticationException e) {
         	log.error("登录失败错误信息:"+e);
         	token.clear();

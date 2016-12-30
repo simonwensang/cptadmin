@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8"/>
     <title>
-        ERP后台
+		中科电ERP后台
     </title>
     #parse("tags.vm")
 </head>
@@ -15,7 +15,7 @@
             <a href="#" class="navbar-brand">
                 <small>
                     <i class="fa fa-leaf"></i>
-                    ERP后台
+						中科电ERP后台
                 </small>
             </a>
         </div>
@@ -36,14 +36,14 @@
                 <ul class="submenu">
                     <li>
                         <a href="javascript:;"
-                           onclick="addNewTabs({title:'Demo列表',url: '$!contentPath'+'/demo/list'})">
+                           onclick="addNewTabs({title:'创建项目',url: '/demo/list'})">
                             <i class="icon-double-angle-right"></i>
                             Demo列表
                         </a>
                     </li>
 					<li>
                         <a href="javascript:;"
-                           onclick="addNewTabs({title:'审核公司',url: '$!contentPath'+'/companyPend/list'})">
+                           onclick="addNewTabs({title:'审核公司',url: '/companyPend/list'})">
                             <i class="icon-double-angle-right"></i>
                           审核公司
                         </a>
@@ -62,7 +62,7 @@
                             公司资料管理
                         </a>
                     </li>
-					 <li>
+					<li>
                         <a href="javascript:;"
                            onclick="addNewTabs({title:'设计师管理',url: '$!contentPath'+'/designer/list'})">
                             <i class="icon-double-angle-right"></i>
