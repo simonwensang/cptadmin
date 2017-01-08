@@ -30,7 +30,7 @@ public class CustomSecurityRealm extends AuthorizingRealm {
 	@Autowired
 	private UserMapper userMapper;
 	
-	public CustomSecurityRealm() {
+	public CustomSecurityRealm() { 
 		setName("cptShiroDbRealm");
 		// 采用MD5加密
 		//setCredentialsMatcher(new HashedCredentialsMatcher("md5"));
@@ -62,14 +62,14 @@ public class CustomSecurityRealm extends AuthorizingRealm {
         UsernamePasswordToken token=(UsernamePasswordToken) authcToken;
         UserExample example= new UserExample();
         UserExample.Criteria  criteria= example.createCriteria();
-        criteria.andUserNameEqualTo(token.getUsername());
-        //List<User>  userEntityList = userMapper.selectByExample(example);
-        User user = userMapper.selectByPrimaryKey(1L);
-        List<User>  userEntityList = Lists.newArrayList();
-        userEntityList.add(user);
+        criteria.andAccountEqualTo(token.getUsername());
+        List<User>  userEntityList = userMapper.selectByExample(example);
+        //User user = userMapper.selectByPrimaryKey(1);
+       // List<User>  userEntityList = Lists.newArrayList();
+        //userEntityList.add(user);
         if ( userEntityList.size()>0) {
         	//SecurityUtils.getSubject().getSession().setAttribute("user", userEntity);
-        	return new SimpleAuthenticationInfo(userEntityList.get(0), userEntityList.get(0).getPassWord(), getName());
+        	return new SimpleAuthenticationInfo(userEntityList.get(0), userEntityList.get(0).getPassword(), getName());
         } else {
         	throw new UnknownAccountException();
         }

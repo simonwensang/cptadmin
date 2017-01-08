@@ -3,56 +3,41 @@ package com.cpt.user.entity;
 import java.io.Serializable;
 import java.util.Date;
 
-public class User implements Serializable{
-    
+public class User implements Serializable {
 	private static final long serialVersionUID = -201607838026361446L;
 
-	private Long id;
+	private Integer id;
 
-    private String userName;
+    private String account;
 
-    private String passWord;
-
-    private Long mobile;
+    private String password;
 
     private String name;
 
-    private Date updateTime;
-
     private Date createTime;
 
-    private Date lastLoginTime;
-
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getAccount() {
+        return account;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName == null ? null : userName.trim();
+    public void setAccount(String account) {
+        this.account = account == null ? null : account.trim();
     }
 
-    public String getPassWord() {
-        return passWord;
+    public String getPassword() {
+        return password;
     }
 
-    public void setPassWord(String passWord) {
-        this.passWord = passWord == null ? null : passWord.trim();
-    }
-
-    public Long getMobile() {
-        return mobile;
-    }
-
-    public void setMobile(Long mobile) {
-        this.mobile = mobile;
+    public void setPassword(String password) {
+        this.password = password == null ? null : password.trim();
     }
 
     public String getName() {
@@ -63,27 +48,11 @@ public class User implements Serializable{
         this.name = name == null ? null : name.trim();
     }
 
-    public Date getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
-    }
-
     public Date getCreateTime() {
         return createTime;
     }
 
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
-    }
-
-    public Date getLastLoginTime() {
-        return lastLoginTime;
-    }
-
-    public void setLastLoginTime(Date lastLoginTime) {
-        this.lastLoginTime = lastLoginTime;
     }
 }

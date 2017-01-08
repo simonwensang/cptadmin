@@ -24,6 +24,11 @@ public class LoginController {
 		return "login";
 	}
 	
+	@RequestMapping({"/main"})
+	public String main(ModelMap map){
+		return "main";
+	}
+	
     @RequestMapping(value = "unlogin")
     public String unlogin() {
         return "redirect:/login";
@@ -34,11 +39,11 @@ public class LoginController {
     	
     	//logger.debug("Processing trade with id: {} and symbol : {} ", id, symbol);
     	log.info("toLogin");
-    	UsernamePasswordToken token = new UsernamePasswordToken(user.getUserName(), user.getPassWord());
+    	UsernamePasswordToken token = new UsernamePasswordToken(user.getAccount(), user.getPassword());
         token.setRememberMe(true);
         try {
         	SecurityUtils.getSubject().login(token);
-        	return "redirect:/index";
+        	return "redirect:/main";
         }catch (AuthenticationException e) {
         	log.error("登录失败错误信息:"+e);
         	token.clear();

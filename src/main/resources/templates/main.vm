@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8"/>
     <title>
-        ERP后台
+		中科电ERP后台
     </title>
     #parse("tags.vm")
 </head>
@@ -15,7 +15,7 @@
             <a href="#" class="navbar-brand">
                 <small>
                     <i class="fa fa-leaf"></i>
-                    ERP后台
+						中科电ERP后台
                 </small>
             </a>
         </div>
@@ -36,60 +36,12 @@
                 <ul class="submenu">
                     <li>
                         <a href="javascript:;"
-                           onclick="addNewTabs({title:'Demo列表',url: '$!contentPath'+'/demo/list'})">
+                           onclick="addNewTabs({title:'项目列表',url: '/demo/list'})">
                             <i class="icon-double-angle-right"></i>
-                            Demo列表
+							 项目列表
                         </a>
                     </li>
-					<li>
-                        <a href="javascript:;"
-                           onclick="addNewTabs({title:'审核公司',url: '$!contentPath'+'/companyPend/list'})">
-                            <i class="icon-double-angle-right"></i>
-                          审核公司
-                        </a>
-                    </li>
-                    <li>
-                        <a href="javascript:;"
-                           onclick="addNewTabs({title:'审核设计师',url: '$!contentPath'+'/designerPend/list'})">
-                            <i class="icon-double-angle-right"></i>
-                            审核设计师
-                        </a>
-                    </li>
-                    <li>
-                        <a href="javascript:;"
-                           onclick="addNewTabs({title:'公司资料管理',url: '$!contentPath'+'/company/list'})">
-                            <i class="icon-double-angle-right"></i>
-                            公司资料管理
-                        </a>
-                    </li>
-					 <li>
-                        <a href="javascript:;"
-                           onclick="addNewTabs({title:'设计师管理',url: '$!contentPath'+'/designer/list'})">
-                            <i class="icon-double-angle-right"></i>
-                            设计师管理
-                        </a>
-                    </li>
-                    <li>
-                        <a href="javascript:;"
-                           onclick="addNewTabs({title:'辅材供应商管理',url: '$!contentPath'+'/supplier/list'})">
-                            <i class="icon-double-angle-right"></i>
-                            辅材供应商管理
-                        </a>
-                    </li>
-                    <li>
-                        <a href="javascript:;"
-                           onclick="addNewTabs({title:'模板设计',url: '$!contentPath'+ '/template/list'})">
-                            <i class="icon-double-angle-right"></i>
-                            模板设计
-                        </a>
-                    </li>
-                    <li>
-                        <a href="javascript:;"
-                           onclick="addNewTabs({title:'订单进度列表',url: '$!contentPath'+ '/order/list'})">
-                            <i class="icon-double-angle-right"></i>
-                            订单进度列表
-                        </a>
-                    </li>
+					 
 
                 </ul>
             </li>
