@@ -2,12 +2,7 @@ package com.cpt.common;
 
 import java.io.Serializable;
 import java.util.List;
-
-/**
- * Author:harding
- * Date:2016/10/20 11:33
- * Description:分页结果对象
- */
+ 
 public class PageResult<T> implements Serializable {
 
     private static final long serialVersionUID = -7710168010225904920L;

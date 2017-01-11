@@ -4,11 +4,7 @@ import org.apache.commons.lang.StringUtils;
 
 import java.io.Serializable;
 
-/**
- * Author:harding
- * Date:2016/10/20 13:30
- * Description:分页查询参数对象
- */
+ 
 public class PageParam implements Serializable {
 
     private static final long serialVersionUID = -7047857825792876554L;

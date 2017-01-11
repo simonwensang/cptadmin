@@ -7,10 +7,10 @@ import javax.annotation.PostConstruct;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
+import org.apache.shiro.authc.LockedAccountException;
 import org.apache.shiro.authc.SimpleAuthenticationInfo;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
-import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
@@ -19,19 +19,29 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.cpt.user.entity.User;
-import com.cpt.user.entity.UserExample;
-import com.cpt.user.mapper.UserMapper;
-import com.google.common.collect.Lists;
+import com.cpt.mapper.UserMapper;
+import com.cpt.mapper.ext.ModuleExtMapper;
+import com.cpt.mapper.ext.RoleExtMapper;
+import com.cpt.model.Module;
+import com.cpt.model.Role;
+import com.cpt.model.User;
+import com.cpt.model.UserExample;
 
 @Component("customSecurityRealm")
 public class CustomSecurityRealm extends AuthorizingRealm {
 	private static final Logger logger = LoggerFactory.getLogger(AuthorizingRealm.class);
+	
 	@Autowired
 	private UserMapper userMapper;
 	
+	@Autowired
+	private RoleExtMapper roleExtMapper;
+	
+	@Autowired
+	private ModuleExtMapper moduleExtMapper;
+	
 	public CustomSecurityRealm() { 
-		setName("cptShiroDbRealm");
+		setName("customSecurityRealm");
 		// 采用MD5加密
 		//setCredentialsMatcher(new HashedCredentialsMatcher("md5"));
 		// 认证
@@ -64,12 +74,15 @@ public class CustomSecurityRealm extends AuthorizingRealm {
         UserExample.Criteria  criteria= example.createCriteria();
         criteria.andAccountEqualTo(token.getUsername());
         List<User>  userEntityList = userMapper.selectByExample(example);
-        //User user = userMapper.selectByPrimaryKey(1);
-       // List<User>  userEntityList = Lists.newArrayList();
-        //userEntityList.add(user);
         if ( userEntityList.size()>0) {
+        	User user = userEntityList.get(0);
+        	if("1".equals(user.getIsDeleted())){
+    			throw new LockedAccountException();
+    		}
+        	user.setRoles(roleExtMapper.selectByUserId(user.getId()));
+        	user.setModules(moduleExtMapper.selectByUserId(user.getId()));
         	//SecurityUtils.getSubject().getSession().setAttribute("user", userEntity);
-        	return new SimpleAuthenticationInfo(userEntityList.get(0), userEntityList.get(0).getPassword(), getName());
+        	return new SimpleAuthenticationInfo(user, user.getPassword(), getName());
         } else {
         	throw new UnknownAccountException();
         }

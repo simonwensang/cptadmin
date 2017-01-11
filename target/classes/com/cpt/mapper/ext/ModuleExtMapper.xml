@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cpt.mapper.ext.ModuleExtMapper">
+  <resultMap id="BaseResultMap" type="com.cpt.model.Module">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="module_name" jdbcType="VARCHAR" property="moduleName" />
+    <result column="module_code" jdbcType="VARCHAR" property="moduleCode" />
+    <result column="module_path" jdbcType="VARCHAR" property="modulePath" />
+    <result column="module_type" jdbcType="INTEGER" property="moduleType" />
+    <result column="module_key" jdbcType="VARCHAR" property="moduleKey" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+   
+  <select id="selectByUserId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+   select e.* from t_user_role b left join t_role c on b.role_id=c.id left join t_role_module d on c.id=d.role_id left join t_module e on d.module_id=e.id where b.user_id=#{userId}
+  </select>
+   
+</mapper>

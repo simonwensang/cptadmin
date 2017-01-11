@@ -1,0 +1,919 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cpt.mapper.ModuleMapper">
+  <resultMap id="BaseResultMap" type="com.cpt.model.Module">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="module_name" jdbcType="VARCHAR" property="moduleName" />
+    <result column="module_code" jdbcType="VARCHAR" property="moduleCode" />
+    <result column="module_path" jdbcType="VARCHAR" property="modulePath" />
+    <result column="module_type" jdbcType="INTEGER" property="moduleType" />
+    <result column="module_key" jdbcType="VARCHAR" property="moduleKey" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, module_name, module_code, module_path, module_type, module_key, create_time
+  </sql>
+  <select id="selectByExample" parameterType="com.cpt.model.ModuleExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from t_module
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_module
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from t_module
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.cpt.model.ModuleExample">
+    delete from t_module
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.cpt.model.Module">
+    insert into t_module (id, module_name, module_code, 
+      module_path, module_type, module_key, 
+      create_time)
+    values (#{id,jdbcType=BIGINT}, #{moduleName,jdbcType=VARCHAR}, #{moduleCode,jdbcType=VARCHAR}, 
+      #{modulePath,jdbcType=VARCHAR}, #{moduleType,jdbcType=INTEGER}, #{moduleKey,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.cpt.model.Module">
+    insert into t_module
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="moduleName != null">
+        module_name,
+      </if>
+      <if test="moduleCode != null">
+        module_code,
+      </if>
+      <if test="modulePath != null">
+        module_path,
+      </if>
+      <if test="moduleType != null">
+        module_type,
+      </if>
+      <if test="moduleKey != null">
+        module_key,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="moduleName != null">
+        #{moduleName,jdbcType=VARCHAR},
+      </if>
+      <if test="moduleCode != null">
+        #{moduleCode,jdbcType=VARCHAR},
+      </if>
+      <if test="modulePath != null">
+        #{modulePath,jdbcType=VARCHAR},
+      </if>
+      <if test="moduleType != null">
+        #{moduleType,jdbcType=INTEGER},
+      </if>
+      <if test="moduleKey != null">
+        #{moduleKey,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.cpt.model.ModuleExample" resultType="java.lang.Integer">
+    select count(*) from t_module
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update t_module
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.moduleName != null">
+        module_name = #{record.moduleName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.moduleCode != null">
+        module_code = #{record.moduleCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.modulePath != null">
+        module_path = #{record.modulePath,jdbcType=VARCHAR},
+      </if>
+      <if test="record.moduleType != null">
+        module_type = #{record.moduleType,jdbcType=INTEGER},
+      </if>
+      <if test="record.moduleKey != null">
+        module_key = #{record.moduleKey,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update t_module
+    set id = #{record.id,jdbcType=BIGINT},
+      module_name = #{record.moduleName,jdbcType=VARCHAR},
+      module_code = #{record.moduleCode,jdbcType=VARCHAR},
+      module_path = #{record.modulePath,jdbcType=VARCHAR},
+      module_type = #{record.moduleType,jdbcType=INTEGER},
+      module_key = #{record.moduleKey,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cpt.model.Module">
+    update t_module
+    <set>
+      <if test="moduleName != null">
+        module_name = #{moduleName,jdbcType=VARCHAR},
+      </if>
+      <if test="moduleCode != null">
+        module_code = #{moduleCode,jdbcType=VARCHAR},
+      </if>
+      <if test="modulePath != null">
+        module_path = #{modulePath,jdbcType=VARCHAR},
+      </if>
+      <if test="moduleType != null">
+        module_type = #{moduleType,jdbcType=INTEGER},
+      </if>
+      <if test="moduleKey != null">
+        module_key = #{moduleKey,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cpt.model.Module">
+    update t_module
+    set module_name = #{moduleName,jdbcType=VARCHAR},
+      module_code = #{moduleCode,jdbcType=VARCHAR},
+      module_path = #{modulePath,jdbcType=VARCHAR},
+      module_type = #{moduleType,jdbcType=INTEGER},
+      module_key = #{moduleKey,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <resultMap id="BaseResultMap" type="com.cpt.model.Module">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="module_name" jdbcType="VARCHAR" property="moduleName" />
+    <result column="module_path" jdbcType="VARCHAR" property="modulePath" />
+    <result column="module_type" jdbcType="INTEGER" property="moduleType" />
+    <result column="module_key" jdbcType="VARCHAR" property="moduleKey" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, module_name, module_path, module_type, module_key, create_time
+  </sql>
+  <select id="selectByExample" parameterType="com.cpt.model.ModuleExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from t_module
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_module
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_module
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.cpt.model.ModuleExample">
+    delete from t_module
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.cpt.model.Module">
+    insert into t_module (id, module_name, module_path, 
+      module_type, module_key, create_time
+      )
+    values (#{id,jdbcType=INTEGER}, #{moduleName,jdbcType=VARCHAR}, #{modulePath,jdbcType=VARCHAR}, 
+      #{moduleType,jdbcType=INTEGER}, #{moduleKey,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.cpt.model.Module">
+    insert into t_module
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="moduleName != null">
+        module_name,
+      </if>
+      <if test="modulePath != null">
+        module_path,
+      </if>
+      <if test="moduleType != null">
+        module_type,
+      </if>
+      <if test="moduleKey != null">
+        module_key,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="moduleName != null">
+        #{moduleName,jdbcType=VARCHAR},
+      </if>
+      <if test="modulePath != null">
+        #{modulePath,jdbcType=VARCHAR},
+      </if>
+      <if test="moduleType != null">
+        #{moduleType,jdbcType=INTEGER},
+      </if>
+      <if test="moduleKey != null">
+        #{moduleKey,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.cpt.model.ModuleExample" resultType="java.lang.Integer">
+    select count(*) from t_module
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update t_module
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.moduleName != null">
+        module_name = #{record.moduleName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.modulePath != null">
+        module_path = #{record.modulePath,jdbcType=VARCHAR},
+      </if>
+      <if test="record.moduleType != null">
+        module_type = #{record.moduleType,jdbcType=INTEGER},
+      </if>
+      <if test="record.moduleKey != null">
+        module_key = #{record.moduleKey,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update t_module
+    set id = #{record.id,jdbcType=INTEGER},
+      module_name = #{record.moduleName,jdbcType=VARCHAR},
+      module_path = #{record.modulePath,jdbcType=VARCHAR},
+      module_type = #{record.moduleType,jdbcType=INTEGER},
+      module_key = #{record.moduleKey,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cpt.model.Module">
+    update t_module
+    <set>
+      <if test="moduleName != null">
+        module_name = #{moduleName,jdbcType=VARCHAR},
+      </if>
+      <if test="modulePath != null">
+        module_path = #{modulePath,jdbcType=VARCHAR},
+      </if>
+      <if test="moduleType != null">
+        module_type = #{moduleType,jdbcType=INTEGER},
+      </if>
+      <if test="moduleKey != null">
+        module_key = #{moduleKey,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cpt.model.Module">
+    update t_module
+    set module_name = #{moduleName,jdbcType=VARCHAR},
+      module_path = #{modulePath,jdbcType=VARCHAR},
+      module_type = #{moduleType,jdbcType=INTEGER},
+      module_key = #{moduleKey,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <resultMap id="BaseResultMap" type="com.cpt.model.Module">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="module_name" jdbcType="VARCHAR" property="moduleName" />
+    <result column="module_path" jdbcType="VARCHAR" property="modulePath" />
+    <result column="module_type" jdbcType="INTEGER" property="moduleType" />
+    <result column="module_key" jdbcType="VARCHAR" property="moduleKey" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, module_name, module_path, module_type, module_key, create_time
+  </sql>
+  <select id="selectByExample" parameterType="com.cpt.model.ModuleExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from t_module
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_module
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_module
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.cpt.model.ModuleExample">
+    delete from t_module
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.cpt.model.Module">
+    insert into t_module (id, module_name, module_path, 
+      module_type, module_key, create_time
+      )
+    values (#{id,jdbcType=INTEGER}, #{moduleName,jdbcType=VARCHAR}, #{modulePath,jdbcType=VARCHAR}, 
+      #{moduleType,jdbcType=INTEGER}, #{moduleKey,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.cpt.model.Module">
+    insert into t_module
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="moduleName != null">
+        module_name,
+      </if>
+      <if test="modulePath != null">
+        module_path,
+      </if>
+      <if test="moduleType != null">
+        module_type,
+      </if>
+      <if test="moduleKey != null">
+        module_key,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="moduleName != null">
+        #{moduleName,jdbcType=VARCHAR},
+      </if>
+      <if test="modulePath != null">
+        #{modulePath,jdbcType=VARCHAR},
+      </if>
+      <if test="moduleType != null">
+        #{moduleType,jdbcType=INTEGER},
+      </if>
+      <if test="moduleKey != null">
+        #{moduleKey,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.cpt.model.ModuleExample" resultType="java.lang.Integer">
+    select count(*) from t_module
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update t_module
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.moduleName != null">
+        module_name = #{record.moduleName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.modulePath != null">
+        module_path = #{record.modulePath,jdbcType=VARCHAR},
+      </if>
+      <if test="record.moduleType != null">
+        module_type = #{record.moduleType,jdbcType=INTEGER},
+      </if>
+      <if test="record.moduleKey != null">
+        module_key = #{record.moduleKey,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update t_module
+    set id = #{record.id,jdbcType=INTEGER},
+      module_name = #{record.moduleName,jdbcType=VARCHAR},
+      module_path = #{record.modulePath,jdbcType=VARCHAR},
+      module_type = #{record.moduleType,jdbcType=INTEGER},
+      module_key = #{record.moduleKey,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cpt.model.Module">
+    update t_module
+    <set>
+      <if test="moduleName != null">
+        module_name = #{moduleName,jdbcType=VARCHAR},
+      </if>
+      <if test="modulePath != null">
+        module_path = #{modulePath,jdbcType=VARCHAR},
+      </if>
+      <if test="moduleType != null">
+        module_type = #{moduleType,jdbcType=INTEGER},
+      </if>
+      <if test="moduleKey != null">
+        module_key = #{moduleKey,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cpt.model.Module">
+    update t_module
+    set module_name = #{moduleName,jdbcType=VARCHAR},
+      module_path = #{modulePath,jdbcType=VARCHAR},
+      module_type = #{moduleType,jdbcType=INTEGER},
+      module_key = #{moduleKey,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <resultMap id="BaseResultMap" type="com.cpt.model.Module">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="module_name" jdbcType="VARCHAR" property="moduleName" />
+    <result column="module_path" jdbcType="VARCHAR" property="modulePath" />
+    <result column="module_type" jdbcType="INTEGER" property="moduleType" />
+    <result column="module_key" jdbcType="VARCHAR" property="moduleKey" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, module_name, module_path, module_type, module_key, create_time
+  </sql>
+  <select id="selectByExample" parameterType="com.cpt.model.ModuleExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from t_module
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_module
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_module
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.cpt.model.ModuleExample">
+    delete from t_module
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.cpt.model.Module">
+    insert into t_module (id, module_name, module_path, 
+      module_type, module_key, create_time
+      )
+    values (#{id,jdbcType=INTEGER}, #{moduleName,jdbcType=VARCHAR}, #{modulePath,jdbcType=VARCHAR}, 
+      #{moduleType,jdbcType=INTEGER}, #{moduleKey,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.cpt.model.Module">
+    insert into t_module
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="moduleName != null">
+        module_name,
+      </if>
+      <if test="modulePath != null">
+        module_path,
+      </if>
+      <if test="moduleType != null">
+        module_type,
+      </if>
+      <if test="moduleKey != null">
+        module_key,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="moduleName != null">
+        #{moduleName,jdbcType=VARCHAR},
+      </if>
+      <if test="modulePath != null">
+        #{modulePath,jdbcType=VARCHAR},
+      </if>
+      <if test="moduleType != null">
+        #{moduleType,jdbcType=INTEGER},
+      </if>
+      <if test="moduleKey != null">
+        #{moduleKey,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.cpt.model.ModuleExample" resultType="java.lang.Integer">
+    select count(*) from t_module
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update t_module
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.moduleName != null">
+        module_name = #{record.moduleName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.modulePath != null">
+        module_path = #{record.modulePath,jdbcType=VARCHAR},
+      </if>
+      <if test="record.moduleType != null">
+        module_type = #{record.moduleType,jdbcType=INTEGER},
+      </if>
+      <if test="record.moduleKey != null">
+        module_key = #{record.moduleKey,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update t_module
+    set id = #{record.id,jdbcType=INTEGER},
+      module_name = #{record.moduleName,jdbcType=VARCHAR},
+      module_path = #{record.modulePath,jdbcType=VARCHAR},
+      module_type = #{record.moduleType,jdbcType=INTEGER},
+      module_key = #{record.moduleKey,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cpt.model.Module">
+    update t_module
+    <set>
+      <if test="moduleName != null">
+        module_name = #{moduleName,jdbcType=VARCHAR},
+      </if>
+      <if test="modulePath != null">
+        module_path = #{modulePath,jdbcType=VARCHAR},
+      </if>
+      <if test="moduleType != null">
+        module_type = #{moduleType,jdbcType=INTEGER},
+      </if>
+      <if test="moduleKey != null">
+        module_key = #{moduleKey,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cpt.model.Module">
+    update t_module
+    set module_name = #{moduleName,jdbcType=VARCHAR},
+      module_path = #{modulePath,jdbcType=VARCHAR},
+      module_type = #{moduleType,jdbcType=INTEGER},
+      module_key = #{moduleKey,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

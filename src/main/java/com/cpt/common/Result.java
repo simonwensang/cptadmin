@@ -10,7 +10,7 @@ import java.io.Serializable;
  */
 public class Result<T> implements Serializable {
     private static final long serialVersionUID = -4696898674758059398L;
-    private int code;
+    private String code;
     private String msg;
     private T value;
 
@@ -23,13 +23,13 @@ public class Result<T> implements Serializable {
         this.value = value;
     }
 
-    public Result(int code, String msg) {
+    public Result(String code, String msg) {
 		super();
 		this.code = code;
 		this.msg = msg;
 	}
 
-    public Result(int code, String msg, T value) {
+    public Result(String code, String msg, T value) {
 		super();
 		this.code = code;
 		this.msg = msg;
@@ -40,11 +40,11 @@ public class Result<T> implements Serializable {
         return new Result<>(value);
     }
 
-    public int getCode() {
+    public String getCode() {
         return code;
     }
 
-    public void setCode(int code) {
+    public void setCode(String code) {
         this.code = code;
     }
 

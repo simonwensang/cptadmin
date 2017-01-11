@@ -5,11 +5,7 @@ import org.springframework.web.util.JavaScriptUtils;
 
 import java.beans.PropertyEditorSupport;
 
-/**
- * Author:harding
- * Date:2016/9/12 11:12
- * Description: input security xss
- */
+ 
 public class StringEscapeEditor extends PropertyEditorSupport {
 
     private boolean escapeHTML;

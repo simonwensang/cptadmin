@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cpt.mapper.ext.ProjectExtMapper">
+  <resultMap id="BaseResultMap" type="com.cpt.vo.ProjectVo">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="code" jdbcType="VARCHAR" property="code" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="report" jdbcType="TINYINT" property="report" />
+    <result column="tenderee" jdbcType="VARCHAR" property="tenderee" />
+    <result column="designer" jdbcType="VARCHAR" property="designer" />
+    <result column="agent" jdbcType="VARCHAR" property="agent" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="type" jdbcType="TINYINT" property="type" />
+    <result column="type_name" jdbcType="VARCHAR" property="typeName" />
+    <result column="tender_time" jdbcType="TIMESTAMP" property="tenderTime" />
+    <result column="commit_user" jdbcType="VARCHAR" property="commitUser" />
+    <result column="commit_user_id" jdbcType="BIGINT" property="commitUserId" />
+    <result column="commit_time" jdbcType="TIMESTAMP" property="commitTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="update_user" jdbcType="VARCHAR" property="updateUser" />
+    <result column="update_user_id" jdbcType="BIGINT" property="updateUserId" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="project_manager" jdbcType="VARCHAR" property="projectManager" />
+    <result column="project_manager_id" jdbcType="BIGINT" property="projectManagerId" />
+    <result column="project_manager_time" jdbcType="TIMESTAMP" property="projectManagerTime" />
+    <result column="price_manager" jdbcType="VARCHAR" property="priceManager" />
+    <result column="price_manager_id" jdbcType="BIGINT" property="priceManagerId" />
+    <result column="price_manager_time" jdbcType="TIMESTAMP" property="priceManagerTime" />
+    <result column="price_offer" jdbcType="VARCHAR" property="priceOffer" />
+    <result column="price_offer_id" jdbcType="BIGINT" property="priceOfferId" />
+    <result column="price_offer_time" jdbcType="TIMESTAMP" property="priceOfferTime" />
+  </resultMap>
+   
+  <select id="selectProjectList" parameterType="com.cpt.req.ProjectReq" resultMap="BaseResultMap">
+	    select 
+	    <include refid="Base_Column_List" />
+	    from  t_work_flow b left join t_project a on b.ref_id=a.id
+	    <where>
+	      b.user_id=#{userId}
+          <if test="id != null">
+              AND a.id = #{id}
+          </if>
+          <if test="name != null and name != ''">
+              AND a.name LIKE concat('%',#{name},'%')
+          </if>
+          <if test="priceManager != null and priceManager != ''">
+              AND a.price_manager LIKE concat('%',#{priceManager},'%')
+          </if>
+          <if test="priceOffer != null and priceOffer != ''">
+              AND a.price_offer LIKE concat('%',#{priceOffer},'%')
+          </if>
+          <if test="tenderee != null and tenderee != ''">
+              AND a.tenderee LIKE concat('%',#{tenderee},'%')
+          </if>
+          <if test="address != null and address != ''">
+              AND a.address LIKE concat('%',#{address},'%')
+          </if>
+          <if test="status != null ">
+              AND a.status = #{status} 
+          </if>
+	      </where>
+	      ORDER BY a.status ,a.commit_time DESC 
+	 </select>
+   
+</mapper>

@@ -37,7 +37,7 @@ spring.redis.port: 6379
 spring.redis.timeout: 3000
 
 #MYBATIS
-mybatis.mapper-locations: classpath*:/com/cpt/*/mapper/*.xml
+mybatis.mapper-locations: classpath*:/com/cpt/mapper/*.xml
 mybatis.configuration.map-underscore-to-camel-case: true
 mybatis.configuration.use-generated-keys: true
 mybatis.configuration.default-fetch-size: 100
