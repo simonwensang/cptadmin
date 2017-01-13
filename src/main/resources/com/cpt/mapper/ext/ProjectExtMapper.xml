@@ -5,7 +5,7 @@
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="code" jdbcType="VARCHAR" property="code" />
     <result column="name" jdbcType="VARCHAR" property="name" />
-    <result column="report" jdbcType="TINYINT" property="report" />
+    <result column="report" jdbcType="VARCHAR" property="report" />
     <result column="tenderee" jdbcType="VARCHAR" property="tenderee" />
     <result column="designer" jdbcType="VARCHAR" property="designer" />
     <result column="agent" jdbcType="VARCHAR" property="agent" />
@@ -33,7 +33,7 @@
    
   <select id="selectProjectList" parameterType="com.cpt.req.ProjectReq" resultMap="BaseResultMap">
 	    select 
-	    <include refid="Base_Column_List" />
+	  	 a.*
 	    from  t_work_flow b left join t_project a on b.ref_id=a.id
 	    <where>
 	      b.user_id=#{userId}
@@ -61,5 +61,176 @@
 	      </where>
 	      ORDER BY a.status ,a.commit_time DESC 
 	 </select>
-   
+    <insert id="insertSelective" parameterType="com.cpt.model.Project">
+  	<selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
+      select LAST_INSERT_ID()
+    </selectKey>
+    insert into t_project
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="code != null">
+        code,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="report != null">
+        report,
+      </if>
+      <if test="tenderee != null">
+        tenderee,
+      </if>
+      <if test="designer != null">
+        designer,
+      </if>
+      <if test="agent != null">
+        agent,
+      </if>
+      <if test="address != null">
+        address,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="typeName != null">
+        type_name,
+      </if>
+      <if test="tenderTime != null">
+        tender_time,
+      </if>
+      <if test="commitUser != null">
+        commit_user,
+      </if>
+      <if test="commitUserId != null">
+        commit_user_id,
+      </if>
+      <if test="commitTime != null">
+        commit_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="updateUser != null">
+        update_user,
+      </if>
+      <if test="updateUserId != null">
+        update_user_id,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="projectManager != null">
+        project_manager,
+      </if>
+      <if test="projectManagerId != null">
+        project_manager_id,
+      </if>
+      <if test="projectManagerTime != null">
+        project_manager_time,
+      </if>
+      <if test="priceManager != null">
+        price_manager,
+      </if>
+      <if test="priceManagerId != null">
+        price_manager_id,
+      </if>
+      <if test="priceManagerTime != null">
+        price_manager_time,
+      </if>
+      <if test="priceOffer != null">
+        price_offer,
+      </if>
+      <if test="priceOfferId != null">
+        price_offer_id,
+      </if>
+      <if test="priceOfferTime != null">
+        price_offer_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="code != null">
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="report != null">
+        #{report,jdbcType=VARCHAR},
+      </if>
+      <if test="tenderee != null">
+        #{tenderee,jdbcType=VARCHAR},
+      </if>
+      <if test="designer != null">
+        #{designer,jdbcType=VARCHAR},
+      </if>
+      <if test="agent != null">
+        #{agent,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=TINYINT},
+      </if>
+      <if test="typeName != null">
+        #{typeName,jdbcType=VARCHAR},
+      </if>
+      <if test="tenderTime != null">
+        #{tenderTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="commitUser != null">
+        #{commitUser,jdbcType=VARCHAR},
+      </if>
+      <if test="commitUserId != null">
+        #{commitUserId,jdbcType=BIGINT},
+      </if>
+      <if test="commitTime != null">
+        #{commitTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUserId != null">
+        #{updateUserId,jdbcType=BIGINT},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="projectManager != null">
+        #{projectManager,jdbcType=VARCHAR},
+      </if>
+      <if test="projectManagerId != null">
+        #{projectManagerId,jdbcType=BIGINT},
+      </if>
+      <if test="projectManagerTime != null">
+        #{projectManagerTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="priceManager != null">
+        #{priceManager,jdbcType=VARCHAR},
+      </if>
+      <if test="priceManagerId != null">
+        #{priceManagerId,jdbcType=BIGINT},
+      </if>
+      <if test="priceManagerTime != null">
+        #{priceManagerTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="priceOffer != null">
+        #{priceOffer,jdbcType=VARCHAR},
+      </if>
+      <if test="priceOfferId != null">
+        #{priceOfferId,jdbcType=BIGINT},
+      </if>
+      <if test="priceOfferTime != null">
+        #{priceOfferTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
 </mapper>

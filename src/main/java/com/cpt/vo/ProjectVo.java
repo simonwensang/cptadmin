@@ -2,15 +2,14 @@ package com.cpt.vo;
 
 import java.util.Date;
 
-public class ProjectVo { 
-	
+public class ProjectVo {
     private Long id;
 
     private String code;
 
     private String name;
 
-    private Byte report;
+    private String report;
 
     private String tenderee;
 
@@ -24,7 +23,7 @@ public class ProjectVo {
 
     private String typeName;
 
-    private Date tenderTime;
+    private String tenderTime;
 
     private String commitUser;
 
@@ -44,13 +43,19 @@ public class ProjectVo {
 
     private Long projectManagerId;
 
+    private Date projectManagerTime;
+
     private String priceManager;
 
     private Long priceManagerId;
 
+    private Date priceManagerTime;
+
     private String priceOffer;
 
     private Long priceOfferId;
+
+    private Date priceOfferTime;
 
     public Long getId() {
         return id;
@@ -76,12 +81,12 @@ public class ProjectVo {
         this.name = name == null ? null : name.trim();
     }
 
-    public Byte getReport() {
+    public String getReport() {
         return report;
     }
 
-    public void setReport(Byte report) {
-        this.report = report;
+    public void setReport(String report) {
+        this.report = report == null ? null : report.trim();
     }
 
     public String getTenderee() {
@@ -132,12 +137,12 @@ public class ProjectVo {
         this.typeName = typeName == null ? null : typeName.trim();
     }
 
-    public Date getTenderTime() {
+    public String getTenderTime() {
         return tenderTime;
     }
 
-    public void setTenderTime(Date tenderTime) {
-        this.tenderTime = tenderTime;
+    public void setTenderTime(String tenderTime) {
+        this.tenderTime = tenderTime == null ? null : tenderTime.trim();
     }
 
     public String getCommitUser() {
@@ -212,6 +217,14 @@ public class ProjectVo {
         this.projectManagerId = projectManagerId;
     }
 
+    public Date getProjectManagerTime() {
+        return projectManagerTime;
+    }
+
+    public void setProjectManagerTime(Date projectManagerTime) {
+        this.projectManagerTime = projectManagerTime;
+    }
+
     public String getPriceManager() {
         return priceManager;
     }
@@ -226,6 +239,14 @@ public class ProjectVo {
 
     public void setPriceManagerId(Long priceManagerId) {
         this.priceManagerId = priceManagerId;
+    }
+
+    public Date getPriceManagerTime() {
+        return priceManagerTime;
+    }
+
+    public void setPriceManagerTime(Date priceManagerTime) {
+        this.priceManagerTime = priceManagerTime;
     }
 
     public String getPriceOffer() {
@@ -244,4 +265,11 @@ public class ProjectVo {
         this.priceOfferId = priceOfferId;
     }
 
+    public Date getPriceOfferTime() {
+        return priceOfferTime;
+    }
+
+    public void setPriceOfferTime(Date priceOfferTime) {
+        this.priceOfferTime = priceOfferTime;
+    }
 }

@@ -26,6 +26,8 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xs
 			<pagehelper>4.0.0</pagehelper>
 			<shiro.version>1.2.5</shiro.version>
 			<shiro.redis.version>2.4.2.1-RELEASE</shiro.redis.version>
+			<jackson.version>2.6.1</jackson.version>
+			<jackson.asl.version>1.9.13</jackson.asl.version>
 	</properties>
    <dependencies>
    <dependency>
@@ -102,6 +104,32 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xs
 			<artifactId>fastjson</artifactId>
 			<version>${fastjson.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-mapper-asl</artifactId>
+			<version>${jackson.asl.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
+			<version>${jackson.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-annotations</artifactId>
+			<version>${jackson.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>${jackson.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.dataformat</groupId>
+			<artifactId>jackson-dataformat-yaml</artifactId>
+			<version>${jackson.version}</version>
+		</dependency>
+		
 		<!-- shiro -->
 		<dependency>
 			<groupId>org.apache.shiro</groupId>
@@ -118,6 +146,28 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xs
 			<artifactId>shiro-spring</artifactId>
 			<version>${shiro.version}</version>
 		</dependency>
+		<dependency>  
+	    <groupId>org.apache.shiro.web</groupId>  
+	    <artifactId>velocity-support</artifactId>  
+	        <version>0.0.6</version>  
+	        <scope>system</scope>  
+	        <!--本地jar的路径,相对或者绝对都可以-->  
+	        <systemPath> 
+	        D:/eclipse/workspace/cptadmin/src/main/resources/extjar/velocity-support.jar
+	        </systemPath>  
+		</dependency> 
+		<!-- redis -->
+		 <dependency>
+			<groupId>org.crazycake</groupId>
+			<artifactId>shiro-redis</artifactId>
+			<version>${shiro.redis.version}</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>slf4j-api</artifactId>
+					<groupId>org.slf4j</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency> 
    </dependencies>
    
    <build>

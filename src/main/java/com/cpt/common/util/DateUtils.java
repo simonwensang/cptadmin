@@ -569,8 +569,8 @@ public class DateUtils {
      *
      * @return
      */
-    public static String getCurrentDay() {
-        return format(new Date(), dateString);
+    public static String getCurrentDay(String formate) {
+        return format(new Date(),  formate);
     }
 
     public static String getStartDayStr(String day) {

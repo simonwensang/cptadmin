@@ -12,11 +12,11 @@ public class PageParam implements Serializable {
     /**
      * 当前页
      */
-    private int page;
+    private int page=1;
     /**
      * 每页显示记录数
      */
-    private int rows;
+    private int rows=10;
 
     /**
      * 排序字段
@@ -34,7 +34,7 @@ public class PageParam implements Serializable {
     private String columnSort;
 
     private Integer offset;
-    private Integer limit;
+    private Integer limit=10;
 
     public int getPage() {
         return page;

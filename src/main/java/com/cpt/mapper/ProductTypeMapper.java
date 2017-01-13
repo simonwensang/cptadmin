@@ -27,4 +27,6 @@ public interface ProductTypeMapper {
     int updateByPrimaryKeySelective(ProductType record);
 
     int updateByPrimaryKey(ProductType record);
+    
+    List<ProductType>  selectAll();
 }

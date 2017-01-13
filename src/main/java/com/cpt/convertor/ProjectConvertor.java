@@ -1,8 +1,10 @@
 package com.cpt.convertor;
 
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.cglib.beans.BeanCopier;
 
+import com.cpt.common.util.DateUtils;
 import com.cpt.model.Project;
 import com.cpt.req.ProjectReq;
 import com.cpt.vo.ProjectVo;
@@ -18,6 +20,9 @@ public class ProjectConvertor {
         }
         Project project = new Project();
         beanCopierForReqToProject.copy(projectReq, project, null);
+        /*if(StringUtils.isNotBlank(projectReq.getTenderTime())){
+        	 project.setTenderTime(DateUtils.parseStr(projectReq.getTenderTime(), DateUtils.dateTimeString));
+        }*/
         return project;
     }
 

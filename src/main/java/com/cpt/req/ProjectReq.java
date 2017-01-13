@@ -13,7 +13,7 @@ public class ProjectReq {
 
     private String name;
 
-    private Byte report;
+    private String report;
 
     private String tenderee;
 
@@ -27,7 +27,7 @@ public class ProjectReq {
 
     private String typeName;
 
-    private Date tenderTime;
+    private String tenderTime;
 
     private String commitUser;
 
@@ -46,5 +46,5 @@ public class ProjectReq {
     private String priceOffer;
 
     private Long userId;
-
+ 
 }

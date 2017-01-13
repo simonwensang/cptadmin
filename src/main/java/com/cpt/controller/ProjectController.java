@@ -1,5 +1,7 @@
 package com.cpt.controller;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,12 +14,15 @@ import org.springframework.web.servlet.ModelAndView;
 import com.cpt.common.PageParam;
 import com.cpt.common.PageResult;
 import com.cpt.common.Result;
+import com.cpt.model.ProductType;
 import com.cpt.req.OptReq;
 import com.cpt.req.ProjectReq;
+import com.cpt.service.ProductTypeService;
 import com.cpt.service.ProjectService;
 import com.cpt.vo.ProjectVo;
 
 @Controller
+@RequestMapping("/project")
 public class ProjectController {
 	
 	private static final Logger log =  LoggerFactory.getLogger(ProjectController.class);
@@ -25,6 +30,19 @@ public class ProjectController {
 	@Autowired 
 	private ProjectService projectService;
 	
+	@Autowired 
+	private ProductTypeService productTypeService;
+	  /**
+     * 公司资料管理列表
+     *
+     * @param mav
+     * @return
+     */
+    @RequestMapping(value = "/list", method = RequestMethod.GET)
+    public ModelAndView list(ModelAndView mav) {
+        mav.setViewName("project/project_list");
+        return mav;
+    }
 	 /**
      * 分页数据
      *
@@ -53,13 +71,27 @@ public class ProjectController {
         return mav;
     }
     /**
+     * 工程创建页面
+     *
+     * @param mav
+     * @param id
+     * @return
+     */
+    @RequestMapping(value = "/create", method = RequestMethod.GET)
+    public ModelAndView create(ModelAndView mav) {
+    	List<ProductType> productTypeList = productTypeService.selectAll();
+        mav.addObject("productTypeList", productTypeList);
+        mav.setViewName("project/project_detail");
+        return mav;
+    }
+    /**
      * 工程编辑详情
      *
      * @param mav
      * @param id
      * @return
      */
-    @RequestMapping(value = "/edit", method = RequestMethod.POST)
+    @RequestMapping(value = "/edit", method = RequestMethod.GET)
     public ModelAndView add(ModelAndView mav, Long id) {
     	ProjectVo projectVo = projectService.getProjectById(id);
         mav.addObject("projectVo", projectVo);
@@ -73,7 +105,8 @@ public class ProjectController {
      * @param id
      * @return
      */
-    @RequestMapping(value = "/addOrEdit", method = RequestMethod.GET)
+    @RequestMapping(value = "/addOrEdit", method = RequestMethod.POST)
+    @ResponseBody
     public Result<Integer> addOrEdit(ProjectReq projectReq) {
     	return projectService.addOrEdit(projectReq);
     }
@@ -84,7 +117,8 @@ public class ProjectController {
      * @param id
      * @return
      */
-    @RequestMapping(value = "/opt", method = RequestMethod.GET)
+    @RequestMapping(value = "/opt", method = RequestMethod.POST)
+    @ResponseBody
     public Result<Integer> opt( OptReq optReq) {
     	return projectService.opt( optReq);
     }

@@ -1,10 +1,14 @@
 package com.cpt.model;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-public class User {
-    private Long id;
+public class User implements Serializable {
+    
+	private static final long serialVersionUID = 8140154750486874544L;
+
+	private Long id;
 
     private String account;
 

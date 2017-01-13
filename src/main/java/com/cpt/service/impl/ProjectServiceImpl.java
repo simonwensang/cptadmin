@@ -17,6 +17,7 @@ import com.cpt.common.ResultCode;
 import com.cpt.common.constant.AuthorityStatus;
 import com.cpt.common.constant.MessageConstants;
 import com.cpt.common.constant.ProjectStatus;
+import com.cpt.common.util.CodeFactory;
 import com.cpt.convertor.ProjectConvertor;
 import com.cpt.mapper.ProjectMapper;
 import com.cpt.mapper.UserMapper;
@@ -168,7 +169,8 @@ public class ProjectServiceImpl implements ProjectService {
 	
 	@Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.DEFAULT, rollbackFor = Exception.class)
 	public Integer insert(Project project){
-		return projectMapper.insertSelective(project);
+		project.setCode(CodeFactory.getCode());
+		return projectExtMapper.insertSelective(project);
 	}
 	
 	@Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.DEFAULT, rollbackFor = Exception.class)

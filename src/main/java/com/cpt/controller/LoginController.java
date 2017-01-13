@@ -19,12 +19,12 @@ public class LoginController {
 
 	private static final Logger log =  LoggerFactory.getLogger(LoginController.class);
 	
-	@RequestMapping({"/",""})
+	@RequestMapping({"/login"})
 	public String login(ModelMap map){
 		return "login";
 	}
 	
-	@RequestMapping({"/main"})
+	@RequestMapping({"/","","/main"})
 	public String main(ModelMap map){
 		return "main";
 	}
@@ -40,7 +40,7 @@ public class LoginController {
     	//logger.debug("Processing trade with id: {} and symbol : {} ", id, symbol);
     	log.info("toLogin");
     	UsernamePasswordToken token = new UsernamePasswordToken(user.getAccount(), user.getPassword());
-        token.setRememberMe(true);
+        token.setRememberMe(false);
         try {
         	SecurityUtils.getSubject().login(token);
         	return "redirect:/main";

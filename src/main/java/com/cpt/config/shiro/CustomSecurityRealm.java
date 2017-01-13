@@ -79,8 +79,8 @@ public class CustomSecurityRealm extends AuthorizingRealm {
         	if("1".equals(user.getIsDeleted())){
     			throw new LockedAccountException();
     		}
-        	user.setRoles(roleExtMapper.selectByUserId(user.getId()));
-        	user.setModules(moduleExtMapper.selectByUserId(user.getId()));
+        	//user.setRoles(roleExtMapper.selectByUserId(user.getId()));
+        	//user.setModules(moduleExtMapper.selectByUserId(user.getId()));
         	//SecurityUtils.getSubject().getSession().setAttribute("user", userEntity);
         	return new SimpleAuthenticationInfo(user, user.getPassword(), getName());
         } else {

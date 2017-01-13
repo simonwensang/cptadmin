@@ -9,7 +9,7 @@ public class Project {
 
     private String name;
 
-    private Byte report;
+    private String report;
 
     private String tenderee;
 
@@ -23,7 +23,7 @@ public class Project {
 
     private String typeName;
 
-    private Date tenderTime;
+    private String tenderTime;
 
     private String commitUser;
 
@@ -81,12 +81,12 @@ public class Project {
         this.name = name == null ? null : name.trim();
     }
 
-    public Byte getReport() {
+    public String getReport() {
         return report;
     }
 
-    public void setReport(Byte report) {
-        this.report = report;
+    public void setReport(String report) {
+        this.report = report == null ? null : report.trim();
     }
 
     public String getTenderee() {
@@ -137,12 +137,12 @@ public class Project {
         this.typeName = typeName == null ? null : typeName.trim();
     }
 
-    public Date getTenderTime() {
+    public String getTenderTime() {
         return tenderTime;
     }
 
-    public void setTenderTime(Date tenderTime) {
-        this.tenderTime = tenderTime;
+    public void setTenderTime(String tenderTime) {
+        this.tenderTime = tenderTime == null ? null : tenderTime.trim();
     }
 
     public String getCommitUser() {

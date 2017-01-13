@@ -12,8 +12,10 @@ import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.filter.authc.AnonymousFilter;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
+import org.crazycake.shiro.RedisCacheManager;
+import org.crazycake.shiro.RedisManager;
+import org.crazycake.shiro.RedisSessionDAO;
 import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.embedded.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -57,13 +59,16 @@ public class ShiroSecurityConfig {
 	        shiroFilter.setFilters(filters);
 	        
 	        Map<String, String> definitionsMap = new HashMap<>();
-	        
 	        definitionsMap.put("/login", "anon");//anon
-	        definitionsMap.put("/unlogin", "anon");//anon
+	       // definitionsMap.put("/unlogin", "anon");//anon
 	        definitionsMap.put("/toLogin", "anon");//anon
-	        //definitionsMap.put("/**", "authc");//authc
-	        definitionsMap.put("/", "anon");//anon
-	       
+	        definitionsMap.put("/ace/**", "anon");//anon
+	        definitionsMap.put("/js/**", "anon");//anon
+	       // definitionsMap.put("/static/**", "anon");//anon
+	     //   definitionsMap.put("/logout", "logout");//anon
+	       // definitionsMap.put("/**", "authc");//authc
+	        definitionsMap.put("/main", "authc");
+			definitionsMap.put("/project/**", "authc");
 	        shiroFilter.setFilterChainDefinitionMap(definitionsMap);
 	        return shiroFilter;
 	    }
@@ -89,15 +94,40 @@ public class ShiroSecurityConfig {
 	public DefaultWebSessionManager defaultWebSessionManager() {
 		DefaultWebSessionManager sessionManager = new DefaultWebSessionManager();
 		sessionManager.setCacheManager(redisCacheManager());
-		sessionManager.setGlobalSessionTimeout(1800000);
-		sessionManager.setDeleteInvalidSessions(true);
+		sessionManager.setGlobalSessionTimeout(7200000);
+		//sessionManager.setDeleteInvalidSessions(true);
 		sessionManager.setSessionValidationSchedulerEnabled(true);
-		sessionManager.setDeleteInvalidSessions(true);
+		sessionManager.setSessionDAO(redisSessionDAO());
 		return sessionManager;
 	}
-   
+	
+	@Bean
+    public RedisSessionDAO redisSessionDAO(){
+    	RedisSessionDAO redisSessionDAO = new RedisSessionDAO();
+    	redisSessionDAO.setKeyPrefix("cpt_shiro_redis_session:");
+    	redisSessionDAO.setRedisManager(redisManager());
+    	return redisSessionDAO;
+    }
+	 
+	@Bean
+    public RedisCacheManager redisCacheManager(){
+    	RedisCacheManager rcm =  new RedisCacheManager();
+    	rcm.setKeyPrefix("cpt_shiro_redis_cache:");
+    	rcm.setRedisManager(redisManager());
+    	return rcm;
+    }
+	@Bean
+    public RedisManager redisManager(){
+    	RedisManager redisManager = new RedisManager();
+    	redisManager.setHost("127.0.0.1");
+    	redisManager.setPort(6379);
+    	//redisManager.setPassword(password);
+    	redisManager.setExpire(7200);
+    	redisManager.setTimeout(3000);
+    	return redisManager;
+    }
     @Bean
-    @DependsOn(value={"lifecycleBeanPostProcessor", "shrioRedisCacheManager"})
+    //@DependsOn(value={"lifecycleBeanPostProcessor", "shrioRedisCacheManager"})
     public CustomSecurityRealm customSecurityRealm(){
     	CustomSecurityRealm userRealm = new CustomSecurityRealm();
     	userRealm.setCacheManager(redisCacheManager());
@@ -108,7 +138,7 @@ public class ShiroSecurityConfig {
     }
     
     @Bean
-//    @DependsOn(value="lifecycleBeanPostProcessor")
+    @DependsOn(value="lifecycleBeanPostProcessor")
     public DefaultAdvisorAutoProxyCreator defaultAdvisorAutoProxyCreator(){
         return new DefaultAdvisorAutoProxyCreator();
     }
@@ -120,7 +150,7 @@ public class ShiroSecurityConfig {
         return authorizationAttributeSourceAdvisor;
     }
     
-    @Bean(name="shrioRedisCacheManager")
+   /* @Bean(name="shrioRedisCacheManager")
 	@DependsOn(value="redisTemplate")
 	public ShrioRedisCacheManager redisCacheManager() {
 		ShrioRedisCacheManager cacheManager = new ShrioRedisCacheManager(redisTemplate());
@@ -143,7 +173,7 @@ public class ShiroSecurityConfig {
 		conn.setPort(6379);
 		conn.setTimeout(3000);
 		return conn;
-	}
+	}*/
     
     /**
      * 保证实现了Shiro内部lifecycle函数的bean执行

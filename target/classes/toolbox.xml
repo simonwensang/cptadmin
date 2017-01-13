@@ -1,5 +1,8 @@
 <?xml version="1.0"?>
 <toolbox>
+	<toolbox scope="application">
+        <tool class="com.jeremie.commons.shiro.support.Permission"/>
+    </toolbox>
     <tool>
         <key>dateTool</key>
         <scope>application</scope>

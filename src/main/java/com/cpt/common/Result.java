@@ -20,6 +20,7 @@ public class Result<T> implements Serializable {
 
     public Result(T value) {
         this.code = ResultCode.C200.getCode();
+        this.msg = ResultCode.C200.getDesc();
         this.value = value;
     }
 

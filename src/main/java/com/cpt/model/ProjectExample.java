@@ -315,52 +315,62 @@ public class ProjectExample {
             return (Criteria) this;
         }
 
-        public Criteria andReportEqualTo(Byte value) {
+        public Criteria andReportEqualTo(String value) {
             addCriterion("report =", value, "report");
             return (Criteria) this;
         }
 
-        public Criteria andReportNotEqualTo(Byte value) {
+        public Criteria andReportNotEqualTo(String value) {
             addCriterion("report <>", value, "report");
             return (Criteria) this;
         }
 
-        public Criteria andReportGreaterThan(Byte value) {
+        public Criteria andReportGreaterThan(String value) {
             addCriterion("report >", value, "report");
             return (Criteria) this;
         }
 
-        public Criteria andReportGreaterThanOrEqualTo(Byte value) {
+        public Criteria andReportGreaterThanOrEqualTo(String value) {
             addCriterion("report >=", value, "report");
             return (Criteria) this;
         }
 
-        public Criteria andReportLessThan(Byte value) {
+        public Criteria andReportLessThan(String value) {
             addCriterion("report <", value, "report");
             return (Criteria) this;
         }
 
-        public Criteria andReportLessThanOrEqualTo(Byte value) {
+        public Criteria andReportLessThanOrEqualTo(String value) {
             addCriterion("report <=", value, "report");
             return (Criteria) this;
         }
 
-        public Criteria andReportIn(List<Byte> values) {
+        public Criteria andReportLike(String value) {
+            addCriterion("report like", value, "report");
+            return (Criteria) this;
+        }
+
+        public Criteria andReportNotLike(String value) {
+            addCriterion("report not like", value, "report");
+            return (Criteria) this;
+        }
+
+        public Criteria andReportIn(List<String> values) {
             addCriterion("report in", values, "report");
             return (Criteria) this;
         }
 
-        public Criteria andReportNotIn(List<Byte> values) {
+        public Criteria andReportNotIn(List<String> values) {
             addCriterion("report not in", values, "report");
             return (Criteria) this;
         }
 
-        public Criteria andReportBetween(Byte value1, Byte value2) {
+        public Criteria andReportBetween(String value1, String value2) {
             addCriterion("report between", value1, value2, "report");
             return (Criteria) this;
         }
 
-        public Criteria andReportNotBetween(Byte value1, Byte value2) {
+        public Criteria andReportNotBetween(String value1, String value2) {
             addCriterion("report not between", value1, value2, "report");
             return (Criteria) this;
         }
@@ -785,52 +795,62 @@ public class ProjectExample {
             return (Criteria) this;
         }
 
-        public Criteria andTenderTimeEqualTo(Date value) {
+        public Criteria andTenderTimeEqualTo(String value) {
             addCriterion("tender_time =", value, "tenderTime");
             return (Criteria) this;
         }
 
-        public Criteria andTenderTimeNotEqualTo(Date value) {
+        public Criteria andTenderTimeNotEqualTo(String value) {
             addCriterion("tender_time <>", value, "tenderTime");
             return (Criteria) this;
         }
 
-        public Criteria andTenderTimeGreaterThan(Date value) {
+        public Criteria andTenderTimeGreaterThan(String value) {
             addCriterion("tender_time >", value, "tenderTime");
             return (Criteria) this;
         }
 
-        public Criteria andTenderTimeGreaterThanOrEqualTo(Date value) {
+        public Criteria andTenderTimeGreaterThanOrEqualTo(String value) {
             addCriterion("tender_time >=", value, "tenderTime");
             return (Criteria) this;
         }
 
-        public Criteria andTenderTimeLessThan(Date value) {
+        public Criteria andTenderTimeLessThan(String value) {
             addCriterion("tender_time <", value, "tenderTime");
             return (Criteria) this;
         }
 
-        public Criteria andTenderTimeLessThanOrEqualTo(Date value) {
+        public Criteria andTenderTimeLessThanOrEqualTo(String value) {
             addCriterion("tender_time <=", value, "tenderTime");
             return (Criteria) this;
         }
 
-        public Criteria andTenderTimeIn(List<Date> values) {
+        public Criteria andTenderTimeLike(String value) {
+            addCriterion("tender_time like", value, "tenderTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andTenderTimeNotLike(String value) {
+            addCriterion("tender_time not like", value, "tenderTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andTenderTimeIn(List<String> values) {
             addCriterion("tender_time in", values, "tenderTime");
             return (Criteria) this;
         }
 
-        public Criteria andTenderTimeNotIn(List<Date> values) {
+        public Criteria andTenderTimeNotIn(List<String> values) {
             addCriterion("tender_time not in", values, "tenderTime");
             return (Criteria) this;
         }
 
-        public Criteria andTenderTimeBetween(Date value1, Date value2) {
+        public Criteria andTenderTimeBetween(String value1, String value2) {
             addCriterion("tender_time between", value1, value2, "tenderTime");
             return (Criteria) this;
         }
 
-        public Criteria andTenderTimeNotBetween(Date value1, Date value2) {
+        public Criteria andTenderTimeNotBetween(String value1, String value2) {
             addCriterion("tender_time not between", value1, value2, "tenderTime");
             return (Criteria) this;
         }
