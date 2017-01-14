@@ -1,0 +1,150 @@
+<html lang="zh">
+<head>
+    #parse("tags.vm")
+
+    <style>
+     #title {
+         margin-bottom: 20px;
+         margin-bottom: 20px;
+         border-bottom: 1px solid #eee;
+     }
+
+     div .circle{ /*控制图片显示圆形*/
+         height:200px;/*与width设置一致*/
+         width:200px;
+         background:#9da;
+         border-radius:100px;/*四个圆角值都设置为宽度或高度值的一半*/
+     }
+	 .staff-list{
+        float: left;
+        position: relative;
+        width:260px;
+        height:100px;
+        margin-right: 25px;
+        background-color: lightblue;
+        margin-top: 20px;
+        font-size: 12px;
+        font-family: Microsoft YaHei;
+        line-height: 20px;
+		}
+		
+    .staff-list-portrait{
+        float: left;
+        border: solid 1px gray;
+        width:60px;
+        height:60px;
+        border-radius:50%;
+        overflow:hidden;
+        margin-left: 20px;
+        margin-top: 20px;
+        background-position: 50%,center;
+        background-size:60px 60px;
+        background-attachment:fixed;
+    }
+    
+    .staff-list-info{
+        margin-left: 20px;
+        margin-top: 32px;
+        float: left;
+    }
+    </style>
+</head>
+<body>
+<div class="container" >
+    <form id="saveForm" action="/designer/addDesigner" method="post" class="form-horizontal">
+        <input type="hidden" id="designerId" name="designerId" value="$!{designer.id}">
+        <br>
+        <br>
+        <div id="title"><h3>公司团队
+        </h3></div>
+        <br>
+        <br>
+			
+	#foreach( $info in $memberInfoVo) 
+	 <div class="staff-list">
+        <div class="staff-list-portrait" style="background-image: url($!info.img)"></div>
+        <div class="staff-list-info">
+            <div class="staff-list-personal"><b>$!info.name</b> <span>$!info.type </span></div>
+            <div>电话：<span class="staff-list-tel">$!info.mobile</span></div>
+        </div>
+     </div>
+	#end 
+	 
+    </form>
+
+    <script>
+
+        function muliSelect() {
+//        <%--多选下拉框插件 --%>
+            $('.chosen-select').chosen({allow_single_deselect: true});
+            $(window)
+                    .off('resize.chosen')
+                    .on('resize.chosen', function () {
+                        $('.chosen-select').each(function () {
+                            var $this =
+                            $(this);
+                                $this.next().css({'width': $this.parent().width()});
+                        })
+                    }).trigger('resize.chosen');
+//        <%--多选下拉框插件 --%>
+        }
+
+        //初始化界面
+        $(function () {
+            muliSelect();
+            var designerId = $('#designerId').val();
+            var status = $("#status").val();
+            //显示可服务城市
+           // loadService(status, designerId);
+
+
+            //初始化擅长风格
+            var knowledgeStyle = '$!{designer.knowledgeStyle}';
+            if (knowledgeStyle.length > 0) {
+                var list = knowledgeStyle.split(',');
+                for (var i = 0; i < list.length; i++) {
+                    if ($('#knowledge_' + list[i]) != undefined) {
+                        $('#knowledge_' + list[i]).attr('checked', true);
+                    }
+                }
+            }
+
+            //初始化设计接单范围
+            var designerBudget = '$!{designer.designerBudget}';
+            if (designerBudget.length > 0) {
+                var list = designerBudget.split(',');
+                for (var i = 0; i < list.length; i++) {
+                    if ($('#budget_' + list[i]) != undefined) {
+                        $('#budget_' + list[i]).attr('checked', true);
+                    }
+                }
+            }
+
+            //初始化国籍
+            var nation = '$!{designer.jzBaseInfo.nation}';
+            if(1==nation){
+                $("#chinaNation").attr("checked","checked");
+            }else if(2==sex){
+                $("#foreignNation").attr("checked","checked");
+            }
+
+            //初始化性别
+            var sex = '$!{designer.jzBaseInfo.sex}';
+            if(1==sex){
+                $("#sex").val("男");
+            }else if(2==sex){
+                $("#sex").val("女");
+            }
+
+
+
+
+        })
+
+
+
+    </script>
+
+</div>
+</body>
+</html>

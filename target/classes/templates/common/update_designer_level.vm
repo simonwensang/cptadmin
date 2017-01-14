@@ -1,0 +1,40 @@
+<!--修改等级弹出框 -->
+<div class="modal fade" id="levelModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">修改等级</h4>
+            </div>
+			<div class="modal-body" style="padding: 30px;">
+				 <form class="form-horizontal" role="form" id="validation-form" method="post" >
+                    <input type="hidden" id="level_id" name="id"  />
+					 <div class="form-group">
+                        <label class="col-sm-3 control-label"> 当前施工等级 </label>
+                        <div class="col-sm-2">
+                            <input type="text" id="level_old"
+                                   disabled="disabled" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label"> <span class="red">*</span>修改为 </label>
+                        <div class="col-sm-3">
+                            <select class="input-medium" id="level" name="level">
+                                <option value="">请选择</option>
+                                <option value="3">优秀</option>
+                                <option value="4">精英</option>
+                                <option value="5">知名</option>
+                            </select><span id="alertmsg"  style="color:red;display:none">请选择等级!</span>
+                        </div>
+                    </div>
+                    <hr/>
+				</form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" onclick="saveLevel()" >保存</button>
+            </div>
+        </div>
+    </div>
+</div>
