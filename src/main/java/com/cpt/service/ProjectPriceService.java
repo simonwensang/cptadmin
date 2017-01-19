@@ -2,10 +2,10 @@ package com.cpt.service;
 
 import java.util.List;
 
-import com.cpt.model.ProjectPrice;
+import com.cpt.vo.ProjectPriceVo;
 
 public interface ProjectPriceService {
 
-	public List<ProjectPrice> queryByProjectId(Long projectId);
+	public List<ProjectPriceVo> queryByProjectId(Long projectId);
 	
 }

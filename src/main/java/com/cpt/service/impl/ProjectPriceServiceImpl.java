@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.cpt.mapper.ProjectPriceMapper;
-import com.cpt.model.ProjectPrice;
 import com.cpt.service.ProjectPriceService;
+import com.cpt.vo.ProjectPriceVo;
 
 @Service
 public class ProjectPriceServiceImpl implements ProjectPriceService {
@@ -16,7 +16,7 @@ public class ProjectPriceServiceImpl implements ProjectPriceService {
 	private ProjectPriceMapper projectPriceMapper;
 	
 	@Override
-	public List<ProjectPrice> queryByProjectId(Long projectId) {
+	public List<ProjectPriceVo> queryByProjectId(Long projectId) {
 		
 		
 		
