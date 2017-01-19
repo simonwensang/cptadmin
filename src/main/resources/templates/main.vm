@@ -18,8 +18,14 @@
 						中科电ERP后台
                 </small>
             </a>
+		 
         </div>
-
+		<div class="navbar-header pull-right">
+			<div class="navbar-brand">$!{user.name}:</div>
+			<a href="/logout"  class="navbar-brand">
+						<small style="color:#F00">退出登录</small>
+            </a>
+        </div>
     </div>
 </div>
 

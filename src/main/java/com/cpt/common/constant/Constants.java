@@ -1,10 +1,9 @@
 package com.cpt.common.constant;
 
-import java.util.HashMap;
-import java.util.Map;
 
  
 public class Constants { 
 	
-	
+	public final static byte ISDELETED = 1;
+	public final static byte ISNOTDELETED = 0;
 }

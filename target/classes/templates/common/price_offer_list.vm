@@ -1,0 +1,95 @@
+<!--修改等级弹出框 -->
+<div class="modal fade" id="priceModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">选择报价人</h4>
+            </div>
+			<div class="modal-body" style="padding: 30px;">
+				 <form class="form-horizontal" role="form" id="validation-form" method="post" >
+                     <input type="hidden" id="projectId" name="projectId" />
+    				 <input type="hidden" id="optType" name="optType" />
+					 <div class="form-group">
+						    <label>报价人</label>
+                            <select class="input-medium" id="userId" name="userId"  >
+                            </select>
+                      </div>
+				  </div>	
+                    <hr/>
+				</form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" onclick="selectPriceOffer()" >确定</button>
+            </div>
+        </div>
+    </div>
+    <script>
+	
+	function queryPriceOffer(){
+			 $.ajax({
+                type: "get",
+                url: '/user/queryPriceOffer',
+                dataType: 'json',
+                success: function (data) {
+                    //提示审核通过成功信息并刷新页面
+                     $("select[name='userId']").empty();  
+                    //循环添加  
+                     for(var j=0;j<data.length;j++){  
+                        var option = $("<option>").val(data[j].id).text(data[j].name);  
+                        $("select[name='userId']").append(option);  
+                    }  
+                },
+                error: function (data) {
+                    if(data.msg){
+                        alertShow(data.msg);
+                    }
+                    if(data.readyState == 4){
+                        alertShow("Request Not Found");
+                    }
+                }
+            });
+	
+	}
+	
+	function selectPriceOffer(){
+		var projectId = $('#projectId').val();
+		var optType =  $('#optType').val();
+		//var userId = $('#userId').val();
+		var userId = $('#userId  option:selected').val();
+		if(null==projectId||null==optType||null==userId||''==projectId||''==optType||''==userId){
+			alertShow("参数不能为空");
+			return  false;
+		}
+	    $.ajax({
+                type: "post",
+                url: '/project/opt',
+                data: {
+                   id:projectId,userId:userId,optType:optType  
+                },
+                dataType: 'json',
+                success: function (data) {
+                    //提示审核通过成功信息并刷新页面
+                    alertShow(data.msg, function () {
+						$('#projectId').val("");
+						$('#optType').val("");
+						$('#userId').val("");
+						$('#priceModal').modal('hide');
+                        reloadTable('/project/pageList');
+                    });
+                },
+                error: function (data) {
+                    if(data.msg){
+                        alertShow(data.msg);
+                    }
+                    if(data.readyState == 4){
+                        alertShow("Request Not Found");
+                    }
+                }
+            });
+	}
+	
+	</script>
+</div>

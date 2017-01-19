@@ -1,0 +1,99 @@
+<!--修改等级弹出框 -->
+<div class="modal fade" id="managerModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">选择管理员</h4>
+            </div>
+			<div class="modal-body" style="padding: 30px;">
+				 <form class="form-horizontal" role="form" id="validation-form" method="post" >
+                   <input type="hidden" id="projectId" name="projectId" />
+					 <div class="form-group">
+						<div class="search_form">
+                            <form role="form" id="searchManagerForm">
+                                <label>报价负责人</label>
+                                <input class="input" type="text" id="name" name="name" value=""/>
+                                <label>项目状态</label>
+                                <select class="input-medium" id="departmentId" name="departmentId">
+                                        <option ></option>
+                        				<option value="0">待指派项目负责人</option>
+                                        <option value="1">待指派报价负责人</option>
+                        				<option value="2">待指派报价人</option>
+                                        <option value="3">报价中</option>
+                        				<option value="4">合同已签订</option>
+                                        <option value="5">合同不签订</option>
+                                </select>
+                        	</form>
+                            <div class="search_form_opt">
+                                <button class="btn btn-primary" onclick="search({form:'searchManagerForm',grid:'manager_table'})">
+                                    <i class="ace-icon fa fa-search"></i>搜索
+                                </button>
+                            </div>
+                        </div>
+				  </div>	
+                    <div class="form-group">
+                        
+							<!--  表格 -->
+                            <table id="manager_table"></table>
+                            <!-- 分页 -->
+                            <div id="manager_pager"></div>
+                        
+                    </div>
+                    <hr/>
+				</form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" onclick="selectProjectManager()" >保存</button>
+            </div>
+        </div>
+    </div>
+    <script>
+	
+	
+    $(function () {
+		var managerUrl = '/user/query';
+        //初始化table
+        var manager_table = "#manager_table";
+        var manager_pager = "#manager_pager";
+        //初始化table
+        $(manager_table).jqGrid({
+            url: managerUrl,
+            datatype: "json",
+            height: '100%',
+            width: '100%',
+            colNames: ['ID', '姓名', '部门'],
+            colModel: [
+                {name: 'id', index: 'id', width: '30%'},
+                {name: 'name', index: 'name', width: '40%'},
+				{name: 'department', index: 'department', width: '40%'},
+            ],
+            viewrecords: true,
+            rowNum: 10,
+            rowList: [10, 25, 50, 100],
+            pager: manager_pager,
+            altRows: true,
+            multiselect: true,
+            multiboxonly: true,
+            autowidth: true,
+            //更新翻页图标
+            loadComplete: function () {
+                var table = this;
+                setTimeout(function () {
+                    updatePagerIcons(table);
+                }, 0);
+            }
+        });
+        //分页
+        $(manager_table).jqGrid('navGrid', manager_pager, {
+            edit: false,
+            add: false,
+            del: false,
+            search: false,
+            refresh: false,
+        })
+    });
+	</script>
+</div>

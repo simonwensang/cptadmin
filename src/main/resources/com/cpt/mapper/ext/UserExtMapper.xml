@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cpt.mapper.ext.UserExtMapper">
+  <resultMap id="BaseResultMap" type="com.cpt.model.User">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="account" jdbcType="VARCHAR" property="account" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="department" jdbcType="VARCHAR" property="department" />
+    <result column="department_id" jdbcType="BIGINT" property="departmentId" />
+    <result column="mobile" jdbcType="VARCHAR" property="mobile" />
+    <result column="image" jdbcType="VARCHAR" property="image" />
+    <result column="identity" jdbcType="TINYINT" property="identity" />
+    <result column="is_deleted" jdbcType="TINYINT" property="isDeleted" />
+  </resultMap>
+  
+  <select id="query" parameterType="com.cpt.req.UserQuery"  resultMap="BaseResultMap">
+    select 
+     id,name,department,department_id
+    from t_user
+    <where> 
+	    <if test="orgId != null" >
+	      department_id = #{orgId,jdbcType=BIGINT}
+	    </if>
+	    <if test="name != null and name != ''">
+              AND  name LIKE concat('%',#{name},'%')
+          </if>
+    </where>
+  </select>
+   
+</mapper>

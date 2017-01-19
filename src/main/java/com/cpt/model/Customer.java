@@ -15,6 +15,8 @@ public class Customer {
 
     private Date updateTime;
 
+    private Boolean isDeleted;
+
     public Long getId() {
         return id;
     }
@@ -61,5 +63,13 @@ public class Customer {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public Boolean getIsDeleted() {
+        return isDeleted;
+    }
+
+    public void setIsDeleted(Boolean isDeleted) {
+        this.isDeleted = isDeleted;
     }
 }

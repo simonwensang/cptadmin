@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -17,6 +18,7 @@ import com.cpt.common.Result;
 import com.cpt.model.ProductType;
 import com.cpt.req.OptReq;
 import com.cpt.req.ProjectReq;
+import com.cpt.service.CustomerService;
 import com.cpt.service.ProductTypeService;
 import com.cpt.service.ProjectService;
 import com.cpt.vo.ProjectVo;
@@ -32,6 +34,9 @@ public class ProjectController {
 	
 	@Autowired 
 	private ProductTypeService productTypeService;
+	
+	@Autowired 
+	private CustomerService customerService;
 	  /**
      * 公司资料管理列表
      *
@@ -43,6 +48,19 @@ public class ProjectController {
         mav.setViewName("project/project_list");
         return mav;
     }
+    /**
+     * 公司资料管理列表
+     *
+     * @param mav
+     * @return
+     */
+    @RequestMapping(value = "/manager", method = RequestMethod.GET)
+    public ModelAndView manager(ModelAndView mav,Long id ) {
+    	mav.addObject("projectId", id);
+        mav.setViewName("project/manager_list");
+        return mav;
+    }
+    
 	 /**
      * 分页数据
      *
@@ -122,4 +140,20 @@ public class ProjectController {
     public Result<Integer> opt( OptReq optReq) {
     	return projectService.opt( optReq);
     }
+    
+    /**
+     * 增加或者修改工程
+     *
+     * @param mav
+     * @param id
+     * @return
+     */
+    @RequestMapping(value = "/priceOffer")
+    public String priceOffer(ModelMap map ,Long id) {
+    	  map.put("projectVo", projectService.detail(id));
+    	  map.put("productTypeList", productTypeService.selectAll());
+    	  map.put("customerList", customerService.query());
+    	  return "project/project_price";
+    }
+    
 }

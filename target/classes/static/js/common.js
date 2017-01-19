@@ -1,3 +1,27 @@
+function ajaxUtil(url,param,type,reload){
+		 $.ajax({
+                type: type,
+                url: url,
+                data: param,
+                dataType: 'json',
+                success: function (data) {
+                    //提示审核通过成功信息并刷新页面
+                    alertShow(data.msg,function () {
+                    	if(reload!=null){
+                    		 reloadTable(reload);
+                    	}
+                    });
+                },
+                error: function (data) {
+                    if(data.msg){
+                        alertShow(data.msg);
+                    }
+                    if(data.readyState == 4){
+                        alertShow("Request Not Found");
+                    }
+                }
+            });
+	}
 <!--列表页刷新（原页面刷新） -->
 function reloadTable(pageListUrl) {
     var p = $(this).jqGrid('getGridParam', 'page');//获取当前页

@@ -3,6 +3,7 @@
 <mapper namespace="com.cpt.mapper.ProjectPriceMapper">
   <resultMap id="BaseResultMap" type="com.cpt.model.ProjectPrice">
     <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="project_id" jdbcType="BIGINT" property="projectId" />
     <result column="company" jdbcType="VARCHAR" property="company" />
     <result column="company_id" jdbcType="BIGINT" property="companyId" />
     <result column="manager" jdbcType="VARCHAR" property="manager" />
@@ -67,7 +68,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, company, company_id, manager, tel
+    id, project_id, company, company_id, manager, tel
   </sql>
   <select id="selectByExample" parameterType="com.cpt.model.ProjectPriceExample" resultMap="BaseResultMap">
     select
@@ -101,16 +102,21 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.cpt.model.ProjectPrice">
-    insert into t_project_price (id, company, company_id, 
-      manager, tel)
-    values (#{id,jdbcType=BIGINT}, #{company,jdbcType=VARCHAR}, #{companyId,jdbcType=BIGINT}, 
-      #{manager,jdbcType=VARCHAR}, #{tel,jdbcType=VARCHAR})
+    insert into t_project_price (id, project_id, company, 
+      company_id, manager, tel
+      )
+    values (#{id,jdbcType=BIGINT}, #{projectId,jdbcType=BIGINT}, #{company,jdbcType=VARCHAR}, 
+      #{companyId,jdbcType=BIGINT}, #{manager,jdbcType=VARCHAR}, #{tel,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.cpt.model.ProjectPrice">
     insert into t_project_price
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         id,
+      </if>
+      <if test="projectId != null">
+        project_id,
       </if>
       <if test="company != null">
         company,
@@ -128,6 +134,9 @@
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
         #{id,jdbcType=BIGINT},
+      </if>
+      <if test="projectId != null">
+        #{projectId,jdbcType=BIGINT},
       </if>
       <if test="company != null">
         #{company,jdbcType=VARCHAR},
@@ -155,6 +164,9 @@
       <if test="record.id != null">
         id = #{record.id,jdbcType=BIGINT},
       </if>
+      <if test="record.projectId != null">
+        project_id = #{record.projectId,jdbcType=BIGINT},
+      </if>
       <if test="record.company != null">
         company = #{record.company,jdbcType=VARCHAR},
       </if>
@@ -175,6 +187,7 @@
   <update id="updateByExample" parameterType="map">
     update t_project_price
     set id = #{record.id,jdbcType=BIGINT},
+      project_id = #{record.projectId,jdbcType=BIGINT},
       company = #{record.company,jdbcType=VARCHAR},
       company_id = #{record.companyId,jdbcType=BIGINT},
       manager = #{record.manager,jdbcType=VARCHAR},
@@ -186,6 +199,9 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.cpt.model.ProjectPrice">
     update t_project_price
     <set>
+      <if test="projectId != null">
+        project_id = #{projectId,jdbcType=BIGINT},
+      </if>
       <if test="company != null">
         company = #{company,jdbcType=VARCHAR},
       </if>
@@ -203,7 +219,8 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.cpt.model.ProjectPrice">
     update t_project_price
-    set company = #{company,jdbcType=VARCHAR},
+    set project_id = #{projectId,jdbcType=BIGINT},
+      company = #{company,jdbcType=VARCHAR},
       company_id = #{companyId,jdbcType=BIGINT},
       manager = #{manager,jdbcType=VARCHAR},
       tel = #{tel,jdbcType=VARCHAR}

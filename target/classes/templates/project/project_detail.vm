@@ -54,7 +54,7 @@
             <label class="col-sm-2 control-label"> 招标日期： </label>
             <div class="col-sm-3">
 				 <input type="text"   name="tenderTime"
-                       value='$dateTimeUtil.format($!{jzErpDemo.startDate}, "yyyy-MM-dd")'
+                       value='$dateTimeUtil.format($!{projectVo.tenderTime}, "yyyy-MM-dd")'
                        onClick="WdatePicker({dateFmt:'yyyy-MM-dd'});" class="form-control"  >
             </div>
 			 <label class="col-sm-2 control-label">报备： </label>
@@ -80,7 +80,7 @@
 			  	 $("#createForm").ajaxSubmit(function(data) { 
                     // 提交成功后处理，message为提交页面的返回内容 
 					 alertShow(data.msg, function () {
-					 	reloadTable('/company/create');
+					 	reloadTable('/project/create');
                     });
                 });
 			   });

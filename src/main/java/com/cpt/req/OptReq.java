@@ -7,6 +7,6 @@ public class OptReq {
 
 	private Long id;
 	private Long userId;
-	private Byte OptType; // 1项指派目负责人，2指派报价负责人 ，3 指派报价人
+	private Byte optType; // 1项指派目负责人，2指派报价负责人 ，3 指派报价人
 	
 }

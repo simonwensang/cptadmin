@@ -25,7 +25,6 @@
 <script src="#springUrl('/ace/js/jquery.inputlimiter.min.js')"></script>
 <script src="#springUrl('/ace/js/bootstrap-markdown.min.js')"></script>
 
-
 ## css引入
 <link rel="stylesheet" href="#springUrl('/ace/css/bootstrap.min.css')"/>
 <link rel="stylesheet" href="#springUrl('/ace/font-awesome/4.5.0/css/font-awesome.min.css')"/>
@@ -45,6 +44,10 @@
 <script src="#springUrl('/validate/jqExtend.js')"></script>
 <link rel="stylesheet" href="#springUrl('/validate/validate.css')"/>
 <script src="#springUrl('/validate/validate.js')"></script>
+
+<link rel="stylesheet" href="#springUrl('/zTree/css/demo.css')" type="text/css">
+<link rel="stylesheet" href="#springUrl('/zTree/css/zTreeStyle/zTreeStyle.css')" type="text/css">
+<script type="text/javascript" src="#springUrl('/zTree/js/jquery.ztree.core.js')"></script>
 <!--全局变量 路径 -->
 #set($contentPath = "/")
 

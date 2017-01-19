@@ -1,5 +1,6 @@
 package com.cpt.controller;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.shiro.SecurityUtils;
@@ -13,19 +14,30 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.cpt.model.User;
+import com.cpt.service.UserCommonService;
 
 @Controller
 public class LoginController {
 
 	private static final Logger log =  LoggerFactory.getLogger(LoginController.class);
 	
+	@Resource
+	private UserCommonService userCommonService;
+	
 	@RequestMapping({"/login"})
 	public String login(ModelMap map){
 		return "login";
 	}
 	
-	@RequestMapping({"/","","/main"})
+	@RequestMapping({"/",""})
+	public String index(ModelMap map){
+		return "redirect:/main";
+	}
+	
+	
+	@RequestMapping({"/main"})
 	public String main(ModelMap map){
+		map.put("user", userCommonService.getUser());
 		return "main";
 	}
 	

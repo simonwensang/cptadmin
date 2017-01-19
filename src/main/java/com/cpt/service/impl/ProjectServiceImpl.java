@@ -28,6 +28,7 @@ import com.cpt.model.User;
 import com.cpt.model.WorkFlow;
 import com.cpt.req.OptReq;
 import com.cpt.req.ProjectReq;
+import com.cpt.service.ProjectPriceService;
 import com.cpt.service.ProjectService;
 import com.cpt.service.UserCommonService;
 import com.cpt.vo.ProjectVo;
@@ -47,7 +48,8 @@ public class ProjectServiceImpl implements ProjectService {
 	private UserMapper userMapper;
 	@Resource
 	private WorkFlowMapper workFlowMapper;
-	
+	@Resource
+	private ProjectPriceService projectPriceService;
 	@Override
 	public PageResult<ProjectVo> pageList(PageParam pageParam,
 			ProjectReq projectReq) {
@@ -63,9 +65,12 @@ public class ProjectServiceImpl implements ProjectService {
 	}
 
 	@Override
-	public ProjectVo detail(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+	public  ProjectVo  detail(Long id) {
+		ProjectVo projectVo = ProjectConvertor.toProjectVo(projectMapper.selectByPrimaryKey(id));
+		if(null!=projectVo){
+			projectVo.setProjectPriceList(projectPriceService.queryByProjectId(id));			
+		}
+		return projectVo;
 	}
 
 	@Override
