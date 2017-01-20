@@ -6,6 +6,8 @@ import java.util.Date;
 public class ProjectPriceItem {
     private Long id;
 
+    private Long priceId;
+
     private BigDecimal price;
 
     private BigDecimal ratio;
@@ -26,6 +28,14 @@ public class ProjectPriceItem {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Long getPriceId() {
+        return priceId;
+    }
+
+    public void setPriceId(Long priceId) {
+        this.priceId = priceId;
     }
 
     public BigDecimal getPrice() {

@@ -11,6 +11,8 @@ public class ProjectPriceVo {
 
     private Long id;
 
+    private Long projectId;
+    
     private String company;
 
     private Long companyId;

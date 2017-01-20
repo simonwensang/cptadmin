@@ -3,6 +3,7 @@
 <mapper namespace="com.cpt.mapper.ProjectPriceItemMapper">
   <resultMap id="BaseResultMap" type="com.cpt.model.ProjectPriceItem">
     <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="price_id" jdbcType="BIGINT" property="priceId" />
     <result column="price" jdbcType="DECIMAL" property="price" />
     <result column="ratio" jdbcType="DECIMAL" property="ratio" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
@@ -70,7 +71,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, price, ratio, create_time, update_time, create_user_id, update_user_id, is_deleted
+    id, price_id, price, ratio, create_time, update_time, create_user_id, update_user_id, 
+    is_deleted
   </sql>
   <select id="selectByExample" parameterType="com.cpt.model.ProjectPriceItemExample" resultMap="BaseResultMap">
     select
@@ -104,18 +106,23 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.cpt.model.ProjectPriceItem">
-    insert into t_project_price_item (id, price, ratio, 
-      create_time, update_time, create_user_id, 
-      update_user_id, is_deleted)
-    values (#{id,jdbcType=BIGINT}, #{price,jdbcType=DECIMAL}, #{ratio,jdbcType=DECIMAL}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{createUserId,jdbcType=BIGINT}, 
-      #{updateUserId,jdbcType=BIGINT}, #{isDeleted,jdbcType=TINYINT})
+    insert into t_project_price_item (id, price_id, price, 
+      ratio, create_time, update_time, 
+      create_user_id, update_user_id, is_deleted
+      )
+    values (#{id,jdbcType=BIGINT}, #{priceId,jdbcType=BIGINT}, #{price,jdbcType=DECIMAL}, 
+      #{ratio,jdbcType=DECIMAL}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{createUserId,jdbcType=BIGINT}, #{updateUserId,jdbcType=BIGINT}, #{isDeleted,jdbcType=TINYINT}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.cpt.model.ProjectPriceItem">
     insert into t_project_price_item
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         id,
+      </if>
+      <if test="priceId != null">
+        price_id,
       </if>
       <if test="price != null">
         price,
@@ -142,6 +149,9 @@
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
         #{id,jdbcType=BIGINT},
+      </if>
+      <if test="priceId != null">
+        #{priceId,jdbcType=BIGINT},
       </if>
       <if test="price != null">
         #{price,jdbcType=DECIMAL},
@@ -178,6 +188,9 @@
       <if test="record.id != null">
         id = #{record.id,jdbcType=BIGINT},
       </if>
+      <if test="record.priceId != null">
+        price_id = #{record.priceId,jdbcType=BIGINT},
+      </if>
       <if test="record.price != null">
         price = #{record.price,jdbcType=DECIMAL},
       </if>
@@ -207,6 +220,7 @@
   <update id="updateByExample" parameterType="map">
     update t_project_price_item
     set id = #{record.id,jdbcType=BIGINT},
+      price_id = #{record.priceId,jdbcType=BIGINT},
       price = #{record.price,jdbcType=DECIMAL},
       ratio = #{record.ratio,jdbcType=DECIMAL},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
@@ -221,6 +235,9 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.cpt.model.ProjectPriceItem">
     update t_project_price_item
     <set>
+      <if test="priceId != null">
+        price_id = #{priceId,jdbcType=BIGINT},
+      </if>
       <if test="price != null">
         price = #{price,jdbcType=DECIMAL},
       </if>
@@ -247,7 +264,8 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.cpt.model.ProjectPriceItem">
     update t_project_price_item
-    set price = #{price,jdbcType=DECIMAL},
+    set price_id = #{priceId,jdbcType=BIGINT},
+      price = #{price,jdbcType=DECIMAL},
       ratio = #{ratio,jdbcType=DECIMAL},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP},
