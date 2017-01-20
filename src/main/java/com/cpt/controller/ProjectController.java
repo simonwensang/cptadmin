@@ -21,6 +21,7 @@ import com.cpt.req.ProjectReq;
 import com.cpt.service.CustomerService;
 import com.cpt.service.ProductTypeService;
 import com.cpt.service.ProjectService;
+import com.cpt.vo.ProjectPriceVo;
 import com.cpt.vo.ProjectVo;
 
 @Controller
@@ -142,7 +143,7 @@ public class ProjectController {
     }
     
     /**
-     * 增加或者修改工程
+     * 报价
      *
      * @param mav
      * @param id

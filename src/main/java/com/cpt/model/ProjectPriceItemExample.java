@@ -166,6 +166,66 @@ public class ProjectPriceItemExample {
             return (Criteria) this;
         }
 
+        public Criteria andPriceIdIsNull() {
+            addCriterion("price_id is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPriceIdIsNotNull() {
+            addCriterion("price_id is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPriceIdEqualTo(Long value) {
+            addCriterion("price_id =", value, "priceId");
+            return (Criteria) this;
+        }
+
+        public Criteria andPriceIdNotEqualTo(Long value) {
+            addCriterion("price_id <>", value, "priceId");
+            return (Criteria) this;
+        }
+
+        public Criteria andPriceIdGreaterThan(Long value) {
+            addCriterion("price_id >", value, "priceId");
+            return (Criteria) this;
+        }
+
+        public Criteria andPriceIdGreaterThanOrEqualTo(Long value) {
+            addCriterion("price_id >=", value, "priceId");
+            return (Criteria) this;
+        }
+
+        public Criteria andPriceIdLessThan(Long value) {
+            addCriterion("price_id <", value, "priceId");
+            return (Criteria) this;
+        }
+
+        public Criteria andPriceIdLessThanOrEqualTo(Long value) {
+            addCriterion("price_id <=", value, "priceId");
+            return (Criteria) this;
+        }
+
+        public Criteria andPriceIdIn(List<Long> values) {
+            addCriterion("price_id in", values, "priceId");
+            return (Criteria) this;
+        }
+
+        public Criteria andPriceIdNotIn(List<Long> values) {
+            addCriterion("price_id not in", values, "priceId");
+            return (Criteria) this;
+        }
+
+        public Criteria andPriceIdBetween(Long value1, Long value2) {
+            addCriterion("price_id between", value1, value2, "priceId");
+            return (Criteria) this;
+        }
+
+        public Criteria andPriceIdNotBetween(Long value1, Long value2) {
+            addCriterion("price_id not between", value1, value2, "priceId");
+            return (Criteria) this;
+        }
+
         public Criteria andPriceIsNull() {
             addCriterion("price is null");
             return (Criteria) this;

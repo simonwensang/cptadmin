@@ -31,6 +31,7 @@ import com.cpt.req.ProjectReq;
 import com.cpt.service.ProjectPriceService;
 import com.cpt.service.ProjectService;
 import com.cpt.service.UserCommonService;
+import com.cpt.vo.ProjectPriceVo;
 import com.cpt.vo.ProjectVo;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
@@ -163,6 +164,7 @@ public class ProjectServiceImpl implements ProjectService {
 		return this.update(project);
 	}
 	
+	@Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.DEFAULT, rollbackFor = Exception.class)
 	public Integer insertWorkFlow(Long refId,Long appointUser,Long creator,AuthorityStatus authorityStatus){
 		WorkFlow workFlow = new WorkFlow();
 		workFlow.setAuthority(authorityStatus.getKey());
@@ -182,5 +184,5 @@ public class ProjectServiceImpl implements ProjectService {
 	public Integer update(Project project){
 		return projectMapper.updateByPrimaryKeySelective(project);
 	}
-	
+
 }
