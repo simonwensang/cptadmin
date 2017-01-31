@@ -8,7 +8,7 @@
     <result column="company_id" jdbcType="BIGINT" property="companyId" />
     <result column="manager" jdbcType="VARCHAR" property="manager" />
     <result column="tel" jdbcType="VARCHAR" property="tel" />
-     <association property="projectPriceItems" javaType="com.cpt.model.ProjectPriceItem">
+     <collection property="projectPriceItems" ofType="com.cpt.model.ProjectPriceItem">
          <id column="i_id" jdbcType="BIGINT" property="id" />
 	    <result column="price_id" jdbcType="BIGINT" property="priceId" />
 	    <result column="price" jdbcType="DECIMAL" property="price" />
@@ -18,7 +18,7 @@
 	    <result column="create_user_id" jdbcType="BIGINT" property="createUserId" />
 	    <result column="update_user_id" jdbcType="BIGINT" property="updateUserId" />
 	    <result column="is_deleted" jdbcType="TINYINT" property="isDeleted" />
-      </association>
+      </collection>
   </resultMap>
    <sql id="base_designer_list">
         b.id as i_id,

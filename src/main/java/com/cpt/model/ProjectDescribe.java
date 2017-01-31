@@ -7,13 +7,13 @@ public class ProjectDescribe {
 
     private Long projectId;
 
+    private String content;
+
     private Date createTime;
 
     private Long createUser;
 
     private Byte type;
-
-    private byte[] describe;
 
     public Long getId() {
         return id;
@@ -29,6 +29,14 @@ public class ProjectDescribe {
 
     public void setProjectId(Long projectId) {
         this.projectId = projectId;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content == null ? null : content.trim();
     }
 
     public Date getCreateTime() {
@@ -53,13 +61,5 @@ public class ProjectDescribe {
 
     public void setType(Byte type) {
         this.type = type;
-    }
-
-    public byte[] getDescribe() {
-        return describe;
-    }
-
-    public void setDescribe(byte[] describe) {
-        this.describe = describe;
     }
 }

@@ -4,12 +4,10 @@
   <resultMap id="BaseResultMap" type="com.cpt.model.ProjectDescribe">
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="project_id" jdbcType="BIGINT" property="projectId" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="create_user" jdbcType="BIGINT" property="createUser" />
     <result column="type" jdbcType="TINYINT" property="type" />
-  </resultMap>
-  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.cpt.model.ProjectDescribe">
-    <result column="describe" jdbcType="VARBINARY" property="describe" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -70,28 +68,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, project_id, create_time, create_user, type
+    id, project_id, content, create_time, create_user, type
   </sql>
-  <sql id="Blob_Column_List">
-    describe
-  </sql>
-  <select id="selectByExampleWithBLOBs" parameterType="com.cpt.model.ProjectDescribeExample" resultMap="ResultMapWithBLOBs">
-    select
-    <if test="distinct">
-      distinct
-    </if>
-    'true' as QUERYID,
-    <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
-    from t_project_describe
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null">
-      order by ${orderByClause}
-    </if>
-  </select>
   <select id="selectByExample" parameterType="com.cpt.model.ProjectDescribeExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
@@ -107,11 +85,9 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
     from t_project_describe
     where id = #{id,jdbcType=BIGINT}
   </select>
@@ -126,11 +102,11 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.cpt.model.ProjectDescribe">
-    insert into t_project_describe (id, project_id, create_time, 
-      create_user, type, describe
+    insert into t_project_describe (id, project_id, content, 
+      create_time, create_user, type
       )
-    values (#{id,jdbcType=BIGINT}, #{projectId,jdbcType=BIGINT}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{createUser,jdbcType=BIGINT}, #{type,jdbcType=TINYINT}, #{describe,jdbcType=VARBINARY}
+    values (#{id,jdbcType=BIGINT}, #{projectId,jdbcType=BIGINT}, #{content,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=BIGINT}, #{type,jdbcType=TINYINT}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.cpt.model.ProjectDescribe">
@@ -142,6 +118,9 @@
       <if test="projectId != null">
         project_id,
       </if>
+      <if test="content != null">
+        content,
+      </if>
       <if test="createTime != null">
         create_time,
       </if>
@@ -151,9 +130,6 @@
       <if test="type != null">
         type,
       </if>
-      <if test="describe != null">
-        describe,
-      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -161,6 +137,9 @@
       </if>
       <if test="projectId != null">
         #{projectId,jdbcType=BIGINT},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null">
         #{createTime,jdbcType=TIMESTAMP},
@@ -170,9 +149,6 @@
       </if>
       <if test="type != null">
         #{type,jdbcType=TINYINT},
-      </if>
-      <if test="describe != null">
-        #{describe,jdbcType=VARBINARY},
       </if>
     </trim>
   </insert>
@@ -191,6 +167,9 @@
       <if test="record.projectId != null">
         project_id = #{record.projectId,jdbcType=BIGINT},
       </if>
+      <if test="record.content != null">
+        content = #{record.content,jdbcType=VARCHAR},
+      </if>
       <if test="record.createTime != null">
         create_time = #{record.createTime,jdbcType=TIMESTAMP},
       </if>
@@ -200,22 +179,7 @@
       <if test="record.type != null">
         type = #{record.type,jdbcType=TINYINT},
       </if>
-      <if test="record.describe != null">
-        describe = #{record.describe,jdbcType=VARBINARY},
-      </if>
     </set>
-    <if test="_parameter != null">
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByExampleWithBLOBs" parameterType="map">
-    update t_project_describe
-    set id = #{record.id,jdbcType=BIGINT},
-      project_id = #{record.projectId,jdbcType=BIGINT},
-      create_time = #{record.createTime,jdbcType=TIMESTAMP},
-      create_user = #{record.createUser,jdbcType=BIGINT},
-      type = #{record.type,jdbcType=TINYINT},
-      describe = #{record.describe,jdbcType=VARBINARY}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -224,6 +188,7 @@
     update t_project_describe
     set id = #{record.id,jdbcType=BIGINT},
       project_id = #{record.projectId,jdbcType=BIGINT},
+      content = #{record.content,jdbcType=VARCHAR},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
       create_user = #{record.createUser,jdbcType=BIGINT},
       type = #{record.type,jdbcType=TINYINT}
@@ -237,6 +202,9 @@
       <if test="projectId != null">
         project_id = #{projectId,jdbcType=BIGINT},
       </if>
+      <if test="content != null">
+        content = #{content,jdbcType=VARCHAR},
+      </if>
       <if test="createTime != null">
         create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
@@ -246,24 +214,13 @@
       <if test="type != null">
         type = #{type,jdbcType=TINYINT},
       </if>
-      <if test="describe != null">
-        describe = #{describe,jdbcType=VARBINARY},
-      </if>
     </set>
-    where id = #{id,jdbcType=BIGINT}
-  </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.cpt.model.ProjectDescribe">
-    update t_project_describe
-    set project_id = #{projectId,jdbcType=BIGINT},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      create_user = #{createUser,jdbcType=BIGINT},
-      type = #{type,jdbcType=TINYINT},
-      describe = #{describe,jdbcType=VARBINARY}
     where id = #{id,jdbcType=BIGINT}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.cpt.model.ProjectDescribe">
     update t_project_describe
     set project_id = #{projectId,jdbcType=BIGINT},
+      content = #{content,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       create_user = #{createUser,jdbcType=BIGINT},
       type = #{type,jdbcType=TINYINT}

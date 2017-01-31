@@ -116,12 +116,21 @@ public class ShiroSecurityConfig {
     	rcm.setRedisManager(redisManager());
     	return rcm;
     }
-	@Bean
+	/*@Bean
     public RedisManager redisManager(){
     	RedisManager redisManager = new RedisManager();
     	redisManager.setHost("r-bp11b90f462293a4.redis.rds.aliyuncs.com");
     	redisManager.setPort(6379);
     	redisManager.setPassword("Cpt123456");
+    	redisManager.setExpire(7200);
+    	redisManager.setTimeout(3000);
+    	return redisManager;
+    }*/
+	@Bean
+    public RedisManager redisManager(){
+    	RedisManager redisManager = new RedisManager();
+    	redisManager.setHost("127.0.0.1");
+    	redisManager.setPort(6379);
     	redisManager.setExpire(7200);
     	redisManager.setTimeout(3000);
     	return redisManager;

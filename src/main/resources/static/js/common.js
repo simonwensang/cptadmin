@@ -429,6 +429,15 @@ function formatDate(cellvalue, options, cell) {
     return d.format('yyyy-MM-dd hh:mm:ss');
 }
 
+//格式化日期
+function formatDateToDay(cellvalue, options, cell) {
+    if (!cellvalue) {
+        return "-";
+    }
+    var d = new Date(cellvalue);
+    return d.format('yyyy-MM-dd');
+}
+
 function formatImage(cellvalue, options, cell) {
     if (!cellvalue) {
         return "-";

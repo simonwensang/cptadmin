@@ -20,8 +20,8 @@ import com.cpt.req.OptReq;
 import com.cpt.req.ProjectReq;
 import com.cpt.service.CustomerService;
 import com.cpt.service.ProductTypeService;
+import com.cpt.service.ProjectDescribeService;
 import com.cpt.service.ProjectService;
-import com.cpt.vo.ProjectPriceVo;
 import com.cpt.vo.ProjectVo;
 
 @Controller
@@ -38,6 +38,9 @@ public class ProjectController {
 	
 	@Autowired 
 	private CustomerService customerService;
+	
+	@Autowired 
+	private ProjectDescribeService projectDescribeService;
 	  /**
      * 公司资料管理列表
      *
@@ -154,6 +157,7 @@ public class ProjectController {
     	  map.put("projectVo", projectService.detail(id));
     	  map.put("productTypeList", productTypeService.selectAll());
     	  map.put("customerList", customerService.query());
+    	  map.put("projectDescribeList",projectDescribeService.queryDescribe(id));
     	  return "project/project_price";
     }
     

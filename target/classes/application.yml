@@ -3,7 +3,7 @@
 # PROFILES
 ## dev | test | prod
 spring: 
-  profiles: dev
+  profiles.active: dev
   
 # IDENTITY (ContextIdApplicationContextInitializer)
 spring.application.index: MyBatis.v1.1
@@ -86,7 +86,7 @@ spring.velocity.suffix: .vm
 spring.velocity.toolbox-config-location: toolbox.xml
 ---
 spring:
-  profiles.active: prod
+  profiles: prod
 
 # IDENTITY (ContextIdApplicationContextInitializer)
 spring.application.index: MyBatis.v1.1
