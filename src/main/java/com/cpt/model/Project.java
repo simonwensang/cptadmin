@@ -57,6 +57,8 @@ public class Project {
 
     private Date priceOfferTime;
 
+    private String reason;
+
     public Long getId() {
         return id;
     }
@@ -271,5 +273,13 @@ public class Project {
 
     public void setPriceOfferTime(Date priceOfferTime) {
         this.priceOfferTime = priceOfferTime;
+    }
+
+    public String getReason() {
+        return reason;
+    }
+
+    public void setReason(String reason) {
+        this.reason = reason == null ? null : reason.trim();
     }
 }

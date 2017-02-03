@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    #parse("tags.vm")
+</head>
+<body>
+<div class="container">
+	 <!--驳回弹出框 -->
+     #parse("common/rebut_page.vm")
+		<div class="page-header">
+          <h1>项目管理</h1>
+        </div>
+    <form class="form-horizontal" role="form" id="createForm"   method="post"  >
+        <div class="form-group">
+            <label class="col-sm-2 control-label">项目名称： </label>
+            <div class="col-sm-3">
+                <input type="text" name="name" value="$!{projectVo.name}" disabled="disabled" class="form-control">
+            </div>
+            <label class="col-sm-2 control-label"> 招标单位：</label>
+            <div class="col-sm-3">
+                <input type="text" name="tenderee" value="$!{projectVo.tenderee}" disabled="disabled" class="form-control">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label"> 设计单位： </label>
+            <div class="col-sm-3">
+                  <input type="text" name="designer"  value="$!{projectVo.designer}" disabled="disabled" class="form-control">
+            </div>
+            <label class="col-sm-2 control-label"> 代理单位： </label>
+            <div class="col-sm-3">
+                  <input type="text" name="agent" value="$!{projectVo.agent}" disabled="disabled" class="form-control">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label"> 项目所在地： </label>
+            <div class="col-sm-7">
+                <input type="text" name="address" value="$!{projectVo.address}" disabled="disabled" class="form-control">
+            </div>
+        </div>
+		
+		<div class="form-group">
+            <label class="col-sm-2 control-label"> 产品类型：</label>
+            <div class="col-sm-8">
+                <div class="checkbox">
+                    #foreach($productType in $productTypeList)
+                        <label style="width: 120px;"><input name="type" disabled="disabled" class="designerBudget"
+                                      id="budget_$!{productType.id}" type="checkbox"
+                                      value="$!{productType.id}" 
+									  #if($!{projectVo.type} ==$!{productType.id}) 
+										checked="true"
+									  #end
+							  />$!{productType.name}&nbsp;&nbsp;
+                        </label>
+                    #end
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label"> 招标日期： </label>
+            <div class="col-sm-3">
+				 <input type="text"   name="tenderTime" disabled="disabled" 
+                       value='$!{projectVo.tenderTime}'
+                       onClick="WdatePicker({dateFmt:'yyyy-MM-dd'});" class="form-control"  >
+            </div>
+			<label class="col-sm-2 control-label">报备： </label>
+            <div class="col-sm-3">
+                  <input type="text" name="report" value="$!{projectVo.report}" disabled="disabled" class="form-control">
+            </div>
+        </div>
+    </form>
+	<br />
+	<div class="page-header"/>
+    <div id="offerPriceList" >
+	#foreach($projectPrice in $projectVo.projectPriceList)
+		<hr />
+	<form class="form-horizontal" role="form" id="offerPriceForm"   method="post" action="/projectPrice/savePriceOffer" >
+		<input type="hidden" id="projectId" name="projectId" value="$!{projectPrice.projectId}"/>
+		<div class="form-group">
+            <label class="col-sm-2 control-label">客户： </label>
+            <div class="col-sm-2">
+                 <input type="text" disabled="disabled" name="company" value="$!{projectPrice.company}"  class="input">
+            </div>
+            <label class="col-sm-2 control-label"> 报价人：</label>
+            <div class="col-sm-2">
+                <input type="text" disabled="disabled" name="manager" value="$!{projectPrice.manager}"  class="input">
+            </div>
+			<label class="col-sm-2  control-label"> 联系方式：</label>
+            <div class="col-sm-2">
+                <input type="text" disabled="disabled" name="tel" value="$!{projectPrice.tel}"  class="input">
+            </div>
+        </div>
+		<div id="price">
+			#foreach($projectPriceItem in $projectPrice.projectPriceItems)
+			<div class='form-group' >
+				<label class='col-sm-2 control-label'>价格： </label>
+				<div class='col-sm-2'>
+					<input type='text' disabled="disabled" name='projectPriceItem.price' value="$!{projectPriceItem.price}"   placeholder='（四位小数）元'  class='input'>
+				</div>
+				<label class='col-sm-2 control-label'> 系数：</label>
+				<div class='col-sm-2'>
+					<input type='text' disabled="disabled" name='projectPriceItem.ratio' value="$!{projectPriceItem.ratio}"   placeholder='（0·10）'  class='input'>
+				</div>
+				<label class='col-sm-2 control-label'> 创建日期：</label>
+				<div class='col-sm-2'>
+					<input type='text' disabled="disabled" name='projectPriceItem.createTime' value="$dateTimeUtil.format($!{projectPriceItem.createTime},'yyyy-MM-dd') "  class='input'>
+				</div>
+			</div>
+			#end
+		</div>
+	</form>
+	#end
+	</div>
+
+	<hr/>
+	<form class="form-horizontal" role="form" id="projectDescribeForm"   method="post"   >
+		<div class="form-group">
+            <label class="col-sm-2 control-label">项目日志： </label>
+            <div class="col-sm-4">
+                 <div id="projectDescribeDiv">
+					#foreach($projectDescribe in $projectDescribeList)
+                        <p >$dateTimeUtil.format($!{projectDescribe.createTime},'yyyy-MM-dd')  &nbsp; &nbsp;&nbsp;$!{projectDescribe.content}</p>
+                    #end
+				</div>
+            </div>
+        </div>
+		<div class="form-group">
+            <label class="col-sm-2 control-label">添加进度： </label>
+            <div class="col-sm-4">
+					<textarea id="content" class="form-control" rows="3"  name='content'></textarea>
+            </div>
+        </div>
+		<div class="form-group">
+			  <div class="col-sm-offset-4 col-sm-10">
+				<input id="passButton" type="button" class="btn btn-primary"
+                   onclick="commitDescribe();"
+                   value="添加进度"/>
+				    #if($!{projectVo.status} ==3) 
+						&nbsp;&nbsp;
+    				   	<input id="passButton" type="button" class="btn btn-primary"
+                       onclick="sign();"
+                       value="签订合同"/>
+    				   &nbsp;&nbsp;
+    				   	<input id="passButton" type="button" class="btn btn-primary"
+                       onclick="rebut();"
+                       value="不签合同"/>
+					#end
+				   
+            </div>
+		 </div>
+	</form>
+		
+</div>
+
+<script type="text/javascript">
+
+    function rebut(){
+     confirmShows("确认不签合同？", function () {
+                            showRebut();
+                        });
+    }
+
+	 //驳回  确认
+    function saveRebut(){
+        var projectId = $('#projectId').val();
+        var reason = $("#reason").val();
+        if("" == $.trim(reason) || null == reason || undefined == reason){
+            alertShow("不签合同原因不能为空！");
+            return false;
+        }else{
+            signContract(projectId,0,reason);
+        }
+    }
+	
+	function sign(){
+		var projectId = $('#projectId').val();
+		confirmShows("确认签合同？", function () {
+                             signContract(projectId,1);
+                        });
+	}
+	 
+function signContract(projectId,sign,reason){
+		var projectId = $('#projectId').val();
+		var reason = $('#reason').val();
+		 $.ajax({
+                type: "post",
+                url: '/project/signContract',
+                data: {
+                   projectId:projectId,sign:sign,reason:reason  
+                },
+                dataType: 'json',
+                success: function (data) {
+					 alertShow(data.msg, function () {
+                       $('#rebutModal').modal('hide');
+						location.reload();
+                    });
+                },
+                error: function (data) {
+                    if(data.msg){
+                        alertShow(data.msg);
+                    }
+                    if(data.readyState == 4){
+                        alertShow("Request Not Found");
+                    }
+                }
+            });
+	}
+	
+	function commitDescribe(){
+		var content = $('#content').val();
+		var projectId = $('#projectId').val();
+		 $.ajax({
+                type: "post",
+                url: '/projectDescribe/insertLog',
+                data: {
+                   projectId:projectId,content:content  
+                },
+                dataType: 'json',
+                success: function (data) {
+                    //提示审核通过成功信息并刷新页面
+                    alertShow(data.msg, function () {
+    					if(data.code==200){
+    						 $("#projectDescribeDiv").append(formatDateToDay(data.value.createTime)+"   "+data.value.content+"<br/>"); 
+    					}
+                    });
+                },
+                error: function (data) {
+                    if(data.msg){
+                        alertShow(data.msg);
+                    }
+                    if(data.readyState == 4){
+                        alertShow("Request Not Found");
+                    }
+                }
+            });
+	}
+	
+</script>
+
+</body>
+</html>

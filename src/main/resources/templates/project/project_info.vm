@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    #parse("tags.vm")
+</head>
+<body>
+<div class="container">
+	 <!--驳回弹出框 -->
+		<div class="page-header">
+          <h1>项目管理</h1>
+        </div>
+    <form class="form-horizontal" role="form" id="createForm"   method="post"  >
+        <div class="form-group">
+            <label class="col-sm-2 control-label">项目名称： </label>
+            <div class="col-sm-3">
+                <input type="text" name="name" value="$!{projectVo.name}" disabled="disabled" class="form-control">
+            </div>
+            <label class="col-sm-2 control-label"> 招标单位：</label>
+            <div class="col-sm-3">
+                <input type="text" name="tenderee" value="$!{projectVo.tenderee}" disabled="disabled" class="form-control">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label"> 设计单位： </label>
+            <div class="col-sm-3">
+                  <input type="text" name="designer"  value="$!{projectVo.designer}" disabled="disabled" class="form-control">
+            </div>
+            <label class="col-sm-2 control-label"> 代理单位： </label>
+            <div class="col-sm-3">
+                  <input type="text" name="agent" value="$!{projectVo.agent}" disabled="disabled" class="form-control">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label"> 项目所在地： </label>
+            <div class="col-sm-7">
+                <input type="text" name="address" value="$!{projectVo.address}" disabled="disabled" class="form-control">
+            </div>
+        </div>
+		
+		<div class="form-group">
+            <label class="col-sm-2 control-label"> 产品类型：</label>
+            <div class="col-sm-8">
+                <div class="checkbox">
+                    #foreach($productType in $productTypeList)
+                        <label style="width: 120px;"><input name="type" disabled="disabled" class="designerBudget"
+                                      id="budget_$!{productType.id}" type="checkbox"
+                                      value="$!{productType.id}" 
+									  #if($!{projectVo.type} ==$!{productType.id}) 
+										checked="true"
+									  #end
+							  />$!{productType.name}&nbsp;&nbsp;
+                        </label>
+                    #end
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label"> 招标日期： </label>
+            <div class="col-sm-3">
+				 <input type="text"   name="tenderTime" disabled="disabled" 
+                       value='$!{projectVo.tenderTime}'
+                       onClick="WdatePicker({dateFmt:'yyyy-MM-dd'});" class="form-control"  >
+            </div>
+			<label class="col-sm-2 control-label">报备： </label>
+            <div class="col-sm-3">
+                  <input type="text" name="report" value="$!{projectVo.report}" disabled="disabled" class="form-control">
+            </div>
+        </div>
+    </form>
+	<br />
+	<div class="page-header"/>
+    <div id="offerPriceList" >
+	#foreach($projectPrice in $projectVo.projectPriceList)
+		<hr />
+	<form class="form-horizontal" role="form" id="offerPriceForm"   method="post" action="/projectPrice/savePriceOffer" >
+		<input type="hidden" id="projectId" name="projectId" value="$!{projectPrice.projectId}"/>
+		<div class="form-group">
+            <label class="col-sm-2 control-label">客户： </label>
+            <div class="col-sm-2">
+                 <input type="text" disabled="disabled" name="company" value="$!{projectPrice.company}"  class="input">
+            </div>
+            <label class="col-sm-2 control-label"> 报价人：</label>
+            <div class="col-sm-2">
+                <input type="text" disabled="disabled" name="manager" value="$!{projectPrice.manager}"  class="input">
+            </div>
+			<label class="col-sm-2  control-label"> 联系方式：</label>
+            <div class="col-sm-2">
+                <input type="text" disabled="disabled" name="tel" value="$!{projectPrice.tel}"  class="input">
+            </div>
+        </div>
+		<div id="price">
+			#foreach($projectPriceItem in $projectPrice.projectPriceItems)
+			<div class='form-group' >
+				<label class='col-sm-2 control-label'>价格： </label>
+				<div class='col-sm-2'>
+					<input type='text' disabled="disabled" name='projectPriceItem.price' value="$!{projectPriceItem.price}"   placeholder='（四位小数）元'  class='input'>
+				</div>
+				<label class='col-sm-2 control-label'> 系数：</label>
+				<div class='col-sm-2'>
+					<input type='text' disabled="disabled" name='projectPriceItem.ratio' value="$!{projectPriceItem.ratio}"   placeholder='（0·10）'  class='input'>
+				</div>
+				<label class='col-sm-2 control-label'> 创建日期：</label>
+				<div class='col-sm-2'>
+					<input type='text' disabled="disabled" name='projectPriceItem.createTime' value="$dateTimeUtil.format($!{projectPriceItem.createTime},'yyyy-MM-dd') "  class='input'>
+				</div>
+			</div>
+			#end
+		</div>
+	</form>
+	#end
+	</div>
+
+	<hr/>
+	<form class="form-horizontal" role="form" id="projectDescribeForm"   method="post"   >
+		<div class="form-group">
+            <label class="col-sm-2 control-label">项目描述： </label>
+            <div class="col-sm-4">
+                 <div id="projectDescribeDiv">
+					#foreach($projectDescribe in $projectDescribeList)
+                        <p >$dateTimeUtil.format($!{projectDescribe.createTime},'yyyy-MM-dd')  &nbsp; &nbsp;&nbsp;$!{projectDescribe.content}</p>
+                    #end
+				</div>
+            </div>
+        </div>
+		<div class="form-group">
+            <label class="col-sm-2 control-label">项目日志： </label>
+            <div class="col-sm-4">
+                 <div id="projectDescribeDiv">
+					#foreach($projectDescribe in $projectLogList)
+                        <p >$dateTimeUtil.format($!{projectDescribe.createTime},'yyyy-MM-dd')  &nbsp; &nbsp;&nbsp;$!{projectDescribe.content}</p>
+                    #end
+				</div>
+            </div>
+        </div>
+	</form>
+	<div class="form-group">
+			  <div class="col-sm-offset-4 col-sm-10">
+				 #if($!{projectVo.status} ==4) 项目最终状态：合同已签订
+        		#elseif($!{projectVo.status} ==5) 项目最终状态：合同不签订					 
+        		#end
+            </div>
+		 </div>
+</div>
+
+<script type="text/javascript">
+ 	
+</script>
+
+</body>
+</html>

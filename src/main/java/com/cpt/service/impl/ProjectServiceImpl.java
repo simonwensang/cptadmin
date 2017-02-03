@@ -28,6 +28,7 @@ import com.cpt.model.User;
 import com.cpt.model.WorkFlow;
 import com.cpt.req.OptReq;
 import com.cpt.req.ProjectReq;
+import com.cpt.req.SignContractReq;
 import com.cpt.service.ProjectPriceService;
 import com.cpt.service.ProjectService;
 import com.cpt.service.UserCommonService;
@@ -183,6 +184,34 @@ public class ProjectServiceImpl implements ProjectService {
 	@Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.DEFAULT, rollbackFor = Exception.class)
 	public Integer update(Project project){
 		return projectMapper.updateByPrimaryKeySelective(project);
+	}
+
+	@Override
+	@Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.DEFAULT, rollbackFor = Exception.class)
+	public Result<Integer> signContract(SignContractReq signContractReq) {
+		if(signContractReq.getProjectId()==null||signContractReq.getSign()==null){
+			return new Result<Integer>(ResultCode.C500.getCode(),MessageConstants.PRARM_ERROR);
+		}
+		Project project = projectMapper.selectByPrimaryKey(signContractReq.getProjectId());
+		if(null==project){
+			return new Result<Integer>(ResultCode.C500.getCode(),MessageConstants.PROJECT_EMPTY);
+		}
+		if(project.getProjectManagerId().longValue()==userCommonService.getUserId().longValue()){
+			if(project.getStatus().byteValue()==ProjectStatus.PRICE_OFFER.getKey().byteValue()){
+				Project updateProject = new Project();
+				updateProject.setId(signContractReq.getProjectId());
+				updateProject.setReason(signContractReq.getReason());
+				updateProject.setUpdateUserId(userCommonService.getUserId());
+				updateProject.setStatus(signContractReq.getSign().byteValue()==1?ProjectStatus.SIGN_CONTRACT.getKey():ProjectStatus.NO_CONTRACT.getKey());
+				return new Result<Integer>(this.update(updateProject));
+			}else{
+				return new Result<Integer>(ResultCode.C500.getCode(),MessageConstants.NO_PRICE);
+			}
+			
+		}else{
+			return new Result<Integer>(ResultCode.C500.getCode(),MessageConstants.NO_AUTHOR);
+		}
+		
 	}
 
 }

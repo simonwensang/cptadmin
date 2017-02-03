@@ -1,0 +1,30 @@
+<div class="modal fade" id="rebutModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="rebutModalLabel">不签原因</h4>
+            </div>
+			<div class="modal-body" style="padding: 30px;">
+				 <div class="rebut_form">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">原因:</label>
+                        <textarea class="form-control" name="reason"  id="reason"
+                                  style="resize:none;width:60%;height:100px;"
+                                  valid="rangelength:12_200"></textarea>
+                    </div>
+				</div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" onclick="saveRebut()">确认</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+	function showRebut(id) {
+		$('#rebutModal').modal('show');
+    }
+</script>

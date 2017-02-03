@@ -35,7 +35,7 @@
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
         <!--生成table名称-->
-        <table tableName="t_project_describe" domainObjectName="ProjectDescribe" enableCountByExample="true"
+        <table tableName="t_project" domainObjectName="Project" enableCountByExample="true"
                enableUpdateByExample="true" enableDeleteByExample="true"
                enableSelectByExample="true" selectByExampleQueryId="true"
                enableInsert="true" enableUpdateByPrimaryKey="true"

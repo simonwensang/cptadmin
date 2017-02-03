@@ -5,7 +5,7 @@ import com.cpt.common.PageResult;
 import com.cpt.common.Result;
 import com.cpt.req.OptReq;
 import com.cpt.req.ProjectReq;
-import com.cpt.vo.ProjectPriceVo;
+import com.cpt.req.SignContractReq;
 import com.cpt.vo.ProjectVo;
 
 public interface ProjectService {
@@ -19,5 +19,7 @@ public interface ProjectService {
 	Result<Integer> addOrEdit(ProjectReq projectReq);
 	
 	Result<Integer> opt( OptReq optReq);
+	
+	Result<Integer> signContract( SignContractReq signContractReq);
 	
 }

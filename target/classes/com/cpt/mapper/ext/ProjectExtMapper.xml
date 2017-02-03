@@ -29,11 +29,12 @@
     <result column="price_offer" jdbcType="VARCHAR" property="priceOffer" />
     <result column="price_offer_id" jdbcType="BIGINT" property="priceOfferId" />
     <result column="price_offer_time" jdbcType="TIMESTAMP" property="priceOfferTime" />
+    <result column="authority" jdbcType="TINYINT" property="authority" />
   </resultMap>
    
   <select id="selectProjectList" parameterType="com.cpt.req.ProjectReq" resultMap="BaseResultMap">
 	    select 
-	  	 a.*
+	  	 a.*,b.authority
 	    from  t_work_flow b left join t_project a on b.ref_id=a.id
 	    <where>
 	      b.user_id=#{userId}

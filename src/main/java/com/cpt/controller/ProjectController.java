@@ -18,6 +18,7 @@ import com.cpt.common.Result;
 import com.cpt.model.ProductType;
 import com.cpt.req.OptReq;
 import com.cpt.req.ProjectReq;
+import com.cpt.req.SignContractReq;
 import com.cpt.service.CustomerService;
 import com.cpt.service.ProductTypeService;
 import com.cpt.service.ProjectDescribeService;
@@ -144,6 +145,17 @@ public class ProjectController {
     public Result<Integer> opt( OptReq optReq) {
     	return projectService.opt( optReq);
     }
+    /**
+     * 签合同
+     *
+     * @param SignContractReq
+     * @return
+     */
+    @RequestMapping(value = "/signContract", method = RequestMethod.POST)
+    @ResponseBody
+    public Result<Integer> signContract( SignContractReq signContractReq) {
+    	return projectService.signContract( signContractReq);
+    }
     
     /**
      * 报价
@@ -159,6 +171,38 @@ public class ProjectController {
     	  map.put("customerList", customerService.query());
     	  map.put("projectDescribeList",projectDescribeService.queryDescribe(id));
     	  return "project/project_price";
+    }
+    
+    /**
+     * 管理
+     *
+     * @param mav
+     * @param id
+     * @return
+     */
+    @RequestMapping(value = "/projectManager")
+    public String projectManager(ModelMap map ,Long id) {
+    	  map.put("projectVo", projectService.detail(id));
+    	  map.put("productTypeList", productTypeService.selectAll());
+    	  map.put("projectDescribeList",projectDescribeService.queryLog(id));
+    	  return "project/project_manager";
+    }
+    
+
+    /**
+     * 管理
+     *
+     * @param mav
+     * @param id
+     * @return
+     */
+    @RequestMapping(value = "/projectInfo")
+    public String projectInfo(ModelMap map ,Long id) {
+    	  map.put("projectVo", projectService.detail(id));
+    	  map.put("productTypeList", productTypeService.selectAll());
+    	  map.put("projectDescribeList",projectDescribeService.queryDescribe(id));
+    	  map.put("projectLogList",projectDescribeService.queryLog(id));
+    	  return "project/project_info";
     }
     
 }

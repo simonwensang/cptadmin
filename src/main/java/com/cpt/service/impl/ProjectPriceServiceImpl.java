@@ -14,10 +14,12 @@ import com.cpt.common.Result;
 import com.cpt.common.ResultCode;
 import com.cpt.common.constant.MessageConstants;
 import com.cpt.convertor.ProjectPriceConvertor;
+import com.cpt.mapper.CustomerMapper;
 import com.cpt.mapper.ProjectMapper;
 import com.cpt.mapper.ProjectPriceMapper;
 import com.cpt.mapper.ext.ProjectPriceExtMapper;
 import com.cpt.mapper.ext.ProjectPriceItemExtMapper;
+import com.cpt.model.Customer;
 import com.cpt.model.Project;
 import com.cpt.model.ProjectPrice;
 import com.cpt.model.ProjectPriceItem;
@@ -42,6 +44,9 @@ public class ProjectPriceServiceImpl implements ProjectPriceService {
 	
 	@Resource
 	private ProjectMapper projectMapper;
+	
+	@Resource
+	private  CustomerMapper customerMapper;
 	
 	@Override
 	public List<ProjectPriceVo> queryByProjectId(Long projectId) {
@@ -68,7 +73,11 @@ public class ProjectPriceServiceImpl implements ProjectPriceService {
 		}
 		
 		ProjectPrice projectPrice = ProjectPriceConvertor.toProjectPrice(projectPriceVo);
-		
+		Customer customer = customerMapper.selectByPrimaryKey(projectPrice.getCompanyId());
+		if(null==customer){
+			return new Result<Integer>(ResultCode.C500.getCode(),MessageConstants.CUSTOMER_EMPTY);
+		}
+		projectPrice.setCompany(customer.getName());
 		projectPriceExtMapper.insertSelective(projectPrice);
 		
 		List<ProjectPriceItem> projectPriceItems= projectPriceVo.getProjectPriceItems();

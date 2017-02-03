@@ -60,6 +60,8 @@ public class ProjectVo {
     private Long priceOfferId;
 
     private Date priceOfferTime;
+    
+    private Byte authority;
  
     private List<ProjectPriceVo> projectPriceList;
     
