@@ -26,6 +26,7 @@ com\cpt\service\ProjectPriceService.class
 com\cpt\model\ModuleExample.class
 com\cpt\model\RoleModuleExample$GeneratedCriteria.class
 com\cpt\model\ModuleExample$Criterion.class
+com\cpt\service\OrganizationService.class
 com\cpt\model\ModuleExample$GeneratedCriteria.class
 com\cpt\model\ProjectExample$Criterion.class
 com\cpt\common\PageParam.class
@@ -75,6 +76,7 @@ com\cpt\model\Role.class
 com\cpt\model\UserRole.class
 com\cpt\service\impl\ProjectDescribeServiceImpl.class
 com\cpt\model\UserOrganizationExample$Criterion.class
+com\cpt\vo\JsonModel.class
 com\cpt\model\ProjectPriceItemExample.class
 com\cpt\service\impl\CustomerServiceImpl.class
 com\cpt\model\UserOrganizationExample.class
@@ -87,6 +89,7 @@ com\cpt\service\UserCommonService.class
 com\cpt\model\UserOrganizationExample$GeneratedCriteria.class
 com\cpt\model\ProjectPriceExample$Criterion.class
 com\cpt\config\shiro\DruidConfig.class
+com\cpt\service\impl\OrganizationServiceImpl.class
 com\cpt\model\ProductTypeExample$Criterion.class
 com\cpt\common\util\DateUtils.class
 com\cpt\model\ProjectPriceExample$GeneratedCriteria.class
@@ -102,6 +105,7 @@ com\cpt\config\shiro\ShrioRedisCacheManager.class
 com\cpt\model\WorkFlowExample$Criterion.class
 com\cpt\model\ProjectPriceItemExample$GeneratedCriteria.class
 com\cpt\config\shiro\ShrioRedisCache.class
+com\cpt\convertor\OrganizationConvertor.class
 com\cpt\mapper\ext\UserExtMapper.class
 com\cpt\mapper\RoleModuleMapper.class
 com\cpt\model\User.class

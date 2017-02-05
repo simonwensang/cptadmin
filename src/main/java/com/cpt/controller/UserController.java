@@ -14,6 +14,7 @@ import com.cpt.common.PageResult;
 import com.cpt.common.Result;
 import com.cpt.model.User;
 import com.cpt.req.UserQuery;
+import com.cpt.service.OrganizationService;
 import com.cpt.service.UserService;
 import com.cpt.vo.UserVo;
 @Controller
@@ -22,9 +23,11 @@ public class UserController {
 
 	@Autowired 
 	private UserService userService;
-	
+	@Autowired 
+	private  OrganizationService organizationService;
 	@RequestMapping("/list")
 	public ModelAndView list (ModelAndView modelMap){
+		modelMap.addObject("zNode",organizationService.getTreeNode());
 		modelMap.setViewName("user/user_list");
 		return modelMap;
 	}
@@ -60,10 +63,15 @@ public class UserController {
 		if(id!=null){
 			modelMap.addObject("userVo",userService.get(id));
 		}
+		modelMap.addObject("zNode",organizationService.getTreeNode());
 		modelMap.setViewName("user/user_detail");
 		return modelMap;
 	}
-	
+	 @RequestMapping(value = "/zNode", method = RequestMethod.POST)
+	    @ResponseBody
+	    public String zNode(User user) {
+	    	return organizationService.getTreeNode();
+	    }
 	/**
      * 增加或者修改
      *

@@ -1,5 +1,6 @@
 D:\eclipse\workspace\cptadmin\src\main\java\com\cpt\config\shiro\KickoutSessionControlFilter.java
 D:\eclipse\workspace\cptadmin\src\main\java\com\cpt\service\impl\UserServiceImpl.java
+D:\eclipse\workspace\cptadmin\src\main\java\com\cpt\vo\JsonModel.java
 D:\eclipse\workspace\cptadmin\src\main\java\com\cpt\service\ProjectDescribeService.java
 D:\eclipse\workspace\cptadmin\src\main\java\com\cpt\controller\UserController.java
 D:\eclipse\workspace\cptadmin\src\main\java\com\cpt\common\ResultCode.java
@@ -43,6 +44,8 @@ D:\eclipse\workspace\cptadmin\src\main\java\com\cpt\config\MybatisConfig.java
 D:\eclipse\workspace\cptadmin\src\main\java\com\cpt\req\SignContractReq.java
 D:\eclipse\workspace\cptadmin\src\main\java\com\cpt\common\util\CodeFactory.java
 D:\eclipse\workspace\cptadmin\src\main\java\com\cpt\model\UserRole.java
+D:\eclipse\workspace\cptadmin\src\main\java\com\cpt\convertor\OrganizationConvertor.java
+D:\eclipse\workspace\cptadmin\src\main\java\com\cpt\service\impl\OrganizationServiceImpl.java
 D:\eclipse\workspace\cptadmin\src\main\java\com\cpt\req\OptReq.java
 D:\eclipse\workspace\cptadmin\src\main\java\com\cpt\service\ProductTypeService.java
 D:\eclipse\workspace\cptadmin\src\main\java\com\cpt\service\ProjectPriceService.java
@@ -52,8 +55,8 @@ D:\eclipse\workspace\cptadmin\src\main\java\com\cpt\service\impl\CustomerService
 D:\eclipse\workspace\cptadmin\src\main\java\com\cpt\mapper\RoleMapper.java
 D:\eclipse\workspace\cptadmin\src\main\java\com\cpt\common\constant\UserIdentity.java
 D:\eclipse\workspace\cptadmin\src\main\java\com\cpt\model\ModuleExample.java
-D:\eclipse\workspace\cptadmin\src\main\java\com\cpt\model\ProjectPriceItem.java
 D:\eclipse\workspace\cptadmin\src\main\java\com\cpt\service\impl\productTypeServiceImpl.java
+D:\eclipse\workspace\cptadmin\src\main\java\com\cpt\model\ProjectPriceItem.java
 D:\eclipse\workspace\cptadmin\src\main\java\com\cpt\common\constant\MessageConstants.java
 D:\eclipse\workspace\cptadmin\src\main\java\com\cpt\model\ProductType.java
 D:\eclipse\workspace\cptadmin\src\main\java\com\cpt\service\ProjectService.java
@@ -89,9 +92,9 @@ D:\eclipse\workspace\cptadmin\src\main\java\com\cpt\mapper\ext\ProjectExtMapper.
 D:\eclipse\workspace\cptadmin\src\main\java\com\cpt\mapper\WorkFlowMapper.java
 D:\eclipse\workspace\cptadmin\src\main\java\com\cpt\mapper\ext\ProjectPriceExtMapper.java
 D:\eclipse\workspace\cptadmin\src\main\java\com\cpt\model\Role.java
+D:\eclipse\workspace\cptadmin\src\main\java\com\cpt\mapper\CustomerMapper.java
 D:\eclipse\workspace\cptadmin\src\main\java\com\cpt\common\constant\ProjectStatus.java
 D:\eclipse\workspace\cptadmin\src\main\java\com\cpt\config\shiro\DruidConfig.java
-D:\eclipse\workspace\cptadmin\src\main\java\com\cpt\mapper\CustomerMapper.java
 D:\eclipse\workspace\cptadmin\src\main\java\com\cpt\model\Project.java
 D:\eclipse\workspace\cptadmin\src\main\java\com\cpt\model\Customer.java
 D:\eclipse\workspace\cptadmin\src\main\java\com\cpt\common\util\SerializeUtils.java
@@ -106,5 +109,6 @@ D:\eclipse\workspace\cptadmin\src\main\java\com\cpt\common\constant\AuthoritySta
 D:\eclipse\workspace\cptadmin\src\main\java\com\cpt\model\RoleModuleExample.java
 D:\eclipse\workspace\cptadmin\src\main\java\com\cpt\common\constant\Constants.java
 D:\eclipse\workspace\cptadmin\src\main\java\com\cpt\model\ProjectDescribeExample.java
+D:\eclipse\workspace\cptadmin\src\main\java\com\cpt\service\OrganizationService.java
 D:\eclipse\workspace\cptadmin\src\main\java\com\cpt\common\util\DateUtils.java
 D:\eclipse\workspace\cptadmin\src\main\java\com\cpt\common\ExceptionHandlerController.java

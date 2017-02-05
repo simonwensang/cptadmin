@@ -4,64 +4,56 @@
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                         aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="rebutModalLabel">选择管理员</h4>
+                <h4 class="modal-title" id="rebutModalLabel">选择部门</h4>
             </div>
 			<div class="modal-body" style="padding: 30px;">
-                    <input type="hidden" id="projectId" name="projectId" />
                     <ul id="treeDemo" class="ztree"></ul>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                <button type="button" class="btn btn-primary" onclick="saveRebut()">确认</button>
             </div>
         </div>
     </div>
 </div>
 <script>
-   var zTreeObj;
+	function showOrganization() {
+		$('#zTreeModal').modal('show');
+    }
+
    // zTree 的参数配置，深入使用请参考 API 文档（setting 配置详解）
    var setting = {
-			async: {
-				enable: true,
-				url:"",
-				autoParam:["id", "name=n", "level=lv"],
-				otherParam:{"otherParam":"zTreeAsyncTest"},
-				dataFilter: filter
-			}
+			 
+            check:{  
+           	 	enable : true  
+       		}, 
+			data:{ // 必须使用data    
+                simpleData : {    
+                    enable : true,    
+                    idKey : "id", // id编号命名     
+                    pIdKey : "pId", // 父id编号命名      
+                    rootId : 1  
+                }    
+            }, 
+            callback: {  
+           	 onClick : function(event, treeId, treeNode, clickFlag) {    
+                if(true) {  
+                   confirmShows("确认选择"+treeNode.name+"？", function () {
+				   	$('#departmentId').val(treeNode.id);
+				   	$('#department').val(treeNode.name);
+				    $('#zTreeModal').modal('hide');
+    			   });
+                }    
+            }  
+    		} 
 		};
-
-		function filter(treeId, parentNode, childNodes) {
-			if (!childNodes) return null;
-			for (var i=0, l=childNodes.length; i<l; i++) {
-				childNodes[i].name = childNodes[i].name.replace(/\.n/g, '.');
-			}
-			return childNodes;
-		}
-		var zNodes =[
-			{ name:"父节点1 - 展开", open:true,
-				children: [
-					{ name:"父节点11 - 折叠",
-						children: [
-							{ name:"叶子节点111"},
-							{ name:"叶子节点114"}
-						]},
-					{ name:"父节点12 - 折叠",
-						children: [
-							{ name:"叶子节点121"},
-							{ name:"叶子节点124"}
-						]},
-					{ name:"父节点13 - 没有子节点", isParent:true}
-				]},
-			{ name:"父节点3 - 没有子节点", isParent:true}
-
-		];
-
+		function onCheck(e, treeId, treeNode){
+             alert(" 节点id是：" + treeNode.id + ", 节点文本是：" + treeNode.name);   
+        }  
+		
+		var zNodes = $!{zNode};
+ 
 		$(document).ready(function(){
 			$.fn.zTree.init($("#treeDemo"), setting, zNodes);
 		});
    
-   function showProjectManager(id) {
-		$('#zTreeModal').modal('show');
-		$('#projectId').val(id);
-    }
 </script>

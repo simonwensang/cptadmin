@@ -20,6 +20,7 @@ import com.cpt.req.OptReq;
 import com.cpt.req.ProjectReq;
 import com.cpt.req.SignContractReq;
 import com.cpt.service.CustomerService;
+import com.cpt.service.OrganizationService;
 import com.cpt.service.ProductTypeService;
 import com.cpt.service.ProjectDescribeService;
 import com.cpt.service.ProjectService;
@@ -42,6 +43,8 @@ public class ProjectController {
 	
 	@Autowired 
 	private ProjectDescribeService projectDescribeService;
+	@Autowired 
+	private  OrganizationService organizationService;
 	  /**
      * 公司资料管理列表
      *
@@ -62,6 +65,7 @@ public class ProjectController {
     @RequestMapping(value = "/manager", method = RequestMethod.GET)
     public ModelAndView manager(ModelAndView mav,Long id ) {
     	mav.addObject("projectId", id);
+    	mav.addObject("zNode",organizationService.getTreeNode());
         mav.setViewName("project/manager_list");
         return mav;
     }

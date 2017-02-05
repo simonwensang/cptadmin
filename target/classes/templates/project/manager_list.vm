@@ -4,17 +4,16 @@
     #parse("tags.vm")
 </head>
 <body>
+		<!--组织弹出框 -->
+	#parse("common/ztree.vm")
 	<div class="search_form">
         <form role="form" id="searchManagerForm">
             <label>姓名</label>
             <input class="input" type="text" id="name" name="name" value=""/>
             <label>部门</label>
-            <select class="input-medium" id="orgId" name="orgId">
-                    <option ></option>
-    				<option value="2">marketing</option>
-                    <option value="3">S1</option>
-    				<option value="4">S2</option>
-            </select>
+			 <input type="hidden" id="departmentId" name="orgId"   class="input">
+			 <input type="text"  readonly="readonly" id="department" name="department"  class="input">
+			 <input id='selectButton' type='button' class='input' onclick='showOrganization()' value='选择部门'/> 			 
     	</form>
         <div class="search_form_opt">
             <button class="btn btn-primary" onclick="search({form:'searchManagerForm',grid:'manager_table'})">

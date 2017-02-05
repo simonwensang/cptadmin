@@ -9,4 +9,5 @@ public class Constants {
 	public final static boolean ISDELETEDBOLN = true;
 	public final static boolean ISNOTDELETEDBOLN = false;
 	public final static long USER_ROLE_ID = 2l;
+	public final static byte LEVEL_1 = 1;
 }
