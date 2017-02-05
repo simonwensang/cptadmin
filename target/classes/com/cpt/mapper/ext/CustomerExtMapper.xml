@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cpt.mapper.ext.CustomerExtMapper">
+  <resultMap id="BaseResultMap" type="com.cpt.model.Customer">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="contact" jdbcType="VARCHAR" property="contact" />
+    <result column="tel" jdbcType="VARCHAR" property="tel" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="is_deleted" jdbcType="BIT" property="isDeleted" />
+  </resultMap>
+   
+  <sql id="Base_Column_List">
+    id, name, contact, tel, create_time, update_time, is_deleted
+  </sql>
+   
+  <select id="pageList" parameterType="com.cpt.req.CustomerQuery"  resultMap="BaseResultMap">
+    select 
+     <include refid="Base_Column_List" />
+    from t_customer
+    <where> 
+         is_deleted=0
+	    <if test="name != null and name != ''">
+              AND  name LIKE concat('%',#{name},'%')
+        </if>
+        <if test="contact != null and contact != ''">
+              AND  contact LIKE concat('%',#{contact},'%')
+        </if>
+    </where>
+  </select> 
+  
+   <update id="logicalDelete" parameterType="java.lang.Long">
+    update t_customer
+    set is_deleted = 1
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

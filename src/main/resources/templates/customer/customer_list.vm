@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    #parse("tags.vm")
+</head>
+<body>
+	<div class="search_form">
+        <form role="form" id="searchManagerForm">
+            <label>客户名称</label>
+            <input class="input" type="text" id="name" name="name" value=""/>
+            <label>联系人</label>
+            <input class="input" type="text" id="contact" name="contact" value=""/>
+    	</form>
+        <div class="search_form_opt">
+            <button class="btn btn-primary" onclick="search({form:'searchManagerForm',grid:'grid_table'})">
+                <i class="ace-icon fa fa-search"></i>搜索
+            </button>
+			<button class="btn btn-success" onclick="reloadTable('/customer/pageList')">
+				<i class="ace-icon fa fa-refresh"></i>刷新
+			</button>
+			<button class="btn btn-success" onclick="addNewTabs({title:'新增客户',url: '/customer/detail'})">
+				<i class="ace-icon fa fa-pencil-square"></i>新增客户
+			</button>
+        </div>
+		 <div class="search_form_clear"></div>
+    </div>
+		<!--  表格 -->
+        <table id="grid_table"></table>
+        <!-- 分页 -->
+        <div id="grid_pager"></div>
+    <script>
+	
+	
+    $(function () {
+		var gridUrl = '/customer/pageList';
+        //初始化table
+        var grid_table = "#grid_table";
+        var grid_pager = "#grid_pager";
+        //初始化table
+        $(grid_table).jqGrid({
+            url: gridUrl,
+            datatype: "json",
+            height: '100%',
+            width: '100%',
+            colNames: ['ID', '客户名称','联系人','联系电话','操作'],
+            colModel: [
+                {name: 'id', index: 'id', width: '10%'},
+                {name: 'name', index: 'name', width: '20%'},
+				{name: 'contact', index: 'contact', width: '20%'},
+            	{name: 'tel', index: 'tel', width: '20%'},
+				{name: 'operate',index: 'rowid', width: '30%',sortable: false },
+			],
+            viewrecords: true,
+            rowNum: 10,
+            rowList: [10, 25, 50, 100],
+            pager: grid_pager,
+            altRows: true,
+            multiselect: true,
+            multiboxonly: true,
+            autowidth: true,
+			 //添加操作
+            gridComplete: function () {
+                var ids = $(grid_table).getDataIDs();
+                for (var i = 0; i < ids.length; i++) {
+                    var rowid = ids[i];
+ 					//如果想获取选择的行的数据，只要传入rowId即可
+                    var rowData = $(grid_table).jqGrid('getRowData',rowid);
+                    //而这个rowData是一个对象，如果要获取选择的行的这个对象的属性值，如degreeId的值
+                    //这个地方是获取每行里面列的值，用于判断某些按钮是否显示
+					var deleted = "<button class='btn btn-primary btn-sm ' style='margin-right: 6px' "
+                            + "onclick='deleted("+ rowid+")'><i class='ace-icon fa fa-pencil'></i>删除</button>";
+                    var update = "<button class='btn btn-primary btn-sm ' style='margin-right: 6px' "
+                            + "onclick=\"addNewTabs({title:'修改',url: '/customer/detail?id="
+                            + rowid
+                            + "'})\"><i class='ace-icon fa fa-search-plus'></i>修改</button>";
+					$(grid_table).jqGrid('setRowData', rowid, {
+                            operate: update+deleted,
+                    });
+                }
+            },
+            //更新翻页图标
+            loadComplete: function () {
+                var table = this;
+                setTimeout(function () {
+                    updatePagerIcons(table);
+                }, 0);
+            },
+        });
+        //分页
+        $(grid_table).jqGrid('navGrid', grid_pager, {
+            edit: false,
+            add: false,
+            del: false,
+            search: false,
+            refresh: false,
+        })
+		
+    });
+	   
+	function deleted(id){
+	confirmShows("确认删除？", function () {
+                             opt(id);
+                        });
+	} 
+	
+	function opt(id){
+		 $.ajax({
+                type: "post",
+                url: '/customer/delete',
+                data: {
+                   id:id
+                },
+                dataType: 'json',
+                success: function (data) {
+					 alertShow(data.msg, function () {
+						location.reload();
+                    });
+                },
+                error: function (data) {
+                    if(data.msg){
+                        alertShow(data.msg);
+                    }
+                    if(data.readyState == 4){
+                        alertShow("Request Not Found");
+                    }
+                }
+            });
+	}
+	
+	</script>
+</body>
+</html> 

@@ -7,5 +7,9 @@ import com.cpt.req.UserQuery;
 
 public interface UserExtMapper {
     
+	int insertSelective(User user);
+	
     List<User> query(UserQuery userQuery);
+    
+    List<User> pageList(UserQuery userQuery);
 }

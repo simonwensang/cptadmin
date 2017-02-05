@@ -15,8 +15,10 @@ com\cpt\config\shiro\ShiroSecurityConfig.class
 com\cpt\mapper\ext\ProjectPriceExtMapper.class
 com\cpt\service\ProjectService.class
 com\cpt\mapper\UserRoleMapper.class
+com\cpt\req\CustomerQuery.class
 com\cpt\model\ProjectDescribeExample$Criteria.class
 com\cpt\service\CustomerService.class
+com\cpt\controller\ProductTypeController.class
 com\cpt\mapper\ProjectMapper.class
 com\cpt\model\RoleExample$Criteria.class
 com\cpt\model\RoleModuleExample$Criterion.class
@@ -56,14 +58,17 @@ com\cpt\config\shiro\KickoutSessionControlFilter.class
 com\cpt\common\constant\UserIdentity.class
 com\cpt\mapper\ext\ProjectPriceItemExtMapper.class
 com\cpt\controller\LoginController.class
+com\cpt\req\SignContractReq.class
 com\cpt\controller\ProjectPriceController.class
 com\cpt\model\RoleModule.class
 com\cpt\model\ProductTypeExample$GeneratedCriteria.class
+com\cpt\req\ProductTypeQuery.class
 com\cpt\convertor\UserConvertor.class
 com\cpt\service\ProjectDescribeService.class
 com\cpt\common\util\CodeFactory.class
 com\cpt\model\ProjectPriceItem.class
 com\cpt\req\OptReq.class
+com\cpt\mapper\ext\ProductTypeExtMapper.class
 com\cpt\model\ProjectPriceItemExample$Criteria.class
 com\cpt\model\CustomerExample.class
 com\cpt\model\Role.class
@@ -85,6 +90,7 @@ com\cpt\config\shiro\DruidConfig.class
 com\cpt\model\ProductTypeExample$Criterion.class
 com\cpt\common\util\DateUtils.class
 com\cpt\model\ProjectPriceExample$GeneratedCriteria.class
+com\cpt\mapper\ext\CustomerExtMapper.class
 com\cpt\vo\UserVo.class
 com\cpt\config\MybatisConfig.class
 com\cpt\mapper\ext\ProjectExtMapper.class

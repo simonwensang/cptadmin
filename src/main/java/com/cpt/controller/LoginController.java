@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.cpt.model.User;
 import com.cpt.service.UserCommonService;
+import com.cpt.service.UserService;
 
 @Controller
 public class LoginController {
@@ -23,6 +24,9 @@ public class LoginController {
 	
 	@Resource
 	private UserCommonService userCommonService;
+	
+	@Resource
+	private UserService userService;
 	
 	@RequestMapping({"/login"})
 	public String login(ModelMap map){
@@ -37,7 +41,7 @@ public class LoginController {
 	
 	@RequestMapping({"/main"})
 	public String main(ModelMap map){
-		map.put("user", userCommonService.getUser());
+		map.put("user", userService.getUser());
 		return "main";
 	}
 	

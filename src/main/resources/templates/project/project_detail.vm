@@ -80,7 +80,7 @@
 			  	 $("#createForm").ajaxSubmit(function(data) { 
                     // 提交成功后处理，message为提交页面的返回内容 
 					 alertShow(data.msg, function () {
-					 	reloadTable('/project/create');
+					 	location.reload();
                     });
                 });
 			   });

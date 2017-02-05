@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    #parse("tags.vm")
+</head>
+<body>
+<div class="container">
+		<div class="page-header">
+          <h1>创建或修改客户</h1>
+        </div>
+    <form class="form-horizontal" role="form" id="createForm"   method="post" action="/customer/addOrEdit">
+        <div class="form-group">
+			<input type="hidden" id="customerId" name="id" value="$!{customerVo.id}" />
+            <label class="col-sm-2 control-label">客户名称： </label>
+            <div class="col-sm-3">
+                <input type="text" name="name" value="$!{customerVo.name}" class="form-control">
+            </div>
+            <label class="col-sm-2 control-label"> 联系人：</label>
+            <div class="col-sm-3">
+				   <input type="text" name="contact" value="$!{customerVo.contact}" class="form-control">
+			 </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label"> 联系方式： </label>
+            <div class="col-sm-3">
+                  <input type="text" name="tel"  value="$!{customerVo.tel}" class="form-control">
+            </div>
+        </div>
+		<div class="form-group">
+			  <div class="col-sm-offset-4 col-sm-10">
+				<input id="passButton" type="button" class="btn btn-primary"
+                   onclick="commit();"
+                   value="提交"/>
+            </div>
+		 </div>
+    </form>
+</div>
+
+<script type="text/javascript">
+    //确认提交
+	
+        function commit(){
+			 confirmShows("确认提交？", function () {
+			  	 $("#createForm").ajaxSubmit(function(data) { 
+                    // 提交成功后处理，message为提交页面的返回内容 
+					 alertShow(data.msg, function () {
+					 if(data.code==200){
+					 	location.reload();
+					 }
+					});
+                });
+			   });
+		}
+</script>
+
+</body>
+</html>

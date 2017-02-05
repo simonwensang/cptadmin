@@ -15,4 +15,7 @@
    select e.* from t_user_role b left join t_role c on b.role_id=c.id left join t_role_module d on c.id=d.role_id left join t_module e on d.module_id=e.id where b.user_id=#{userId}
   </select>
    
+  <select id="selectMenuByUserId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+   select e.* from t_user_role b left join t_role c on b.role_id=c.id left join t_role_module d on c.id=d.role_id left join t_module e on d.module_id=e.id where b.user_id=#{userId} and e.module_type=1
+  </select>
 </mapper>

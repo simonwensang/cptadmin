@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    #parse("tags.vm")
+</head>
+<body>
+<div class="container">
+		<div class="page-header">
+          <h1>创建或修改用户</h1>
+        </div>
+    <form class="form-horizontal" role="form" id="createForm"   method="post" action="/user/addOrEdit">
+        <div class="form-group">
+			<input type="hidden" id="userId" name="id" value="$!{userVo.id}" />
+            <label class="col-sm-2 control-label">姓名： </label>
+            <div class="col-sm-3">
+                <input type="text" name="name" value="$!{userVo.name}" class="form-control">
+            </div>
+            <label class="col-sm-2 control-label"> 部门：</label>
+            <div class="col-sm-3">
+				<select class="input-medium" id="departmentId" name="departmentId">
+                    <option ></option>
+    				<option value="2"  #if($!{userVo.departmentId} ==2) 
+										selected="selected"
+									  #end  >marketing</option>
+                    <option value="3" #if($!{userVo.departmentId} ==3) 
+										selected="selected"
+									  #end>S1</option>
+    				<option value="4" #if($!{userVo.departmentId} ==4) 
+										selected="selected"
+									  #end>S2</option>
+				</select>
+			 </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label"> 登录名： </label>
+            <div class="col-sm-3">
+                  <input type="text" name="account"  value="$!{userVo.account}" class="form-control">
+            </div>
+            <label class="col-sm-2 control-label"> 密码： </label>
+            <div class="col-sm-3">
+                  <input type="text" name="password" value="$!{userVo.password}" class="form-control">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label"> 联系方式： </label>
+            <div class="col-sm-3">
+                <input type="text" name="mobile" value="$!{userVo.mobile}" class="form-control">
+            </div>
+            <label class="col-sm-2 control-label"> 标签：</label>
+            <div class="col-sm-3">
+                <div class="checkbox">
+                        <label style="width: 120px;"><input name="identity" class="designerBudget"
+                                      id="budget_1" type="checkbox"
+									  #if($!{userVo.identity} ==1) 
+										checked="true"
+									  #end
+                                      value="1"   />报价人&nbsp;&nbsp;
+                        </label>
+						 <label style="width: 120px;"><input name="identity" class="designerBudget"
+                                      id="budget_2" type="checkbox"
+									   #if($!{userVo.identity} ==2) 
+										checked="true"
+									  #end
+                                      value="2"   />费用录入人&nbsp;&nbsp;
+                        </label>
+                </div>
+            </div>
+        </div>
+		<div class="form-group">
+			  <div class="col-sm-offset-4 col-sm-10">
+				<input id="passButton" type="button" class="btn btn-primary"
+                   onclick="commit();"
+                   value="提交"/>
+            </div>
+		 </div>
+    </form>
+</div>
+
+<script type="text/javascript">
+    //确认提交
+	
+        function commit(){
+			 confirmShows("确认提交？", function () {
+			  	 $("#createForm").ajaxSubmit(function(data) { 
+                    // 提交成功后处理，message为提交页面的返回内容 
+					 alertShow(data.msg, function () {
+					 if(data.code==200){
+					 	location.reload();
+					 }
+					});
+                });
+			   });
+		}
+</script>
+
+</body>
+</html>

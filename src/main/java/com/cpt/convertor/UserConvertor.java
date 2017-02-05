@@ -13,6 +13,9 @@ public class UserConvertor {
 	
     private static final BeanCopier beanCopierForUser = BeanCopier.create(User.class,UserVo.class,false);
     
+    private static final BeanCopier beanCopierForVoToUser = BeanCopier.create(UserVo.class,User.class,false);
+    
+    
     public static UserVo toUserVo(User  user) {
         if (user == null) {
             return null;
@@ -20,6 +23,14 @@ public class UserConvertor {
         UserVo userVo = new UserVo();
         beanCopierForUser.copy(user, userVo, null);
         return userVo;
+    }
+    public static User reqToUser(UserVo  userVo) {
+        if (userVo == null) {
+            return null;
+        }
+        User user = new User();
+        beanCopierForVoToUser.copy(userVo, user, null);
+        return user;
     }
     
     public static List<UserVo> toUserVoList(List<User>  users) {

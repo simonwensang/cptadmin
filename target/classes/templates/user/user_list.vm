@@ -1,99 +1,175 @@
-<!--修改等级弹出框 -->
-<div class="modal fade" id="managerModal">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                        aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="exampleModalLabel">选择管理员</h4>
-            </div>
-			<div class="modal-body" style="padding: 30px;">
-				 <form class="form-horizontal" role="form" id="validation-form" method="post" >
-                   <input type="hidden" id="projectId" name="projectId" />
-					 <div class="form-group">
-						<div class="search_form">
-                            <form role="form" id="searchManagerForm">
-                                <label>报价负责人</label>
-                                <input class="input" type="text" id="name" name="name" value=""/>
-                                <label>项目状态</label>
-                                <select class="input-medium" id="departmentId" name="departmentId">
-                                        <option ></option>
-                        				<option value="0">待指派项目负责人</option>
-                                        <option value="1">待指派报价负责人</option>
-                        				<option value="2">待指派报价人</option>
-                                        <option value="3">报价中</option>
-                        				<option value="4">合同已签订</option>
-                                        <option value="5">合同不签订</option>
-                                </select>
-                        	</form>
-                            <div class="search_form_opt">
-                                <button class="btn btn-primary" onclick="search({form:'searchManagerForm',grid:'manager_table'})">
-                                    <i class="ace-icon fa fa-search"></i>搜索
-                                </button>
-                            </div>
-                        </div>
-				  </div>	
-                    <div class="form-group">
-                        
-							<!--  表格 -->
-                            <table id="manager_table"></table>
-                            <!-- 分页 -->
-                            <div id="manager_pager"></div>
-                        
-                    </div>
-                    <hr/>
-				</form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                <button type="button" class="btn btn-primary" onclick="selectProjectManager()" >保存</button>
-            </div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    #parse("tags.vm")
+</head>
+<body>
+	<div class="search_form">
+        <form role="form" id="searchManagerForm">
+            <label>姓名</label>
+            <input class="input" type="text" id="name" name="name" value=""/>
+            <label>部门</label>
+            <select class="input-medium" id="orgId" name="orgId">
+                    <option ></option>
+    				<option value="2">marketing</option>
+                    <option value="3">S1</option>
+    				<option value="4">S2</option>
+            </select>
+    	</form>
+        <div class="search_form_opt">
+            <button class="btn btn-primary" onclick="search({form:'searchManagerForm',grid:'grid_table'})">
+                <i class="ace-icon fa fa-search"></i>搜索
+            </button>
+			<button class="btn btn-success" onclick="reloadTable('/user/pageList')">
+				<i class="ace-icon fa fa-refresh"></i>刷新
+			</button>
+			<button class="btn btn-success" onclick="addNewTabs({title:'新增用户',url: '/user/detail'})">
+				<i class="ace-icon fa fa-pencil-square"></i>新增用户
+			</button>
         </div>
+		 <div class="search_form_clear"></div>
     </div>
+		<!--  表格 -->
+        <table id="grid_table"></table>
+        <!-- 分页 -->
+        <div id="grid_pager"></div>
     <script>
 	
 	
     $(function () {
-		var managerUrl = '/user/query';
+		var gridUrl = '/user/pageList';
         //初始化table
-        var manager_table = "#manager_table";
-        var manager_pager = "#manager_pager";
+        var grid_table = "#grid_table";
+        var grid_pager = "#grid_pager";
         //初始化table
-        $(manager_table).jqGrid({
-            url: managerUrl,
+        $(grid_table).jqGrid({
+            url: gridUrl,
             datatype: "json",
             height: '100%',
             width: '100%',
-            colNames: ['ID', '姓名', '部门'],
+            colNames: ['ID', '姓名','登录名', '部门','联系电话','密码','身份','状态','操作'],
             colModel: [
-                {name: 'id', index: 'id', width: '30%'},
-                {name: 'name', index: 'name', width: '40%'},
-				{name: 'department', index: 'department', width: '40%'},
-            ],
+                {name: 'id', index: 'id', width: '10%'},
+                {name: 'name', index: 'name', width: '10%'},
+				{name: 'account', index: 'account', width: '10%'},
+				{name: 'department', index: 'department', width: '10%'},
+            	{name: 'mobile', index: 'mobile', width: '10%'},
+				{name: 'password', index: 'password', width: '10%'},
+				{name: 'identity', index: 'identity', width: '10%',formatter: formatIndentity},
+				{name: 'isDeleted', index: 'isDeleted', width: '10%',formatter: formatIsDeleted},
+				{name: 'operate',index: 'rowid', width: '20%',sortable: false },
+			],
             viewrecords: true,
             rowNum: 10,
             rowList: [10, 25, 50, 100],
-            pager: manager_pager,
+            pager: grid_pager,
             altRows: true,
             multiselect: true,
             multiboxonly: true,
             autowidth: true,
+			 //添加操作
+            gridComplete: function () {
+                var ids = $(grid_table).getDataIDs();
+                for (var i = 0; i < ids.length; i++) {
+                    var rowid = ids[i];
+ 					//如果想获取选择的行的数据，只要传入rowId即可
+                    var rowData = $(grid_table).jqGrid('getRowData',rowid);
+                    //而这个rowData是一个对象，如果要获取选择的行的这个对象的属性值，如degreeId的值
+                    //这个地方是获取每行里面列的值，用于判断某些按钮是否显示
+                    var isDeleted = rowData.isDeleted;
+					var activity ="<button class='btn btn-primary btn-sm ' style='margin-right: 6px' "
+                            + "onclick='activity("+ rowid+")'><i class='ace-icon fa fa-pencil'></i>启用</button>";
+					var deleted = "<button class='btn btn-primary btn-sm ' style='margin-right: 6px' "
+                            + "onclick='deleted("+ rowid+")'><i class='ace-icon fa fa-pencil'></i>停用</button>";
+                    var update = "<button class='btn btn-primary btn-sm ' style='margin-right: 6px' "
+                            + "onclick=\"addNewTabs({title:'修改',url: '/user/detail?id="
+                            + rowid
+                            + "'})\"><i class='ace-icon fa fa-search-plus'></i>修改</button>";
+					var opt  ;
+					if("停用"==isDeleted){
+				   		opt = activity;
+				    }else if("正常"==isDeleted){
+						opt = deleted;
+					}  
+					$(grid_table).jqGrid('setRowData', rowid, {
+                            operate: opt+update,
+                    });
+                }
+            },
             //更新翻页图标
             loadComplete: function () {
                 var table = this;
                 setTimeout(function () {
                     updatePagerIcons(table);
                 }, 0);
-            }
+            },
         });
         //分页
-        $(manager_table).jqGrid('navGrid', manager_pager, {
+        $(grid_table).jqGrid('navGrid', grid_pager, {
             edit: false,
             add: false,
             del: false,
             search: false,
             refresh: false,
         })
+		
     });
+	function formatIndentity(cellvalue, options, cell) {
+        if(0==cellvalue){
+			return "用户";
+		}else if (1==cellvalue){
+			return "报价人";
+		}else if (2==cellvalue){
+			return "费用录入人";
+		}else{
+            return "-";
+        }
+    }
+	function formatIsDeleted(cellvalue, options, cell) {
+        if(0==cellvalue){
+			return "正常";
+		}else if (1==cellvalue){
+			return "停用";
+		}else{
+            return "-";
+        }
+    }
+	
+	function activity(id){
+	confirmShows("确认启用？", function () {
+                             opt(id,0);
+                        });
+	} 
+	function deleted(id){
+	confirmShows("确认停用？", function () {
+                             opt(id,1);
+                        });
+	} 
+	
+	function opt(id,isDeleted){
+		 $.ajax({
+                type: "post",
+                url: '/user/opt',
+                data: {
+                   id:id,isDeleted:isDeleted
+                },
+                dataType: 'json',
+                success: function (data) {
+					 alertShow(data.msg, function () {
+						location.reload();
+                    });
+                },
+                error: function (data) {
+                    if(data.msg){
+                        alertShow(data.msg);
+                    }
+                    if(data.readyState == 4){
+                        alertShow("Request Not Found");
+                    }
+                }
+            });
+	}
+	
 	</script>
-</div>
+</body>
+</html> 

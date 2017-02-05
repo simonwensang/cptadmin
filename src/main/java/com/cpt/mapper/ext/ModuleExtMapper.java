@@ -7,5 +7,7 @@ import com.cpt.model.Module;
 public interface ModuleExtMapper {
     
     List<Module> selectByUserId(Long userId);
+    
+    List<Module> selectMenuByUserId(Long userId);
 
 }

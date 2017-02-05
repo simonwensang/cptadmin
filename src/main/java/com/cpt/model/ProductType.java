@@ -5,6 +5,8 @@ public class ProductType {
 
     private String name;
 
+    private Byte isDeleted;
+
     public Long getId() {
         return id;
     }
@@ -19,5 +21,13 @@ public class ProductType {
 
     public void setName(String name) {
         this.name = name == null ? null : name.trim();
+    }
+
+    public Byte getIsDeleted() {
+        return isDeleted;
+    }
+
+    public void setIsDeleted(Byte isDeleted) {
+        this.isDeleted = isDeleted;
     }
 }
