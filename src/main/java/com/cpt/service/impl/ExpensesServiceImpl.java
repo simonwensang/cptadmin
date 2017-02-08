@@ -16,15 +16,20 @@ import com.cpt.common.Result;
 import com.cpt.common.ResultCode;
 import com.cpt.common.constant.MessageConstants;
 import com.cpt.mapper.ExpensesMapper;
+import com.cpt.mapper.OrganizationMapper;
 import com.cpt.mapper.UserMapper;
 import com.cpt.mapper.ext.ExpensesExtMapper;
 import com.cpt.model.Expenses;
+import com.cpt.model.Organization;
+import com.cpt.model.OrganizationExample;
 import com.cpt.model.User;
 import com.cpt.req.ExpensesQuery;
 import com.cpt.service.ExpensesService;
 import com.cpt.service.UserCommonService;
+import com.cpt.vo.DepartmentExpenses;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import com.google.common.collect.Lists;
 @Service
 public class ExpensesServiceImpl implements ExpensesService {
 
@@ -36,11 +41,32 @@ public class ExpensesServiceImpl implements ExpensesService {
 	private ExpensesExtMapper expensesExtMapper;
 	@Resource
 	private UserCommonService userCommonService;
+	@Autowired
+	private OrganizationMapper organizationMapper;
 	@Override
 	public Expenses get(Long id) {
 		return expensesMapper.selectByPrimaryKey(id);
 	}
-
+	
+	public List<DepartmentExpenses> getDepartmentExpenses() {
+		 
+		 User user = userCommonService.getUser();
+		 OrganizationExample example=new OrganizationExample();
+		 OrganizationExample.Criteria criteria = example.createCriteria()  ;
+		 criteria.andParentIdEqualTo(user.getDepartmentId());
+		 List<Organization> organizations = organizationMapper.selectByExample(example);
+		
+		 if(organizations.size()>0){
+			 List<Long> ids = Lists.newArrayList();
+			 for (Organization organization : organizations){
+				 ids.add(organization.getId());
+			 }
+			 
+		 }
+		 
+		 return null;
+	}
+	
 	@Override
 	public PageResult<Expenses> pageList(PageParam pageParam,
 			ExpensesQuery expensesQuery) {
@@ -50,7 +76,6 @@ public class ExpensesServiceImpl implements ExpensesService {
         User user = userCommonService.getUser();
         switch (expensesQuery.getType()){
         	case (byte)0: ; expensesQuery.setUserId(user.getId()); break; 
-        	case (byte)1: ; break; 
         	case (byte)2: if(!user.getIdentity().equals(2)){
         					  expensesQuery.setUserId(user.getId());
         				  }

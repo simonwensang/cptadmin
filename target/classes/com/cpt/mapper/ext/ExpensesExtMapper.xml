@@ -32,4 +32,16 @@
     set is_deleted = 1
     where id = #{id,jdbcType=BIGINT}
   </update>
+  
+ 
+  
+  <select id="selectListDepartment"  >
+     SELECT SUM(expenses) AS tatol FROM `t_expenses` a JOIN  `t_user` b 
+  	ON a.`user_id`=b.`id` WHERE b.`department_id` IN  
+    <foreach collection="list" item="departmentId" index="index"
+            open="(" close=")" separator=",">
+            #{departmentId}
+        </foreach>
+     GROUP BY   b.`department_id` 
+  </select>
 </mapper>
