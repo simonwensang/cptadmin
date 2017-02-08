@@ -35,10 +35,10 @@
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
         <!--生成table名称-->
-        <table tableName="t_product_type" domainObjectName="ProductType" enableCountByExample="true"
+        <table tableName="t_expenses" domainObjectName="Expenses" enableCountByExample="true"
                enableUpdateByExample="true" enableDeleteByExample="true"
                enableSelectByExample="true" selectByExampleQueryId="true"
-               enableInsert="true" enableUpdateByPrimaryKey="true"
+               enableInsert="true" enableUpdateByPrimaryKey="true" enableSelectByPrimaryKey="true"
                enableDeleteByPrimaryKey="true">
             <property name="useActualColumnNames" value="false"/>
             <!-- columnRenamingRule searchString="^T" replaceString=""/ --> 

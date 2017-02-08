@@ -5,6 +5,7 @@ public class MessageConstants {
 	public static final String PRARM_ERROR = "参数错误";
 	public static final String PROJECT_EMPTY = "工程不存在";
 	public static final String CUSTOMER_EMPTY = "客户不存在";
+	public static final String USER_EMPTY = "用户不存在";
 	public static final String CUSTOMER_EXIT = "客户已存在";
 	public static final String PRODUCT_TYPE_EXIT = "商品类型已存在";
 	public static final String ACCOUNT_EXIT = "用户名存在";
