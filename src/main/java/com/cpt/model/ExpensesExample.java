@@ -356,6 +356,76 @@ public class ExpensesExample {
             return (Criteria) this;
         }
 
+        public Criteria andExpensesTimeIsNull() {
+            addCriterion("expenses_time is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpensesTimeIsNotNull() {
+            addCriterion("expenses_time is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpensesTimeEqualTo(String value) {
+            addCriterion("expenses_time =", value, "expensesTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpensesTimeNotEqualTo(String value) {
+            addCriterion("expenses_time <>", value, "expensesTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpensesTimeGreaterThan(String value) {
+            addCriterion("expenses_time >", value, "expensesTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpensesTimeGreaterThanOrEqualTo(String value) {
+            addCriterion("expenses_time >=", value, "expensesTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpensesTimeLessThan(String value) {
+            addCriterion("expenses_time <", value, "expensesTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpensesTimeLessThanOrEqualTo(String value) {
+            addCriterion("expenses_time <=", value, "expensesTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpensesTimeLike(String value) {
+            addCriterion("expenses_time like", value, "expensesTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpensesTimeNotLike(String value) {
+            addCriterion("expenses_time not like", value, "expensesTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpensesTimeIn(List<String> values) {
+            addCriterion("expenses_time in", values, "expensesTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpensesTimeNotIn(List<String> values) {
+            addCriterion("expenses_time not in", values, "expensesTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpensesTimeBetween(String value1, String value2) {
+            addCriterion("expenses_time between", value1, value2, "expensesTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpensesTimeNotBetween(String value1, String value2) {
+            addCriterion("expenses_time not between", value1, value2, "expensesTime");
+            return (Criteria) this;
+        }
+
         public Criteria andCreatorIdIsNull() {
             addCriterion("creator_id is null");
             return (Criteria) this;

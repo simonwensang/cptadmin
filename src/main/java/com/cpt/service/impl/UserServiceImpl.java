@@ -58,6 +58,19 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
+	public Result<Integer> exist(String name) {
+		UserExample userExample =new UserExample();
+		UserExample.Criteria criteria =userExample.createCriteria();
+		criteria.andNameEqualTo(name);
+		List<User> user =userMapper.selectByExample(userExample);
+		if(user.size()>0){
+			return new Result<Integer>(1);
+		}else{
+			return new Result<Integer>(ResultCode.C200.getCode(),MessageConstants.USER_EMPTY,0);
+		}
+	}
+
+	@Override
 	public User get(Long id) {
 		return userMapper.selectByPrimaryKey(id);
 	}

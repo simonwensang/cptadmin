@@ -26,4 +26,6 @@ public interface UserService {
 	
 	public User getUser();
 	
+	public Result<Integer> exist(String name);
+	
 }

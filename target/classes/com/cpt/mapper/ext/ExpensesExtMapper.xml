@@ -6,6 +6,7 @@
     <result column="user" jdbcType="VARCHAR" property="user" />
     <result column="user_id" jdbcType="BIGINT" property="userId" />
     <result column="expenses" jdbcType="DECIMAL" property="expenses" />
+    <result column="expenses_time" jdbcType="VARCHAR" property="expensesTime" />
     <result column="creator_id" jdbcType="BIGINT" property="creatorId" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="updater_id" jdbcType="BIGINT" property="updaterId" />
@@ -13,7 +14,7 @@
     <result column="is_deleted" jdbcType="BIT" property="isDeleted" />
   </resultMap>
    <sql id="Base_Column_List">
-    id, user, user_id, expenses, creator_id, create_time, updater_id, update_time, is_deleted
+    id, user, user_id, expenses,expenses_time, creator_id, create_time, updater_id, update_time, is_deleted
   </sql>
   <select id="pageList" parameterType="com.cpt.req.ExpensesQuery"  resultMap="BaseResultMap">
     select 
@@ -24,6 +25,9 @@
 	    <if test="userId != null ">
               AND  user_id  = #{userId} 
         </if>
+        <if test="user != null and user != ''">
+              AND  user LIKE concat('%',#{user},'%')
+        </if>
     </where>
   </select> 
   
@@ -33,10 +37,8 @@
     where id = #{id,jdbcType=BIGINT}
   </update>
   
- 
-  
-  <select id="selectListDepartment"  >
-     SELECT SUM(expenses) AS tatol FROM `t_expenses` a JOIN  `t_user` b 
+  <select id="selectListDepartment" resultType="com.cpt.vo.DepartmentExpenses" >
+     SELECT b.`department`,b.`department_id`as departmentId ,SUM(expenses) AS total FROM `t_expenses` a JOIN  `t_user` b 
   	ON a.`user_id`=b.`id` WHERE b.`department_id` IN  
     <foreach collection="list" item="departmentId" index="index"
             open="(" close=")" separator=",">

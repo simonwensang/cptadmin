@@ -2,9 +2,10 @@ package com.cpt.common.constant;
 
 public enum UserIdentity {
 
-	//  0报价人1费用录入人
-	PRICE_OFFER((byte)0,"报价人"),
-	PRICE_RECORD_IN((byte)1,"费用录入人") ;
+	// 0用户1报价人2费用录入人
+	USER((byte)0,"用户"),
+	PRICE_OFFER((byte)1,"报价人"),
+	PRICE_RECORD_IN((byte)2,"费用录入人") ;
 
 	private Byte  key;
 	private String value;

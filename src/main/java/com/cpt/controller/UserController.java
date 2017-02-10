@@ -67,11 +67,12 @@ public class UserController {
 		modelMap.setViewName("user/user_detail");
 		return modelMap;
 	}
-	 @RequestMapping(value = "/zNode", method = RequestMethod.POST)
-	    @ResponseBody
-	    public String zNode(User user) {
-	    	return organizationService.getTreeNode();
-	    }
+	
+	@RequestMapping(value = "/zNode", method = RequestMethod.POST)
+    @ResponseBody
+    public String zNode(User user) {
+    	return organizationService.getTreeNode();
+    }
 	/**
      * 增加或者修改
      *
@@ -85,12 +86,18 @@ public class UserController {
     	return userService.opt(userReq);
     }
  
+	@RequestMapping("/exist")
+	@ResponseBody
+	public Result<Integer> exist(String name){
+		return userService.exist(name);
+	}
+	
 	@RequestMapping("/query")
 	@ResponseBody
 	public List<User> query(UserQuery userQuery){
 		return userService.query(userQuery);
 	}
-	
+	 
 	@RequestMapping("/queryPriceOffer")
 	@ResponseBody
 	public List<UserVo> queryPriceOffer(){

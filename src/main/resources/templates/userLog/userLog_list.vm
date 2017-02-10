@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    #parse("tags.vm")
+<style>
+        .date-wrap {
+            width: 500px;
+            margin: 200px auto 0;
+            position: relative;
+        }
+
+        .date-wrap td[data-y^='2'] {
+            cursor: pointer;
+        }
+
+        .write-box, .info-box {
+            position: absolute;
+            top: 110px;
+            left: 50px;
+            width: 400px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+<div class="date-wrap">
+    <table width="100%" id="calender" border="0" cellpadding="0" cellspacing="0" class="table table-bordered">
+        <thead>
+        <tr>
+            <td colSpan=7 style="line-height: 30px;font-size: 14px;"><span>公历</span>
+                <select name="SY" id="SY" onchange="changeCld();" style="font-SIZE: 9pt">
+                    <script>
+                        for (i = 2016; i < 2050; i++) document.write('<option>' + i);
+                    </script>
+                </select><span> 年 </span>
+                <select name="SM" id="SM" onchange="changeCld();" style="font-SIZE: 9pt">
+                    <script>
+                        for (i = 1; i < 13; i++) document.write('<option>' + i);
+                    </script>
+                </select><span> 月 </span>
+                <button id="writeLog" type="button" class="btn btn-primary btn-sm" style="float: right;width: 80px">
+                    撰写日志
+                </button>
+            </td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr style="background:#eee;">
+            <td width="54" align="center">日</td>
+            <td width="54" align="center">一</td>
+            <td width="54" align="center">二</td>
+            <td width="54" align="center">三</td>
+            <td width="54" align="center">四</td>
+            <td width="54" align="center">五</td>
+            <td width="54" align="center">六</td>
+        </tr>
+        <script>
+            var gNum;
+            for (i = 0; i < 6; i++) {
+                document.write('<tr align="center">');
+                for (j = 0; j < 7; j++) {
+                    gNum = i * 7 + j;
+                    document.write('<td id="GD' + gNum + '"><font id="SD' + gNum + '" size=2 face="Arial Black"');
+                    if (j == 0) document.write('color="red"');
+                    if (j == 6) document.write('color="red"');
+                    document.write('></font><br/><font id="LD' + gNum + '" size=2 style="font-size:9pt"></font></td>');
+                }
+                document.write('</tr>');
+            }
+        </script>
+        </tbody>
+    </table>
+    <div class="write-box">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">撰写日志</h3>
+            </div>
+            <div class="panel-body">
+                <label class="control-label" style="font-weight: normal">日志日期：<span id="currentDate"></span></label>
+                <textarea class="form-control" rows="4" id="writeInfo"></textarea>
+                <div style="margin-top: 15px">
+                    <button id="cancelWrite" type="button" class="btn btn-default" style="width: 80px">取消</button>
+                    <button id="commitWrite" type="button" class="btn btn-primary" style="float: right;width: 80px">提交
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="info-box">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">查看日志：<span id="selDate"></span></h3>
+            </div>
+            <div class="panel-body">
+                <label class="control-label" style="font-weight: normal">个人日志：</label>
+                <div id="content" style="height: 80px;overflow: auto;border: 1px solid #ddd;">
+                </div>
+                <label class="control-label" style="font-weight: normal;margin-top: 15px">下属部门日志：</label>
+                <div id="departmentLog" style="height: 80px;overflow: auto;border: 1px solid #ddd;">
+                     
+                </div>
+                <div style="margin-top: 15px">
+                    <button id="cancelInfo" type="button" class="btn btn-default" style="width: 80px;float: right">关闭
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+var SY = document.getElementById('SY');
+var SM = document.getElementById('SM');
+
+function changeCld() {
+    var y, m;
+    y = SY.selectedIndex + 2016;
+    m = SM.selectedIndex;
+    drawCld(y, m);
+}
+var Today = new Date();
+var tY = Today.getFullYear();
+var tM = Today.getMonth();
+var tD = Today.getDate();
+function initial() {
+    SY.selectedIndex = tY - 2016;
+    SM.selectedIndex = tM;
+    drawCld(tY, tM);
+}
+$(function () {
+    initial();
+
+    $('#currentDate').text(tY + '年' + (tM + 1) + '月' + tD + '日');
+
+    //查看日志事件
+    $('#calender').on('click', 'td', function () {
+        if ($(this).attr('data-y')) {
+            $('#selDate').text($(this).data('y') + '年' + $(this).data('m') + '月' + $(this).data('d') + '日');
+            //TODO  这里ajax请求数据填入dom
+            // 获取点击的年月日
+            var year = $(this).data('y');
+            var month = $(this).data('m');
+			if(month<10){
+				month='0'+month;
+			}
+            var day = $(this).data('d');
+ 			$.ajax({
+                type: "post",
+                url: '/userLog/query',
+                data: {
+                  logTime: year +'-'+ month  +'-'+ day 
+                },
+                dataType: 'json',
+                success: function (data) {
+						if(data.value!=null){
+  							 $("#content").append(data.value.content); 
+				 			 //循环添加  
+								var departmentLogs = data.value.departmentLogs;
+                             	if(departmentLogs!=null){
+                 		 	 		for(var j=0;j<departmentLogs.length;j++){  
+                    		 		$("#departmentLog").append(departmentLogs[j].logTime+"   "+departmentLogs[j].content+"<br/>"); 
+                		 	 		}  
+							 	}
+						}
+						 $('.info-box').show();
+                },
+                error: function (data) {
+                    if(data.msg){
+                        alertShow(data.msg);
+                    }
+                    if(data.readyState == 4){
+                        alertShow("Request Not Found");
+                    }
+                }
+            });
+            
+        }
+    });
+
+    $('#commitWrite').on('click', function () {
+        // 获取今天的年月日
+        var year = tY;
+        var month = tM + 1;
+        var day = tD;
+        //获取写的日志内容
+        var log = $('#writeInfo').val();
+
+        //TODO ajax提交
+		 $.ajax({
+                type: "post",
+                url: '/userLog/addOrEdit',
+                data: {
+                   content:log
+                },
+                dataType: 'json',
+                success: function (data) {
+					 alertShow(data.msg, function () {
+					 	 $('.write-box').hide();
+                    });
+                },
+                error: function (data) {
+                    if(data.msg){
+                        alertShow(data.msg);
+                    }
+                    if(data.readyState == 4){
+                        alertShow("Request Not Found");
+                    }
+                }
+            });
+    });
+
+    $('#writeLog').on('click', function () {
+        $('.write-box').show();
+    });
+
+    $('#cancelWrite').on('click', function () {
+        $('.write-box').hide();
+    });
+    $('#cancelInfo').on('click', function () {
+		$("#departmentLog").html(" ");
+ 		$("#content").html(" ");
+        $('.info-box').hide();
+    })
+
+});
+</script>
+</body>
+</html>

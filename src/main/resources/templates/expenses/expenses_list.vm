@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    #parse("tags.vm")
+</head>
+<body>
+	
+<div>
+  <hr />
+  <!-- Nav tabs -->
+  <ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">&nbsp;&nbsp;查询费用</a></li>
+    <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">下属子部门</a></li>
+  </ul>
+
+  <!-- Tab panes -->
+  <div class="tab-content">
+    <div role="tabpanel" class="tab-pane active" id="home">
+		<div class="search_form">
+		<form role="form" id="searchForm">
+            <label>名称</label>
+            <input class="input" type="text" id="user" name="user" value=""/>
+    	</form>
+        <div class="search_form_opt">
+			 <button class="btn btn-primary" onclick="search({form:'searchForm',grid:'grid_table'})">
+                <i class="ace-icon fa fa-search"></i>搜索
+            </button>
+			<button class="btn btn-success" onclick="reloadTable('/expenses/pageList')">
+				<i class="ace-icon fa fa-refresh"></i>刷新
+			</button>
+			#if($!{user.identity}==2) 
+			<button class="btn btn-success" onclick="addNewTabs({title:'新增费用',url: '/expenses/detail'})">
+				<i class="ace-icon fa fa-pencil-square"></i>新增费用
+			</button>
+			#end  
+        </div>
+		 <div class="search_form_clear"></div>
+		</div>
+		<!--  表格 -->
+        <table id="grid_table"></table>
+        <!-- 分页 -->
+        <div id="grid_pager"></div>
+	</div>
+    <div role="tabpanel" class="tab-pane" id="profile">
+		<div id="div1" style="width:900px;height:400px;border:1px solid #dddddd;margin:10px auto;"></div>
+	</div>
+  </div>
+
+</div>
+		
+    <script>
+	
+    $(function () {
+		var gridUrl = '/expenses/pageList';
+        //初始化table
+        var grid_table = "#grid_table";
+        var grid_pager = "#grid_pager";
+        //初始化table
+        $(grid_table).jqGrid({
+            url: gridUrl,
+            datatype: "json",
+            height: '100%',
+            width: '100%',
+            colNames: ['ID', '姓名','费用','日期','操作'],
+            colModel: [
+                {name: 'id', index: 'id', width: '10%'},
+                {name: 'user', index: 'user', width: '20%'},
+				{name: 'expenses', index: 'expenses', width: '20%'},
+            	{name: 'expensesTime', index: 'expensesTime', width: '20%'},
+				{name: 'operate',index: 'rowid', width: '30%',sortable: false },
+			],
+            viewrecords: true,
+            rowNum: 10,
+            rowList: [10, 25, 50, 100],
+            pager: grid_pager,
+            altRows: true,
+            multiselect: true,
+            multiboxonly: true,
+            autowidth: true,
+			 //添加操作
+            gridComplete: function () {
+                var ids = $(grid_table).getDataIDs();
+                for (var i = 0; i < ids.length; i++) {
+                    var rowid = ids[i];
+ 					//如果想获取选择的行的数据，只要传入rowId即可
+                    var rowData = $(grid_table).jqGrid('getRowData',rowid);
+                    //而这个rowData是一个对象，如果要获取选择的行的这个对象的属性值，如degreeId的值
+                    //这个地方是获取每行里面列的值，用于判断某些按钮是否显示
+					var deleted = "<button class='btn btn-primary btn-sm ' style='margin-right: 6px' "
+                            + "onclick='deleted("+ rowid+")'><i class='ace-icon fa fa-pencil'></i>删除</button>";
+                    var update = "<button class='btn btn-primary btn-sm ' style='margin-right: 6px' "
+                            + "onclick=\"addNewTabs({title:'修改',url: '/expenses/detail?id="
+                            + rowid
+                            + "'})\"><i class='ace-icon fa fa-search-plus'></i>修改</button>";
+					var operate ;
+					if($!{user.identity}==2){
+						operate = update+deleted;
+					}
+					$(grid_table).jqGrid('setRowData', rowid, {
+                            operate:operate ,
+                    });
+                }
+            },
+            //更新翻页图标
+            loadComplete: function () {
+                var table = this;
+                setTimeout(function () {
+                    updatePagerIcons(table);
+                }, 0);
+            },
+        });
+        //分页
+        $(grid_table).jqGrid('navGrid', grid_pager, {
+            edit: false,
+            add: false,
+            del: false,
+            search: false,
+            refresh: false,
+        })
+		
+    });
+	   
+	function deleted(id){
+	confirmShows("确认删除？", function () {
+                             opt(id);
+                        });
+	} 
+	
+	function opt(id){
+		 $.ajax({
+                type: "post",
+                url: '/expenses/delete',
+                data: {
+                   id:id
+                },
+                dataType: 'json',
+                success: function (data) {
+					 alertShow(data.msg, function () {
+						location.reload();
+                    });
+                },
+                error: function (data) {
+                    if(data.msg){
+                        alertShow(data.msg);
+                    }
+                    if(data.readyState == 4){
+                        alertShow("Request Not Found");
+                    }
+                }
+            });
+	}
+	
+	var myChart = echarts.init(document.getElementById('div1'));
+        option = {
+            title : {
+                text: '下属子部门',
+                subtext: '费用比例',
+                x:'center'
+            },
+            tooltip : {
+                trigger: 'item',
+                formatter: "{a} <br/>{b} : {c} ({d}%)"
+            },
+            legend: {
+                orient: 'vertical',
+                left: 'left',
+                data: $!{title}
+            },
+            series : [
+                {
+                    name: '访问来源',
+                    type: 'pie',
+                    radius : '55%',
+                    center: ['50%', '60%'],
+                    data:$!{data},
+                    itemStyle: {
+                        emphasis: {
+                            shadowBlur: 10,
+                            shadowOffsetX: 0,
+                            shadowColor: 'rgba(0, 0, 0, 0.5)'
+                        }
+                    }
+                }
+            ]
+        };
+       myChart.setOption(option);
+	</script>
+</body>
+</html> 

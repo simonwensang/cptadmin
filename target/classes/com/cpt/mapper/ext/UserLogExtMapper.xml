@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cpt.mapper.ext.UserLogExtMapper">
+  <resultMap id="BaseResultMap" type="com.cpt.model.UserLog">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="user" jdbcType="VARCHAR" property="user" />
+    <result column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="log_time" jdbcType="VARCHAR" property="logTime" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, user, user_id,content, log_time, create_time
+  </sql>
+  <select id="selectListDepartment" resultMap="BaseResultMap" >
+    SELECT a.* FROM `t_user_log`  a  JOIN `t_user` b ON a.`user_id`=b.`id` WHERE b.`department_id` IN  
+    <foreach collection="list" item="departmentId" index="index" open="(" close=")" separator=",">
+            #{departmentId}
+    </foreach>
+  </select>
+</mapper>

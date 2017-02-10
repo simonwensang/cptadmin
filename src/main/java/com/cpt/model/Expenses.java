@@ -12,6 +12,8 @@ public class Expenses {
 
     private BigDecimal expenses;
 
+    private String expensesTime;
+
     private Long creatorId;
 
     private Date createTime;
@@ -52,6 +54,14 @@ public class Expenses {
 
     public void setExpenses(BigDecimal expenses) {
         this.expenses = expenses;
+    }
+
+    public String getExpensesTime() {
+        return expensesTime;
+    }
+
+    public void setExpensesTime(String expensesTime) {
+        this.expensesTime = expensesTime == null ? null : expensesTime.trim();
     }
 
     public Long getCreatorId() {

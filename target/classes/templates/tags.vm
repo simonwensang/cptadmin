@@ -9,6 +9,7 @@
 <script src="#springUrl('/ace/js/ace.min.js')"></script>
 <script src="#springUrl('/ace/js/bootstrap-tag.min.js')"></script>
 <script src="#springUrl('/js/common.js')"></script>
+<script src="#springUrl('/js/calendar.js')"></script>
 <script src="#springUrl('/js/urms.common.js')"></script>
 <script src="#springUrl('/ace/js/chosen.jquery.min.js')"></script>
 <script src="#springUrl('/ace/js/moment.min.js')"></script>
@@ -18,6 +19,7 @@
 <script src="#springUrl('/js/jquery.validate.js')"></script>
 <script src="#springUrl('/js/additional-methods.js')"></script>
 <script src="#springUrl('/js/messages_zh.js')"></script>
+<script src="#springUrl('/js/echarts.common.min.js')"></script>
 <!--select2-->
 <script src="#springUrl('/ace/js/select2.min.js')"></script>
 <!--jquery.form.js-->
