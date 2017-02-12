@@ -1,0 +1,32 @@
+<!--修改等级弹出框 -->
+<div class="modal fade" id="replyModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">信息回复</h4>
+            </div>
+			<div class="modal-body" style="padding: 30px;">
+				 <form class="form-horizontal" role="form" id="validation-form" method="post" >
+                     	<div class="form-group">
+                     	 	<input type="hidden" id="replyId" name="replyId" />
+                        	<label class="col-sm-2 control-label">内容:</label>
+                       		<textarea class="form-control" name="content"  id="reply_content"
+                                  style="resize:none;width:60%;height:100px;"
+                                  valid="rangelength:12_200"></textarea>
+	                    </div>
+				  </div>	
+                    <hr/>
+				</form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" onClick="replyMessage()" >确定</button>
+            </div>
+        </div>
+    </div>
+    <script>
+	
+	</script>
+</div>

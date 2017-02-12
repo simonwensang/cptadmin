@@ -146,18 +146,8 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xs
 			<artifactId>shiro-spring</artifactId>
 			<version>${shiro.version}</version>
 		</dependency>
-		<dependency>  
-	    <groupId>org.apache.shiro.web</groupId>  
-	    <artifactId>velocity-support</artifactId>  
-	        <version>0.0.6</version>  
-	        <scope>system</scope>  
-	        <!--本地jar的路径,相对或者绝对都可以-->  
-	        <systemPath> 
-	        D:/eclipse/workspace/cptadmin/src/main/resources/extjar/velocity-support.jar
-	        </systemPath>  
-		</dependency> 
 		<!-- redis -->
-		 <dependency>
+		<dependency>
 			<groupId>org.crazycake</groupId>
 			<artifactId>shiro-redis</artifactId>
 			<version>${shiro.redis.version}</version>

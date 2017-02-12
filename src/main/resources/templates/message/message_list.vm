@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset='utf-8'>
+         #parse("tags.vm")
+        <style>    
+            *{margin:0px;padding:0px;}
+            body{background-color:gray}
+            #head{height:100px;background-color:gray;}
+            #body{
+                width:98%;height:100%;margin:0 auto;background-color:lightgray;position:relative;
+                //-webkit-border-radius: 1em;-moz-border-radius: 1em;
+                border-radius: 1em;
+                font-family: "Arial","Microsoft YaHei","黑体","宋体",sans-serif;
+            }
+                #left{width:68%;height:100%;float:left;}
+                #right{width:32%;height:100%;float:right;background-color:#bbb;border-radius:1em;}
+            #foot{height:46px;}
+            #foot p{line-height:46px;text-align:center;}
+            .comment{
+                margin-top:4% ;margin-left:14%;padding:2%;width:68%;background-color:#aaa;border: 1px dashed #888;border-radius:1em;
+                position:relative;display:a;
+            }
+            .comment:hover img{border-radius:1em;border: 2px solid #888;}
+            .comment:hover{background-color:#bbb;}
+            .comment img{position:absolute;top:-1%;left:-10%;border-radius:2em;border:2px solid #888;}
+            .comment p{text-indent:2em; margin-top:0.4%;}
+            .comment span{position:absolute;top:10%;right:4%;font-size:0.9em;font-weight:none;color:#444}
+            .comment .name{color:black;font-weight:bold;text-decoration:none;}
+            .comment .name:hover{text-decoration:underline;}
+            .comment .up{color:#555;text-decoration:none;position:absolute;bottom:4%;right:8%;}
+            .comment .up:hover{color:#000;}
+        </style>
+        <script>
+            
+        </script>
+    </head>
+    <body>
+    <div class="container">
+ 	 #parse("common/message_reply.vm")
+        <div id="head">
+        </div>
+        <div id="body">
+            <div id='left'>
+              #foreach($message in $messageList.rows)
+                <div class='comment'>
+                    <a class="name" href="">$!{message.user}</a>
+                    <p>标题： $!{message.content}</p>
+                    <p>主题： $!{message.content}</p>
+                    <p>内容： $!{message.content}</p>
+                    <span>$dateTimeUtil.format($!{message.createTime},'yyyy-MM-dd HH:mm:ss')</span>
+                    <a class='up' href="#"   onclick="showMessageReply( $!{message.id})">回复</a>
+                     #foreach($reply in $message.replyMessage)
+		         	 <p> $!{reply.user} 回复 $!{message.user}： $!{reply.content} -- $dateTimeUtil.format($!{reply.createTime},'yyyy-MM-dd HH:mm:ss') </p>
+		          	  
+       				#end
+                </div>
+       		 #end
+            </div>
+             <div id='right'>
+				 <form class="form-horizontal" role="form" id="validation-form" method="post" >
+					  	<div class="form-group">
+                        	<label class="col-sm-2 control-label">标题:</label>
+                        	<div class="col-sm-6">
+                         	  <input type="text" name="title" id="title" class="form-control">
+                         	 </div>
+	                    </div>
+	                    <div class="form-group">
+                        	<label class="col-sm-2 control-label">主题:</label>
+                        	<div class="col-sm-6">
+                         	  <input type="text" name="subject" id="subject" class="form-control">
+                         	 </div>
+	                    </div>
+                     	<div class="form-group">
+                        	<label class="col-sm-2 control-label">内容:</label>
+                       		<textarea class="form-control" name="content"  id="content"
+                                  style="resize:none;width:60%;height:100px;"
+                                  valid="rangelength:12_200"></textarea>
+	                    </div>
+	                    <div class="form-group">
+						  <div class="col-sm-offset-4 col-sm-10">
+							  <button type="button" class="btn btn-primary" onClick="writeMessage()" >新增发布</button>
+			            </div>
+					 </div>
+                  
+				</form>
+				
+            </div>
+        </div>
+    </div>
+    <script>
+	
+	</script>
+</div>
+            </div>
+        </div>
+        </div>
+    </body>
+    
+<script type="text/javascript">
+     function showMessageWrite(id){
+		$('#messageModal').modal('show');
+	}
+	function showMessageReply(id){
+		$('#replyId').val(id);
+		$('#replyModal').modal('show');
+	}
+	 
+	function writeMessage(){
+		var title = $('#title').val();
+		var subject = $('#subject').val();
+		var content = $('#content').val();
+		if(null==title||null==subject||null==content||''==title||''==subject||''==content){
+			alertShow("参数不能为空");
+			return  false;
+		}
+	    $.ajax({
+                type: "post",
+                url: '/message/addOrEdit',
+                data: {
+                   title:title,subject:subject,content:content  
+                },
+                success: function (data) {
+                    //提示审核通过成功信息并刷新页面
+                    alertShow(data.msg, function () {
+						$('#title').val("");
+						$('#subject').val("");
+						$('#content').val("");
+						 location.reload();
+                    });
+                },
+                error: function (data) {
+                    if(data.msg){
+                        alertShow(data.msg);
+                    }
+                    if(data.readyState == 4){
+                        alertShow("Request Not Found");
+                    }
+                }
+            });
+	}
+	
+	
+	function replyMessage(){
+		var replyId = $('#replyId').val();
+		var content = $('#reply_content').val();
+		if(null==replyId|| null==content||''==replyId||''==content){
+			alertShow("参数不能为空");
+			return  false;
+		}
+	    $.ajax({
+                type: "post",
+                url: '/message/addOrEdit',
+                data: {
+                   replyId:replyId,content:content  
+                },
+                success: function (data) {
+                    //提示审核通过成功信息并刷新页面
+                    alertShow(data.msg, function () {
+						$('#replyId').val("");
+						$('#content').val("");
+						$('#replyModal').modal('hide');
+						 location.reload();
+                    });
+                },
+                error: function (data) {
+                    if(data.msg){
+                        alertShow(data.msg);
+                    }
+                    if(data.readyState == 4){
+                        alertShow("Request Not Found");
+                    }
+                }
+            });
+	}
+	
+</script>
+    
+</html>
