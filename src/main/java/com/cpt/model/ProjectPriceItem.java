@@ -22,7 +22,17 @@ public class ProjectPriceItem {
 
     private Byte isDeleted;
 
-    public Long getId() {
+    private Long projectId;
+    
+    public Long getProjectId() {
+		return projectId;
+	}
+
+	public void setProjectId(Long projectId) {
+		this.projectId = projectId;
+	}
+
+	public Long getId() {
         return id;
     }
 

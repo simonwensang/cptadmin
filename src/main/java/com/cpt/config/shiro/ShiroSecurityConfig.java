@@ -54,7 +54,7 @@ public class ShiroSecurityConfig {
 	        
 	        Map<String, Filter> filters = new HashMap<>();
 	       // filters.put("kickout", kickoutSessionControlFilter());
-//	      filters.put("authc", wswyAuthenticationFilter());
+	//	      filters.put("authc", wswyAuthenticationFilter());
 	        filters.put("anon", new AnonymousFilter());
 	        shiroFilter.setFilters(filters);
 	        
@@ -69,6 +69,14 @@ public class ShiroSecurityConfig {
 	       // definitionsMap.put("/**", "authc");//authc
 	        definitionsMap.put("/main", "authc");
 			definitionsMap.put("/project/**", "authc");
+			definitionsMap.put("/customer/**", "authc");
+			definitionsMap.put("/expenses/**", "authc");
+			definitionsMap.put("/message/**", "authc");
+			definitionsMap.put("/productType/**", "authc");
+			definitionsMap.put("/projectDescribe/**", "authc");
+			definitionsMap.put("/projectPrice/**", "authc");
+			definitionsMap.put("/user/**", "authc");
+			definitionsMap.put("/userLog/**", "authc");
 	        shiroFilter.setFilterChainDefinitionMap(definitionsMap);
 	        return shiroFilter;
 	    }

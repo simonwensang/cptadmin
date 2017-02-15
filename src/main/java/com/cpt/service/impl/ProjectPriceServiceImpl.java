@@ -16,6 +16,7 @@ import com.cpt.common.constant.MessageConstants;
 import com.cpt.convertor.ProjectPriceConvertor;
 import com.cpt.mapper.CustomerMapper;
 import com.cpt.mapper.ProjectMapper;
+import com.cpt.mapper.ProjectPriceItemMapper;
 import com.cpt.mapper.ProjectPriceMapper;
 import com.cpt.mapper.ext.ProjectPriceExtMapper;
 import com.cpt.mapper.ext.ProjectPriceItemExtMapper;
@@ -23,6 +24,8 @@ import com.cpt.model.Customer;
 import com.cpt.model.Project;
 import com.cpt.model.ProjectPrice;
 import com.cpt.model.ProjectPriceItem;
+import com.cpt.model.ProjectPriceItemExample;
+import com.cpt.req.PriceDeleteReq;
 import com.cpt.service.ProjectPriceService;
 import com.cpt.service.UserCommonService;
 import com.cpt.vo.ProjectPriceVo;
@@ -41,7 +44,9 @@ public class ProjectPriceServiceImpl implements ProjectPriceService {
 	
 	@Resource
 	private ProjectPriceItemExtMapper projectPriceItemExtMapper;
-	
+
+	@Resource
+	private ProjectPriceItemMapper projectPriceItemMapper;
 	@Resource
 	private ProjectMapper projectMapper;
 	
@@ -90,4 +95,50 @@ public class ProjectPriceServiceImpl implements ProjectPriceService {
 		return Result.newResult( projectPriceItemExtMapper.insertList(projectPriceItems));
 	}
 
+	@Override
+	@Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.DEFAULT, rollbackFor = Exception.class)
+	public Result<Integer> delete(PriceDeleteReq req) {
+		Project project = projectMapper.selectByPrimaryKey(req.getProjectId());
+		if(null==project){
+			return new Result<Integer>(ResultCode.C500.getCode(),MessageConstants.PROJECT_EMPTY);
+		}
+		Long userId = userCommonService.getUserId();
+		if(!userId.equals(project.getPriceManagerId())&&!userId.equals(project.getPriceOfferId())){
+			return new Result<Integer>(ResultCode.C500.getCode(),MessageConstants.NO_AUTHOR);
+		}
+		projectPriceMapper.deleteByPrimaryKey(req.getId());
+		ProjectPriceItemExample  example = new ProjectPriceItemExample();
+		ProjectPriceItemExample.Criteria criteria = example.createCriteria();
+		criteria.andPriceIdEqualTo(req.getId());
+		return Result.newResult(projectPriceItemMapper.deleteByExample(example));
+	}
+
+	@Override
+	@Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.DEFAULT, rollbackFor = Exception.class)
+	public Result<Integer> deleteItem(PriceDeleteReq req) {
+		Project project = projectMapper.selectByPrimaryKey(req.getProjectId());
+		if(null==project){
+			return new Result<Integer>(ResultCode.C500.getCode(),MessageConstants.PROJECT_EMPTY);
+		}
+		Long userId = userCommonService.getUserId();
+		if(!userId.equals(project.getPriceManagerId())&&!userId.equals(project.getPriceOfferId())){
+			return new Result<Integer>(ResultCode.C500.getCode(),MessageConstants.NO_AUTHOR);
+		}
+		return Result.newResult(projectPriceItemMapper.deleteByPrimaryKey(req.getId()));
+	}
+
+	@Override
+	public Result<Integer> savePriceOfferItem(ProjectPriceItem projectPriceItem) {
+		Project project = projectMapper.selectByPrimaryKey(projectPriceItem.getProjectId());
+		if(null==project){
+			return new Result<Integer>(ResultCode.C500.getCode(),MessageConstants.PROJECT_EMPTY);
+		}
+		Long userId = userCommonService.getUserId();
+		if(!userId.equals(project.getPriceManagerId())&&!userId.equals(project.getPriceOfferId())){
+			return new Result<Integer>(ResultCode.C500.getCode(),MessageConstants.NO_AUTHOR);
+		}
+		projectPriceItem.setCreateUserId(userId);
+		return Result.newResult(projectPriceItemMapper.insertSelective(projectPriceItem));
+	}
+	
 }

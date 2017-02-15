@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cpt.mapper.ext.MessageExtMapper">
+  <resultMap id="BaseResultMap" type="com.cpt.model.Message">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="subject" jdbcType="VARCHAR" property="subject" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="reply_id" jdbcType="BIGINT" property="replyId" />
+    <result column="user" jdbcType="VARCHAR" property="user" />
+    <result column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="is_deleted" jdbcType="BIT" property="isDeleted" />
+     <collection property="replyMessage" ofType="com.cpt.model.Message">
+          <id column="reply_id" jdbcType="BIGINT" property="id" />
+   		  <result column="reply_content" jdbcType="VARCHAR" property="content" />
+    	  <result column="reply_user" jdbcType="VARCHAR" property="user" />
+    	  <result column="reply_user_id" jdbcType="BIGINT" property="userId" />
+   		  <result column="reply_create_time" jdbcType="TIMESTAMP" property="createTime" />
+      </collection>
+  </resultMap>
+  
+  <sql id="Base_Column_List">
+    id, title, subject, content, reply_id, user, user_id, create_time, is_deleted
+  </sql>
+  
+   <select id="pageList"   resultMap="BaseResultMap">
+    select 
+     a.*,b.id as reply_id,b.content as reply_content,b.user as reply_user ,b.user_id as reply_user_id  ,b.create_time as reply_create_time 
+    from t_message a left join  t_message b on a.id= b.reply_id
+     where a.is_deleted=0 AND a.`reply_id` IS NULL
+     order by a.create_time desc
+  </select> 
+  
+   <update id="logicalDelete" parameterType="java.lang.Long">
+    update t_message
+    set is_deleted = 1
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  
+</mapper>

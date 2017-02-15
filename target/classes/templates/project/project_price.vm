@@ -73,21 +73,26 @@
 	#foreach($projectPrice in $projectVo.projectPriceList)
 		<hr />
 	<form class="form-horizontal" role="form" id="offerPriceForm"   method="post" action="/projectPrice/savePriceOffer" >
+		<input type="hidden" id="offerPriceId" name="id" value="$!{projectPrice.id}"/>
 		<input type="hidden" id="projectId" name="projectId" value="$!{projectPrice.projectId}"/>
 		<div class="form-group">
             <label class="col-sm-2 control-label">客户： </label>
             <div class="col-sm-2">
                  <input type="text" disabled="disabled" name="company" value="$!{projectPrice.company}"  class="input">
             </div>
-            <label class="col-sm-2 control-label"> 报价人：</label>
+            <label class="col-sm-1 control-label"> 报价人：</label>
             <div class="col-sm-2">
                 <input type="text" disabled="disabled" name="manager" value="$!{projectPrice.manager}"  class="input">
             </div>
-			<label class="col-sm-2  control-label"> 联系方式：</label>
+			<label class="col-sm-1  control-label"> 电话：</label>
             <div class="col-sm-2">
                 <input type="text" disabled="disabled" name="tel" value="$!{projectPrice.tel}"  class="input">
             </div>
-        </div>
+			<div class="col-sm-2">
+				 <input id='addButton' type='button' class='input' onclick='deleteOfferPrice($!{projectPrice.id})'  value='删除客户'/>
+				 <input id='addButton' type='button' class='input' onclick='addOfferPriceItem2(this)'  value='新增报价'/>
+			 </div>
+			</div>
 		<div id="price">
 			#foreach($projectPriceItem in $projectPrice.projectPriceItems)
 			<div class='form-group' >
@@ -95,14 +100,15 @@
 				<div class='col-sm-2'>
 					<input type='text' disabled="disabled" name='projectPriceItem.price' value="$!{projectPriceItem.price}"   placeholder='（四位小数）元'  class='input'>
 				</div>
-				<label class='col-sm-2 control-label'> 系数：</label>
+				<label class='col-sm-1 control-label'> 系数：</label>
 				<div class='col-sm-2'>
 					<input type='text' disabled="disabled" name='projectPriceItem.ratio' value="$!{projectPriceItem.ratio}"   placeholder='（0·10）'  class='input'>
 				</div>
-				<label class='col-sm-2 control-label'> 创建日期：</label>
+				<label class='col-sm-1 control-label'> 日期：</label>
 				<div class='col-sm-2'>
 					<input type='text' disabled="disabled" name='projectPriceItem.createTime' value="$dateTimeUtil.format($!{projectPriceItem.createTime},'yyyy-MM-dd') "  class='input'>
 				</div>
+				<div class='col-sm-2'><input id='deleteButton' type='button' class='input' onclick='deleteOfferPriceItemById($!{projectPriceItem.id})' value='删除'/></div>
 			</div>
 			#end
 		</div>
@@ -141,7 +147,8 @@
 </div>
 
 <script type="text/javascript">
- var html= "<div class='form-group' ><label class='col-sm-2 control-label'>价格： </label><div class='col-sm-2'><input type='text' name='projectPriceItems[X].price'   placeholder='（四位小数）元'  class='input'></div><label class='col-sm-2 control-label'> 系数：</label><div class='col-sm-2'><input type='text' name='projectPriceItems[X].ratio'  placeholder='（0·10）'  class='input'></div><div class='col-sm-2'><input id='deleteButton' type='button' class='input' onclick='deleteOfferPriceItem(this)' value='删除'/></div></div>";
+ var html= "<div class='form-group' ><label class='col-sm-2 control-label'>价格： </label><div class='col-sm-2'><input type='text' name='projectPriceItems[X].price'   placeholder='（四位小数）元'  class='input'></div><label class='col-sm-2 control-label'> 系数：</label><div class='col-sm-2'><input type='text' name='projectPriceItems[X].ratio'  placeholder='（0·10）'  class='input'></div><div class='col-sm-2'> <input id='deleteButton' type='button' class='input' onclick='deleteOfferPriceItem(this)' value='删除'/></div></div>";
+var html2= "<div class='form-group' ><label class='col-sm-2 control-label'>价格： </label><div class='col-sm-2'><input type='text' name='projectPriceItems[X].price'   placeholder='（四位小数）元'  class='input'></div><label class='col-sm-2 control-label'> 系数：</label><div class='col-sm-2'><input type='text' name='projectPriceItems[X].ratio'  placeholder='（0·10）'  class='input'></div><div class='col-sm-2'><input id='deleteButton' type='button' class='input' onclick='saveOfferPriceItem(this)' value='保存'/>&nbsp;<input id='deleteButton' type='button' class='input' onclick='deleteOfferPriceItem(this)' value='删除'/></div></div>";	
 	$(function(){
 	
 	 var customerHtml= " <form class='form-horizontal' role='form' id='offerPriceForm'   method='post' action='/projectPrice/savePriceOffer' >"
@@ -170,7 +177,7 @@
              +"<div class='col-sm-offset-4 col-sm-10'>"
 				+"<input id='addButton' type='button' class='input' onclick='addOfferPriceItem(this)'  value='新增报价'/>"
 				   +"&nbsp;&nbsp;<input id='saveButton' type='button' class='input'  onclick='saveOfferPrice(this);'  value='保存报价'/>"
-		   		+"&nbsp;&nbsp;<input id='deleteButton' type='button' class='input' onclick='deleteOfferPrice(this)' value='删除报价客户'/> "
+		   		+"&nbsp;&nbsp;<input id='deleteButton' type='button' class='input' onclick='deleteOfferPriceDiv(this)' value='删除报价客户'/> "
             +"</div>"
         +"</div>"
 	+"</form>";
@@ -185,14 +192,19 @@
 	   var index=$(doms).parents('.form-horizontal').children('#price').children('.form-group').size();
  		$(doms).parents('.form-horizontal').children('#price').append(html.replace(new RegExp("X","gm"),index));
     }
-	function deleteOfferPrice(doms){
+	 //添加div
+ 	function addOfferPriceItem2(doms){
+	   var index=$(doms).parents('.form-horizontal').children('#price').children('.form-group').size();
+ 		$(doms).parents('.form-horizontal').children('#price').append(html2.replace(new RegExp("X","gm"),index));
+    }
+	function deleteOfferPriceDiv(doms){
  		$(doms).parents('.form-horizontal').remove();
     }
 	
 	function deleteOfferPriceItem(doms){
  		$(doms).parents('.form-group').remove();
     }
- 
+  
 	function commitDescribe(){
 		var content = $('#content').val();
 		var projectId = $('#projectId').val();
@@ -221,6 +233,40 @@
                 }
             });
 	}
+	//保存报价
+ 	function saveOfferPriceItem(doms){
+		var inputDom=$(doms).parents('.form-group').children(".col-sm-2").children(".input");
+		var price = $(inputDom[0]).val();
+		var ratio = $(inputDom[1]).val();
+	    var priceId=$(doms).parents('.form-horizontal').children('#offerPriceId').val();
+ 		var projectId = $('#projectId').val();
+		if(priceId==null||price==null||ratio==null||priceId==""||price==""||ratio==""){
+		 	alert("参数不能为空");
+			return ;
+		}
+		 $.ajax({
+                type: "post",
+                url: '/projectPrice/savePriceOfferItem',
+    			data: {
+                       priceId:priceId ,price:price,ratio:ratio,projectId:projectId
+                    },
+                dataType: 'json',
+                success: function (data) {
+                    // 提交成功后处理，message为提交页面的返回内容 
+    				 alertShow(data.msg, function () {
+    				 location.reload();
+					 })
+                },
+                error: function (data) {
+                    if(data.msg){
+                        alertShow(data.msg);
+                    }
+                    if(data.readyState == 4){
+                        alertShow("Request Not Found");
+                    }
+                }
+            });
+    }
 	
 	function saveOfferPrice(doms){
 		//确认提交
@@ -259,7 +305,61 @@
         });
 
 }
+	function deleteOfferPrice(id){
+	 confirmShows("确认删除客户？", function () {
+    	var projectId = $('#projectId').val();
+    	 $.ajax({
+                type: "post",
+                url: '/projectPrice/deletePriceOffer',
+    			data: {
+                       id:id ,projectId:projectId 
+                    },
+                dataType: 'json',
+                success: function (data) {
+                    // 提交成功后处理，message为提交页面的返回内容 
+    				 alertShow(data.msg, function () {
+    				 location.reload();
+					 })
+                },
+                error: function (data) {
+                    if(data.msg){
+                        alertShow(data.msg);
+                    }
+                    if(data.readyState == 4){
+                        alertShow("Request Not Found");
+                    }
+                }
+            });
+		  });
+	}
 	
+	function deleteOfferPriceItemById(id){
+	confirmShows("确认删除客户报价？", function () {
+	var projectId = $('#projectId').val();
+	 $.ajax({
+            type: "post",
+            url: '/projectPrice/deletePriceOfferItem',
+			data: {
+                   id:id  ,projectId:projectId
+                },
+            dataType: 'json',
+            success: function (data) {
+                 // 提交成功后处理，message为提交页面的返回内容 
+				 alertShow(data.msg, function () {
+				 location.reload();
+				  })
+            },
+            error: function (data) {
+                if(data.msg){
+                    alertShow(data.msg);
+                }
+                if(data.readyState == 4){
+                    alertShow("Request Not Found");
+                }
+            }
+        });
+	});
+	}
 </script>
 
 </body>

@@ -4,12 +4,11 @@
         <meta charset='utf-8'>
          #parse("tags.vm")
         <style>    
-            *{margin:0px;padding:0px;}
             body{background-color:gray}
             #head{height:100px;background-color:gray;}
             #body{
-                width:98%;height:100%;margin:0 auto;background-color:lightgray;position:relative;
-                //-webkit-border-radius: 1em;-moz-border-radius: 1em;
+                width:98%;height:1000px;margin:0 auto;background-color:lightgray;position:relative;
+                -webkit-border-radius: 1em;-moz-border-radius: 1em;
                 border-radius: 1em;
                 font-family: "Arial","Microsoft YaHei","黑体","宋体",sans-serif;
             }
@@ -21,6 +20,14 @@
                 margin-top:4% ;margin-left:14%;padding:2%;width:68%;background-color:#aaa;border: 1px dashed #888;border-radius:1em;
                 position:relative;display:a;
             }
+			.pages{
+                margin-top:4% ;margin-left:14%;padding:2%;width:68%;  
+                position:relative;display:a;
+            }
+			.forms{
+                margin-top:4% ;margin-left:2%;   width:100%;  
+                position:relative;display:a;
+            }
             .comment:hover img{border-radius:1em;border: 2px solid #888;}
             .comment:hover{background-color:#bbb;}
             .comment img{position:absolute;top:-1%;left:-10%;border-radius:2em;border:2px solid #888;}
@@ -30,6 +37,11 @@
             .comment .name:hover{text-decoration:underline;}
             .comment .up{color:#555;text-decoration:none;position:absolute;bottom:4%;right:8%;}
             .comment .up:hover{color:#000;}
+			.comment .right {  float:right; text-align:right} 
+			ul { width:100%; margin:0; padding:0; list-style:none}  
+.newslist { line-height:20px; padding:5px 0; color:#333; border-bottom:1px }  
+.newslist div {   float:right; text-align:right}  
+a { color:#333; text-decoration:none}  
         </style>
         <script>
             
@@ -45,19 +57,36 @@
               #foreach($message in $messageList.rows)
                 <div class='comment'>
                     <a class="name" href="">$!{message.user}</a>
-                    <p>标题： $!{message.content}</p>
-                    <p>主题： $!{message.content}</p>
+                    <p>标题： $!{message.title}</p>
+                    <p>主题： $!{message.subject}</p>
                     <p>内容： $!{message.content}</p>
                     <span>$dateTimeUtil.format($!{message.createTime},'yyyy-MM-dd HH:mm:ss')</span>
-                    <a class='up' href="#"   onclick="showMessageReply( $!{message.id})">回复</a>
-                     #foreach($reply in $message.replyMessage)
-		         	 <p> $!{reply.user} 回复 $!{message.user}： $!{reply.content} -- $dateTimeUtil.format($!{reply.createTime},'yyyy-MM-dd HH:mm:ss') </p>
-		          	  
-       				#end
+                    <a class='right' href="#"   onclick="showMessageReply( $!{message.id})">回复</a>
+                    <hr/>
+					 <ul>  
+					  #foreach($reply in $message.replyMessage)
+       				 <li class="newslist"><div>$dateTimeUtil.format($!{reply.createTime},'yyyy-MM-dd HH:mm:ss')</div>·<a href="#">$!{reply.user} 回复 $!{message.user}： $!{reply.content}</a></li>  
+					  #end
+					 </ul> 
+					
                 </div>
-       		 #end
+			  #end
+			  <div class='pages'>
+			  <nav aria-label="Page navigation"  >
+  <ul class="pagination">
+	#foreach($page in [1..$messageList.total])
+    <li  
+		#if($messageList.page==$!{page})
+		class="active" 
+		#end
+		><a href="/message/list?page=$!{page}">$!{page}</a></li>
+	#end
+  </ul>
+</nav>
+			  </div>
             </div>
              <div id='right'>
+				 <div class="forms"> 
 				 <form class="form-horizontal" role="form" id="validation-form" method="post" >
 					  	<div class="form-group">
                         	<label class="col-sm-2 control-label">标题:</label>
@@ -73,18 +102,19 @@
 	                    </div>
                      	<div class="form-group">
                         	<label class="col-sm-2 control-label">内容:</label>
+							<div class="col-sm-10">
                        		<textarea class="form-control" name="content"  id="content"
                                   style="resize:none;width:60%;height:100px;"
-                                  valid="rangelength:12_200"></textarea>
+                                  valid="rangelength:12_200"></textarea>	 </div>
 	                    </div>
 	                    <div class="form-group">
 						  <div class="col-sm-offset-4 col-sm-10">
-							  <button type="button" class="btn btn-primary" onClick="writeMessage()" >新增发布</button>
+							  <button type="button" class="btn btn-primary" onClick="writeMessage()" >发布消息</button>
 			            </div>
 					 </div>
                   
 				</form>
-				
+				</div>
             </div>
         </div>
     </div>

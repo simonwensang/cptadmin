@@ -36,7 +36,8 @@ public class MessageServiceImpl implements MessageService {
 	@Override
 	public PageResult<Message> pageList(PageParam pageParam) {
 		//分页
-        PageHelper.startPage(pageParam.getPage(), pageParam.getLimit());
+		pageParam.setRows(3);
+        PageHelper.startPage(pageParam.getPage(), pageParam.getRows());
         //当前页列表
         List<Message> messages = messageExtMapper.pageList();
         //构造分页结果
