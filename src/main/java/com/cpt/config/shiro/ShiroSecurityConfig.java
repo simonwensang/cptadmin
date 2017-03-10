@@ -20,8 +20,6 @@ import org.springframework.boot.context.embedded.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
-import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.filter.DelegatingFilterProxy;
 
 
@@ -101,7 +99,7 @@ public class ShiroSecurityConfig {
 	@Bean(name="sessionManager")
 	public DefaultWebSessionManager defaultWebSessionManager() {
 		DefaultWebSessionManager sessionManager = new DefaultWebSessionManager();
-		sessionManager.setCacheManager(redisCacheManager());
+		//sessionManager.setCacheManager(redisCacheManager());
 		sessionManager.setGlobalSessionTimeout(7200000);
 		//sessionManager.setDeleteInvalidSessions(true);
 		sessionManager.setSessionValidationSchedulerEnabled(true);
@@ -143,7 +141,7 @@ public class ShiroSecurityConfig {
     	redisManager.setTimeout(3000);
     	return redisManager;
     }
-    @Bean
+     @Bean
     //@DependsOn(value={"lifecycleBeanPostProcessor", "shrioRedisCacheManager"})
     public CustomSecurityRealm customSecurityRealm(){
     	CustomSecurityRealm userRealm = new CustomSecurityRealm();

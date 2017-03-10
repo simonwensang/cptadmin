@@ -9,6 +9,8 @@ public interface MessageService {
 	
 	public PageResult<Message> pageList(PageParam pageParam);
 	
+	public Result<Message> get(Long id);
+	
 	public Result<Integer> addOrEdit(Message message);
 	
 	public Result<Integer> delete(Long id);

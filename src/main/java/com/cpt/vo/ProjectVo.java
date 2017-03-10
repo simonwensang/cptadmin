@@ -61,8 +61,22 @@ public class ProjectVo {
 
     private Date priceOfferTime;
     
-    private Byte authority;
+    private List<Byte> authority;
  
     private List<ProjectPriceVo> projectPriceList;
     
+    //("是否显示指定项目负责人")
+	private Boolean showSelectProjectManager=false;
+	//("是否显示选择报价负责人")
+	private Boolean showSelectPriceManager=false;
+	//("是否显示管理报价人")
+	private Boolean showSelectPriceOffer=false;
+	//("是否显示报价")
+	private Boolean showPriceOffer=false;
+	//("是否显示项目管理")
+	private Boolean showProjectManager=false;
+	//("是否显示查看明细")
+	private Boolean showDetail=false;
+	//("是否显示删除")
+	private Boolean showDelete=false;
 }

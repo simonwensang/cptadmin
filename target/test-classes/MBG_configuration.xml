@@ -35,7 +35,7 @@
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
         <!--生成table名称-->
-        <table tableName="t_message" domainObjectName="Message" enableCountByExample="true"
+        <table tableName="t_work_flow" domainObjectName="WorkFlow" enableCountByExample="true"
                enableUpdateByExample="true" enableDeleteByExample="true"
                enableSelectByExample="true" selectByExampleQueryId="true"
                enableInsert="true" enableUpdateByPrimaryKey="true" enableSelectByPrimaryKey="true"

@@ -29,15 +29,91 @@
     <result column="price_offer" jdbcType="VARCHAR" property="priceOffer" />
     <result column="price_offer_id" jdbcType="BIGINT" property="priceOfferId" />
     <result column="price_offer_time" jdbcType="TIMESTAMP" property="priceOfferTime" />
-    <result column="authority" jdbcType="TINYINT" property="authority" />
+    <collection property="authority" ofType="java.lang.Byte">
+	    <result column="f_authority" jdbcType="TINYINT"/>
+    </collection>
+  
   </resultMap>
-   
-  <select id="selectProjectList" parameterType="com.cpt.req.ProjectReq" resultMap="BaseResultMap">
+   <resultMap id="BaseResultMap2" type="com.cpt.vo.ProjectVo">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="code" jdbcType="VARCHAR" property="code" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="report" jdbcType="VARCHAR" property="report" />
+    <result column="tenderee" jdbcType="VARCHAR" property="tenderee" />
+    <result column="designer" jdbcType="VARCHAR" property="designer" />
+    <result column="agent" jdbcType="VARCHAR" property="agent" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="type" jdbcType="TINYINT" property="type" />
+    <result column="type_name" jdbcType="VARCHAR" property="typeName" />
+    <result column="tender_time" jdbcType="TIMESTAMP" property="tenderTime" />
+    <result column="commit_user" jdbcType="VARCHAR" property="commitUser" />
+    <result column="commit_user_id" jdbcType="BIGINT" property="commitUserId" />
+    <result column="commit_time" jdbcType="TIMESTAMP" property="commitTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="update_user" jdbcType="VARCHAR" property="updateUser" />
+    <result column="update_user_id" jdbcType="BIGINT" property="updateUserId" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="project_manager" jdbcType="VARCHAR" property="projectManager" />
+    <result column="project_manager_id" jdbcType="BIGINT" property="projectManagerId" />
+    <result column="project_manager_time" jdbcType="TIMESTAMP" property="projectManagerTime" />
+    <result column="price_manager" jdbcType="VARCHAR" property="priceManager" />
+    <result column="price_manager_id" jdbcType="BIGINT" property="priceManagerId" />
+    <result column="price_manager_time" jdbcType="TIMESTAMP" property="priceManagerTime" />
+    <result column="price_offer" jdbcType="VARCHAR" property="priceOffer" />
+    <result column="price_offer_id" jdbcType="BIGINT" property="priceOfferId" />
+    <result column="price_offer_time" jdbcType="TIMESTAMP" property="priceOfferTime" />
+  
+  </resultMap>
+  <select id="selectDetailProjectList" parameterType="com.cpt.req.ProjectReq" resultMap="BaseResultMap2">
 	    select 
-	  	 a.*,b.authority
-	    from  t_work_flow b left join t_project a on b.ref_id=a.id
+	  	 a.* 
+	    from   t_project a  
 	    <where>
-	      b.user_id=#{userId}
+          <if test="id != null">
+              AND a.id = #{id}
+          </if>
+          <if test="name != null and name != ''">
+              AND a.name LIKE concat('%',#{name},'%')
+          </if>
+          <if test="priceManager != null and priceManager != ''">
+              AND a.price_manager LIKE concat('%',#{priceManager},'%')
+          </if>
+          <if test="priceOffer != null and priceOffer != ''">
+              AND a.price_offer LIKE concat('%',#{priceOffer},'%')
+          </if>
+          <if test="tenderee != null and tenderee != ''">
+              AND a.tenderee LIKE concat('%',#{tenderee},'%')
+          </if>
+          <if test="address != null and address != ''">
+              AND a.address LIKE concat('%',#{address},'%')
+          </if>
+          <if test="status != null ">
+              AND a.status = #{status} 
+          </if>
+	      </where>
+	      ORDER BY a.status ,a.commit_time DESC 
+	 </select>
+	 
+	  <select id="selectProjectSchedule" resultType="com.cpt.vo.ScheduleVo">
+	  	SELECT a.`authority` ,COUNT(b.id) as num ,b.`status` FROM `t_work_flow` a JOIN `t_project` b ON a.`ref_id`=b.`id` AND a.`status`=b.`status` WHERE a.`user_id`=#{id} and a.`authority` != 4 group by a.`authority` 
+	  </select>
+	  
+	  <select id="selectPriceProject" resultType="java.lang.Integer" >
+	  	SELECT  COUNT(b.id) as num   FROM `t_work_flow` a JOIN `t_project` b ON a.`ref_id`=b.`id`  WHERE a.`user_id`=#{id}  and a.`authority` in (3,4) and b.status in (2,3) 
+	  </select>
+	  
+	  <select id="selectManagerProject" resultType="java.lang.Integer" >
+	  	SELECT  COUNT(b.id) as num   FROM `t_work_flow` a JOIN `t_project` b ON a.`ref_id`=b.`id`  WHERE a.`user_id`=#{id}  and a.`authority`= 2 and b.status in (1,2,3) 
+	  </select>
+	  
+	  <select id="selectProjectList" parameterType="com.cpt.req.ProjectReq" resultMap="BaseResultMap">
+	    select 
+	  	 a.*,b.authority as f_authority
+	    from   t_project a join t_work_flow b  on b.ref_id=a.id
+	    <where>
+	      <if test="userId != null">
+              AND b.user_id=#{userId}
+          </if>
           <if test="id != null">
               AND a.id = #{id}
           </if>

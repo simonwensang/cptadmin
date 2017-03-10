@@ -34,6 +34,14 @@ public class MessageServiceImpl implements MessageService {
 	private UserCommonService userCommonService;
 	
 	@Override
+	public Result<Message> get(Long id) {
+		if(id==null){
+			return new Result<Message>(ResultCode.C500.getCode(),MessageConstants.PRARM_ERROR);
+		}
+		return Result.newResult(messageExtMapper.get(id));
+	}
+
+	@Override
 	public PageResult<Message> pageList(PageParam pageParam) {
 		//分页
 		pageParam.setRows(3);

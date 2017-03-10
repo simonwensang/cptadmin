@@ -12,6 +12,7 @@
         <div class="form-group">
             <label class="col-sm-2 control-label">项目名称： </label>
             <div class="col-sm-3">
+				<input type='hidden' id='projectId' name='projectId' value='$!{projectVo.id}'/>
                 <input type="text" name="name" value="$!{projectVo.name}" disabled="disabled" class="form-control">
             </div>
             <label class="col-sm-2 control-label"> 招标单位：</label>
@@ -74,7 +75,7 @@
 		<hr />
 	<form class="form-horizontal" role="form" id="offerPriceForm"   method="post" action="/projectPrice/savePriceOffer" >
 		<input type="hidden" id="offerPriceId" name="id" value="$!{projectPrice.id}"/>
-		<input type="hidden" id="projectId" name="projectId" value="$!{projectPrice.projectId}"/>
+		<input type="hidden" id="priceProjectId" name="projectId" value="$!{projectPrice.projectId}"/>
 		<div class="form-group">
             <label class="col-sm-2 control-label">客户： </label>
             <div class="col-sm-2">
@@ -121,17 +122,17 @@
 	<form class="form-horizontal" role="form" id="projectDescribeForm"   method="post"   >
 		<div class="form-group">
             <label class="col-sm-2 control-label">项目描述： </label>
-            <div class="col-sm-4">
+            <div class="col-sm-8">
                  <div id="projectDescribeDiv">
 					#foreach($projectDescribe in $projectDescribeList)
-                        <p >$dateTimeUtil.format($!{projectDescribe.createTime},'yyyy-MM-dd')  &nbsp; &nbsp;&nbsp;$!{projectDescribe.content}</p>
+                         <p class="green"><span style="float:right;">$dateTimeUtil.format($!{projectDescribe.createTime},'yyyy-MM-dd')</span>$!{projectDescribe.content}</p>
                     #end
 				</div>
             </div>
         </div>
 		<div class="form-group">
             <label class="col-sm-2 control-label">添加描述： </label>
-            <div class="col-sm-4">
+            <div class="col-sm-5">
 					<textarea id="content" class="form-control" rows="3"  name='content'></textarea>
             </div>
         </div>
@@ -152,7 +153,7 @@ var html2= "<div class='form-group' ><label class='col-sm-2 control-label'>价�
 	$(function(){
 	
 	 var customerHtml= " <form class='form-horizontal' role='form' id='offerPriceForm'   method='post' action='/projectPrice/savePriceOffer' >"
-		+"<input type='hidden' id='projectId' name='projectId' value='$!{projectVo.id}'/>"
+		+"<input type='hidden' id='priceProjectId' name='projectId' value='$!{projectVo.id}'/>"
 		+"<hr /><div class='form-group'>"
            +" <label class='col-sm-2 control-label'>客户： </label>"
             +"<div class='col-sm-2'>"
@@ -219,7 +220,7 @@ var html2= "<div class='form-group' ><label class='col-sm-2 control-label'>价�
                     //提示审核通过成功信息并刷新页面
                     alertShow(data.msg, function () {
     					if(data.code==200){
-    						 $("#projectDescribeDiv").append(formatDateToDay(data.value.createTime)+"   "+data.value.content+"<br/>"); 
+    						 $("#projectDescribeDiv").append("<p class='green'><span style='float:right;'>"+formatDateToDay(data.value.createTime)+"</span>"+data.value.content+"</p>"); 
     					}
                     });
                 },
@@ -254,7 +255,9 @@ var html2= "<div class='form-group' ><label class='col-sm-2 control-label'>价�
                 success: function (data) {
                     // 提交成功后处理，message为提交页面的返回内容 
     				 alertShow(data.msg, function () {
-    				 location.reload();
+    				 if(data.code==200){
+					  location.reload();
+					 }
 					 })
                 },
                 error: function (data) {
@@ -274,7 +277,9 @@ var html2= "<div class='form-group' ><label class='col-sm-2 control-label'>价�
 		  	$(doms).parents(".form-horizontal").ajaxSubmit(function(data) { 
                 // 提交成功后处理，message为提交页面的返回内容 
 				 alertShow(data.msg, function () {
-				 location.reload();
+				 if(data.code==200){
+					  location.reload();
+					 }
                 });
             });
 		   });
@@ -318,7 +323,9 @@ var html2= "<div class='form-group' ><label class='col-sm-2 control-label'>价�
                 success: function (data) {
                     // 提交成功后处理，message为提交页面的返回内容 
     				 alertShow(data.msg, function () {
-    				 location.reload();
+    				  if(data.code==200){
+					  location.reload();
+					 }
 					 })
                 },
                 error: function (data) {
@@ -346,7 +353,9 @@ var html2= "<div class='form-group' ><label class='col-sm-2 control-label'>价�
             success: function (data) {
                  // 提交成功后处理，message为提交页面的返回内容 
 				 alertShow(data.msg, function () {
-				 location.reload();
+				  if(data.code==200){
+					  location.reload();
+					 }
 				  })
             },
             error: function (data) {

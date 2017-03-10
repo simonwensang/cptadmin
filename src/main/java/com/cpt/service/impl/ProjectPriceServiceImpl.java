@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
@@ -63,10 +64,20 @@ public class ProjectPriceServiceImpl implements ProjectPriceService {
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.DEFAULT, rollbackFor = Exception.class)
 	public Result<Integer> insert(ProjectPriceVo projectPriceVo) {
-
-		if(projectPriceVo.getProjectId()==null||projectPriceVo.getCompanyId()==null){
-			return new Result<Integer>(ResultCode.C500.getCode(),MessageConstants.PRARM_ERROR);
+ 
+		if(projectPriceVo.getProjectId()==null||projectPriceVo.getCompanyId()==null ||StringUtils.isBlank(projectPriceVo.getManager())||StringUtils.isBlank(projectPriceVo.getTel())){
+			return new Result<Integer>(ResultCode.C500.getCode(),MessageConstants.PRARM_EMPTY);
 		}
+		List<ProjectPriceItem> projectPriceItems= projectPriceVo.getProjectPriceItems();
+		if(projectPriceItems!=null){
+			for (ProjectPriceItem projectPriceItem:projectPriceItems) {
+				if(projectPriceItem.getPrice()==null||projectPriceItem.getRatio()==null){
+					return new Result<Integer>(ResultCode.C500.getCode(),MessageConstants.PRARM_EMPTY);
+				}
+			}
+		}
+		
+		
 		Project project = projectMapper.selectByPrimaryKey(projectPriceVo.getProjectId());
 		if(null==project){
 			return new Result<Integer>(ResultCode.C500.getCode(),MessageConstants.PROJECT_EMPTY);
@@ -84,15 +95,14 @@ public class ProjectPriceServiceImpl implements ProjectPriceService {
 		}
 		projectPrice.setCompany(customer.getName());
 		projectPriceExtMapper.insertSelective(projectPrice);
-		
-		List<ProjectPriceItem> projectPriceItems= projectPriceVo.getProjectPriceItems();
-		
-		for (ProjectPriceItem projectPriceItem:projectPriceItems) {
-			projectPriceItem.setPriceId(projectPrice.getId());
-			projectPriceItem.setCreateUserId(userCommonService.getUserId());
+		if(projectPriceItems!=null){
+			for (ProjectPriceItem projectPriceItem:projectPriceItems) {
+				projectPriceItem.setPriceId(projectPrice.getId());
+				projectPriceItem.setCreateUserId(userCommonService.getUserId());
+			}
+			projectPriceItemExtMapper.insertList(projectPriceItems);
 		}
-		
-		return Result.newResult( projectPriceItemExtMapper.insertList(projectPriceItems));
+		return Result.newResult(1);
 	}
 
 	@Override

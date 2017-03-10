@@ -19,6 +19,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.cpt.common.constant.Constants;
 import com.cpt.mapper.UserMapper;
 import com.cpt.mapper.ext.ModuleExtMapper;
 import com.cpt.mapper.ext.RoleExtMapper;
@@ -76,7 +77,7 @@ public class CustomSecurityRealm extends AuthorizingRealm {
         List<User>  userEntityList = userMapper.selectByExample(example);
         if ( userEntityList.size()>0) {
         	User user = userEntityList.get(0);
-        	if("1".equals(user.getIsDeleted())){
+        	if(Constants.ISDELETED==user.getIsDeleted().byteValue()){
     			throw new LockedAccountException();
     		}
         	//user.setRoles(roleExtMapper.selectByUserId(user.getId()));
@@ -87,7 +88,7 @@ public class CustomSecurityRealm extends AuthorizingRealm {
         	throw new UnknownAccountException();
         }
 	}
-	
+ 
 	/**
 	 * 设定Password校验的Hash算法与迭代次数.
 	 */

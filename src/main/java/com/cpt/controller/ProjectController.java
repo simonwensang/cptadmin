@@ -46,7 +46,7 @@ public class ProjectController {
 	@Autowired 
 	private  OrganizationService organizationService;
 	  /**
-     * 公司资料管理列表
+     * 工程管理列表
      *
      * @param mav
      * @return
@@ -82,7 +82,29 @@ public class ProjectController {
     public PageResult<ProjectVo> pageList(PageParam pageParam, ProjectReq projectReq) {
         return projectService.pageList(pageParam, projectReq);
     }
-	
+    /**
+     * 工程列表
+     *
+     * @param mav
+     * @return
+     */
+    @RequestMapping(value = "/detailList", method = RequestMethod.GET)
+    public ModelAndView detailList(ModelAndView mav) {
+        mav.setViewName("project/detail_project_list");
+        return mav;
+    }
+    /**
+     * 分页数据
+     *
+     * @param pageParam
+     * @param projectVo
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/detailPageList", method = RequestMethod.GET)
+    public PageResult<ProjectVo> detailPageList(PageParam pageParam, ProjectReq projectReq) {
+        return projectService.detailPageList(pageParam, projectReq);
+    }
     /**
      * 工程详情
      *
@@ -136,6 +158,18 @@ public class ProjectController {
     @ResponseBody
     public Result<Integer> addOrEdit(ProjectReq projectReq) {
     	return projectService.addOrEdit(projectReq);
+    }
+    /**
+     * 增加或者修改工程
+     *
+     * @param mav
+     * @param id
+     * @return
+     */
+    @RequestMapping(value = "/delete", method = RequestMethod.POST)
+    @ResponseBody
+    public Result<Integer> delete(Long id) {
+    	return projectService.delete(id);
     }
     /**
      * 增加或者修改工程

@@ -38,4 +38,10 @@
     where id = #{id,jdbcType=BIGINT}
   </update>
   
+  <select id="get"  parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+     a.*,b.id as reply_id,b.content as reply_content,b.user as reply_user ,b.user_id as reply_user_id  ,b.create_time as reply_create_time 
+    from t_message a left join  t_message b on a.id= b.reply_id
+     where a.is_deleted=0 AND a.`id` =#{id}
+  </select> 
 </mapper>

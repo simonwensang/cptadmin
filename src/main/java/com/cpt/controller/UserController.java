@@ -44,7 +44,11 @@ public class UserController {
     public PageResult<User> pageList(PageParam pageParam, UserQuery userQuery) {
         return userService.pageList(pageParam, userQuery);
     }
-    
+    @RequestMapping("/query")
+	@ResponseBody
+	public PageResult<User> query(PageParam pageParam,UserQuery userQuery){
+		return userService.query(pageParam, userQuery);
+	}
     /**
      * 增加或者修改
      *
@@ -92,18 +96,10 @@ public class UserController {
 		return userService.exist(name);
 	}
 	
-	@RequestMapping("/query")
-	@ResponseBody
-	public List<User> query(UserQuery userQuery){
-		return userService.query(userQuery);
-	}
-	 
 	@RequestMapping("/queryPriceOffer")
 	@ResponseBody
 	public List<UserVo> queryPriceOffer(){
 		return userService.queryPriceOffer();
 	}
-	
-	
 	
 }

@@ -9,6 +9,8 @@ public class WorkFlow {
 
     private Byte authority;
 
+    private Byte status;
+
     private Long userId;
 
     private Date createTime;
@@ -37,6 +39,14 @@ public class WorkFlow {
 
     public void setAuthority(Byte authority) {
         this.authority = authority;
+    }
+
+    public Byte getStatus() {
+        return status;
+    }
+
+    public void setStatus(Byte status) {
+        this.status = status;
     }
 
     public Long getUserId() {

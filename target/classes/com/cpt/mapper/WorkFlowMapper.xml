@@ -5,6 +5,7 @@
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="ref_id" jdbcType="BIGINT" property="refId" />
     <result column="authority" jdbcType="TINYINT" property="authority" />
+    <result column="status" jdbcType="TINYINT" property="status" />
     <result column="user_id" jdbcType="BIGINT" property="userId" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="creator" jdbcType="BIGINT" property="creator" />
@@ -68,7 +69,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, ref_id, authority, user_id, create_time, creator
+    id, ref_id, authority, status, user_id, create_time, creator
   </sql>
   <select id="selectByExample" parameterType="com.cpt.model.WorkFlowExample" resultMap="BaseResultMap">
     select
@@ -103,11 +104,11 @@
   </delete>
   <insert id="insert" parameterType="com.cpt.model.WorkFlow">
     insert into t_work_flow (id, ref_id, authority, 
-      user_id, create_time, creator
-      )
+      status, user_id, create_time, 
+      creator)
     values (#{id,jdbcType=BIGINT}, #{refId,jdbcType=BIGINT}, #{authority,jdbcType=TINYINT}, 
-      #{userId,jdbcType=BIGINT}, #{createTime,jdbcType=TIMESTAMP}, #{creator,jdbcType=BIGINT}
-      )
+      #{status,jdbcType=TINYINT}, #{userId,jdbcType=BIGINT}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{creator,jdbcType=BIGINT})
   </insert>
   <insert id="insertSelective" parameterType="com.cpt.model.WorkFlow">
     insert into t_work_flow
@@ -120,6 +121,9 @@
       </if>
       <if test="authority != null">
         authority,
+      </if>
+      <if test="status != null">
+        status,
       </if>
       <if test="userId != null">
         user_id,
@@ -140,6 +144,9 @@
       </if>
       <if test="authority != null">
         #{authority,jdbcType=TINYINT},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=TINYINT},
       </if>
       <if test="userId != null">
         #{userId,jdbcType=BIGINT},
@@ -170,6 +177,9 @@
       <if test="record.authority != null">
         authority = #{record.authority,jdbcType=TINYINT},
       </if>
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=TINYINT},
+      </if>
       <if test="record.userId != null">
         user_id = #{record.userId,jdbcType=BIGINT},
       </if>
@@ -189,6 +199,7 @@
     set id = #{record.id,jdbcType=BIGINT},
       ref_id = #{record.refId,jdbcType=BIGINT},
       authority = #{record.authority,jdbcType=TINYINT},
+      status = #{record.status,jdbcType=TINYINT},
       user_id = #{record.userId,jdbcType=BIGINT},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
       creator = #{record.creator,jdbcType=BIGINT}
@@ -204,6 +215,9 @@
       </if>
       <if test="authority != null">
         authority = #{authority,jdbcType=TINYINT},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=TINYINT},
       </if>
       <if test="userId != null">
         user_id = #{userId,jdbcType=BIGINT},
@@ -221,6 +235,7 @@
     update t_work_flow
     set ref_id = #{refId,jdbcType=BIGINT},
       authority = #{authority,jdbcType=TINYINT},
+      status = #{status,jdbcType=TINYINT},
       user_id = #{userId,jdbcType=BIGINT},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       creator = #{creator,jdbcType=BIGINT}

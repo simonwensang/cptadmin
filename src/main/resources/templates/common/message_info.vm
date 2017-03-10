@@ -1,0 +1,22 @@
+<!--修改等级弹出框 -->
+<div class="modal fade" id="messageInfoModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">查看消息</h4>
+            </div>
+			<div class="modal-body" style="padding: 30px;">
+				  <div id="content" class="green">
+                  </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div>
+    </div>
+    <script>
+	
+	</script>
+</div>

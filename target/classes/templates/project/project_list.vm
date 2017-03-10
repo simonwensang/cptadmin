@@ -55,7 +55,7 @@
             datatype: "json",
             height: '100%',
             width: '100%',
-            colNames: ['ID','权限', '项目编码', '项目名称', '提报人', '项目负责人','报价负责人', '报价人', '提报时间','招标时间','招标单位','设计单位','招标代理','项目所在地','项目状态','操作'],
+            colNames: ['ID','权限', '项目编码', '项目名称', '提报人', '项目负责人','报价负责人', '报价人', '提报时间','招标时间','招标单位','设计单位','招标代理','项目所在地','项目状态','是否显示删除','是否显示指定项目负责人','是否显示选择报价负责人','是否显示管理报价人','是否显示报价','是否显示项目管理','是否显示查看明细','操作'],
             colModel: [
                 {name: 'id', index: 'id', width: '3%'},
 				{name: 'authority', index: 'authority',  hidden:true},
@@ -72,6 +72,13 @@
 				{name: 'agent', index: 'agent', width: '6%', sortable: false},
 				{name: 'address', index: 'address', width: '7%', sortable: false},
 				{name: 'status', index: 'status', width: '7%', sortable: false,formatter: formatStatus},
+				{name: 'showDelete', index: 'showDelete',  hidden:true},
+				{name: 'showSelectProjectManager', index: 'showSelectProjectManager',  hidden:true},
+				{name: 'showSelectPriceManager', index: 'showSelectPriceManager',  hidden:true},
+				{name: 'showSelectPriceOffer', index: 'showSelectPriceOffer',  hidden:true},
+				{name: 'showPriceOffer', index: 'showPriceOffer',  hidden:true},
+				{name: 'showProjectManager', index: 'showProjectManager',  hidden:true},
+				{name: 'showDetail', index: 'showDetail',  hidden:true},
 				{name: 'operate',index: 'rowid', width: '13%',sortable: false },
             ],
             viewrecords: true,
@@ -93,6 +100,13 @@
                     //这个地方是获取每行里面列的值，用于判断某些按钮是否显示
                     var status = rowData.status;
 					var authority = rowData.authority;
+					var  showSelectProjectManager =rowData.showSelectProjectManager ;
+					var  showSelectPriceManager =rowData.showSelectPriceManager ;
+					var  showSelectPriceOffer =rowData.showSelectPriceOffer ;
+					var  showPriceOffer =rowData.showPriceOffer ;
+					var  showProjectManager =rowData.showProjectManager ;
+					var  showDetail =rowData.showDetail;
+					
 					var selectProjectManager = "<button class='btn btn-primary btn-sm ' style='margin-right: 6px' "
                             + "onclick=\"addNewTabs({title:'指定项目负责人',url: '/project/manager?id="
                             + rowid
@@ -114,38 +128,30 @@
                             + rowid
                             + "'})\"><i class='ace-icon fa fa-search-plus'></i>查看明细</button>";
 
-					var opt  ;
-					if("待指派项目负责人"==status){
-				   		opt = selectProjectManager;
-				    }else if("待指派报价负责人"==status){
-						if(authority==1){
-							opt = detail;
-						}else if(authority==2){
-							opt = selectPriceManager;
-						}
-					}else if("待指派报价人"==status){
-						if(authority==1||authority==2){
-							opt = detail;
-						}else if(authority==3){
-							opt = selectPriceOffer+priceOffer;
-						}
-					}else if("报价中"==status){
-						if(authority==1){
-							opt = detail;
-						}else if(authority==2){
-							opt =  projectManager;
-						}else if(authority==3){
-							opt =  selectPriceOffer+priceOffer;
-						}else if(authority==4){
-							opt =  priceOffer;
-						}
-					}else {
-						opt = detail;
+					var opt =""  ;
+					if( showSelectProjectManager=="true"){
+				   		opt = opt+selectProjectManager;
+				    }
+					if(showSelectPriceManager=="true"){
+						opt = opt+ selectPriceManager;
+					} 
+					if(showSelectPriceOffer=="true"){
+						opt = opt+ selectPriceOffer;
 					}
+					if(showPriceOffer=="true"){
+						opt = opt+ priceOffer;
+					}
+					if(showProjectManager=="true"){
+						opt = opt+ projectManager;
+					}
+					if(showDetail=="true"){
+						opt = opt+ detail;
+					} 
 							
 					$(grid_table).jqGrid('setRowData', rowid, {
                             operate: opt,
                     });
+				 
                 }
             },
             //更新翻页图标

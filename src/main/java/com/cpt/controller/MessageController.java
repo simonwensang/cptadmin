@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.cpt.common.PageParam;
-import com.cpt.common.PageResult;
 import com.cpt.common.Result;
 import com.cpt.model.Message;
 import com.cpt.service.MessageService;
@@ -17,7 +16,7 @@ import com.cpt.service.MessageService;
 @RequestMapping("/message")
 public class MessageController {
 
-	@Autowired 
+	@Autowired  
 	private MessageService messageService;
 	
 	 /**
@@ -59,6 +58,17 @@ public class MessageController {
     public Result<Integer> delete(Long id) {
     	return messageService.delete(id);
     }
-
+    /**
+     * 查询
+     *
+     * @param mav
+     * @param id
+     * @return
+     */
+    @RequestMapping(value = "/get", method = RequestMethod.POST)
+    @ResponseBody
+    public Result<Message> get(Long id) {
+    	return messageService.get(id);
+    }
 	
 }

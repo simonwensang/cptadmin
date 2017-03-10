@@ -17,7 +17,7 @@ import java.util.LinkedList;
 
 /**
  * 
- * @author liujinghao
+ * @author sangyiwen
  *
  */
 public class KickoutSessionControlFilter extends AccessControlFilter {

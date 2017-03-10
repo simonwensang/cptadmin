@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    #parse("tags.vm")
+</head>
+<body>
+<div class="search_form">
+    <form role="form" id="searchForm">
+        <label>项目名称</label>
+        <input class="input" type="text" id="name" name="name" value=""/>
+        <label>报价负责人</label>
+        <input class="input" type="text" id="priceManager" name="priceManager" value=""/>
+        <label>报价人</label>
+        <input class="input" type="text" id="priceOffer" name="priceOffer" value=""/>
+		<label>招标单位</label>
+        <input class="input" type="text" id="tenderee" name="tenderee" value=""/>
+		<label>项目所在地</label>
+        <input class="input" type="text" id="address" name="address" value=""/>
+		<label>项目状态</label>
+        <select class="input-medium" id="status" name="status">
+                <option ></option>
+				<option value="0">待指派项目负责人</option>
+                <option value="1">待指派报价负责人</option>
+				<option value="2">待指派报价人</option>
+                <option value="3">报价中</option>
+				<option value="4">合同已签订</option>
+                <option value="5">合同不签订</option>
+        </select>
+	</form>
+    <div class="search_form_opt">
+        <button class="btn btn-primary" onclick="search({form:'searchForm',grid:'grid_table'})">
+            <i class="ace-icon fa fa-search"></i>搜索
+        </button>
+        <button class="btn btn-success" onclick="reloadTable('/project/detailPageList')">
+            <i class="ace-icon fa fa-refresh"></i>刷新
+        </button>
+    </div>
+    <div class="search_form_clear"></div>
+</div>
+<!--  表格 -->
+<table id="grid_table"></table>
+<!-- 分页 -->
+<div id="grid_pager"></div>
+ 
+<script type="text/javascript">
+    var listUrl = '/project/detailPageList';
+    $(function () {
+        //初始化table
+        var grid_table = "#grid_table";
+        var grid_pager = "#grid_pager";
+        //初始化table
+        $(grid_table).jqGrid({
+            url: listUrl,
+            datatype: "json",
+            height: '100%',
+            width: '100%',
+            colNames: ['ID', '项目编码', '项目名称', '提报人', '项目负责人','报价负责人', '报价人', '提报时间','招标时间','招标单位','设计单位','招标代理','项目所在地','项目状态','操作'],
+            colModel: [
+                {name: 'id', index: 'id', width: '3%'},
+                {name: 'code', index: 'code', width: '8%'},
+                {name: 'name', index: 'name', width: '7%'},
+                {name: 'commitUser', index: 'commitUser', width: '6%'},
+                {name: 'projectManager', index: 'projectManager', width: '6%',},
+                {name: 'priceManager', index: 'priceManager', width: '6%', sortable: false},
+               	{name: 'priceOffer', index: 'priceOffer',width: '6%',sortable: false },
+				{name: 'commitTime', index: 'commitTime', width: '6%', sortable: false,formatter:formatDateToDay},
+				{name: 'tenderTime', index: 'tenderTime', width: '6%', sortable: false},
+				{name: 'tenderee', index: 'tenderee', width: '6%', sortable: false},
+				{name: 'designer', index: 'designer', width: '7%', sortable: false},
+				{name: 'agent', index: 'agent', width: '6%', sortable: false},
+				{name: 'address', index: 'address', width: '7%', sortable: false},
+				{name: 'status', index: 'status', width: '7%', sortable: false,formatter: formatStatus},
+				{name: 'operate',index: 'rowid', width: '13%',sortable: false },
+            ],
+            viewrecords: true,
+            rowNum: 10,
+            rowList: [10, 25, 50, 100],
+            pager: grid_pager,
+            altRows: true,
+            multiselect: true,
+            multiboxonly: true,
+            autowidth: true,
+            //添加操作
+            gridComplete: function () {
+                var ids = $(grid_table).getDataIDs();
+                for (var i = 0; i < ids.length; i++) {
+                    var rowid = ids[i];
+ 					//如果想获取选择的行的数据，只要传入rowId即可
+                    var rowData = $(grid_table).jqGrid('getRowData',rowid);
+                    //而这个rowData是一个对象，如果要获取选择的行的这个对象的属性值，如degreeId的值
+                    //这个地方是获取每行里面列的值，用于判断某些按钮是否显示
+					var detail = "<button class='btn btn-primary btn-sm ' style='margin-right: 6px' "
+                            + "onclick=\"addNewTabs({title:'项目详情',url: '/project/projectInfo?id="
+                            + rowid
+                            + "'})\"><i class='ace-icon fa fa-search-plus'></i>查看明细</button>";
+
+					$(grid_table).jqGrid('setRowData', rowid, {
+                            operate: detail,
+                    });
+				 
+                }
+            },
+            //更新翻页图标
+            loadComplete: function () {
+                var table = this;
+                setTimeout(function () {
+                    updatePagerIcons(table);
+                }, 0);
+            }
+        });
+        //分页
+        $(grid_table).jqGrid('navGrid', grid_pager, {
+            edit: false,
+            add: false,
+            del: false,
+            search: false,
+            refresh: false,
+        })
+		
+    });
+
+	 function formatImage(cellvalue, options, cell) {
+        if (!cellvalue) {
+            return "-";
+        }
+        return "<img id='tag_item' src='"+cellvalue+"' style='width:80px;height:50px;'>";
+    }
+ 
+    function formatMember(cellvalue, options, cell) {
+        if (!cellvalue) {
+            return "-";
+        }
+        return cellvalue + "人";
+    }
+
+   function formatStatus(cellvalue, options, cell) {
+        if(0==cellvalue){
+			return "待指派项目负责人";
+		}else if (1==cellvalue){
+			return "待指派报价负责人";
+		}else if (2==cellvalue){
+			return "待指派报价人";
+		}else if (3==cellvalue){
+			return "报价中";
+		}else if (4==cellvalue){
+			return "合同已签订";
+		}else if (5==cellvalue){
+			return "合同不签订";
+		}else{
+            return "-";
+        }
+    }
+ 
+</script>
+</body>
+</html>

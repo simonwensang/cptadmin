@@ -6,11 +6,34 @@
 		中科电ERP后台
     </title>
     #parse("tags.vm")
+	<style>
+        .date-wrap {
+            width: 500px;
+            margin: 200px auto 0;
+            position: relative;
+        }
+
+        .date-wrap td[data-y^='2'] {
+            cursor: pointer;
+        }
+
+        .write-box, .info-box {
+            position: absolute;
+            top: 110px;
+            left: 200px;
+            width: 600px;
+            display: none;
+        }
+		ul { width:100%; margin:0; padding:0; list-style:none}  
+.newslist { line-height:20px; padding:5px 0; color:#333; border-bottom:1px }  
+.newslist div {   float:right; text-align:right}  
+a { color:#333; text-decoration:none}  
+    </style>
 </head>
 <body class="no-skin">
 <div id="navbar" class="navbar navbar-default ace-save-state">
     <div class="navbar-container ace-save-state" id="navbar-container">
-
+ #parse("common/message_info.vm")
         <div class="navbar-header pull-left">
             <a href="#" class="navbar-brand">
                 <small>
@@ -79,39 +102,78 @@
                             ##dashboard面板
                                 <div class="row">
                                     <div class="space-6"></div>
-                                    <div class="col-sm-7 infobox-container">
-                                        <div class="infobox infobox-green">
-                                            <div class="infobox-icon">
-                                                <i class="ace-icon fa fa-bar-chart-o"></i>
-                                            </div>
-                                            <div class="infobox-data">
-                                                <span class="infobox-data-number">32</span>
-                                                <div class="infobox-content">登录次数 
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="infobox infobox-blue">
-                                            <div class="infobox-icon">
-                                                <i class="ace-icon fa fa-calendar"></i>
-                                            </div>
-
-                                            <div class="infobox-data">
-                                                <span class="infobox-small">2016-09-01 20:30:10</span>
-                                                <div class="infobox-content">最后登录时间</div>
-                                            </div>
-                                        </div>
-                                        <div class="infobox infobox-pink">
-                                            <div class="infobox-icon">
-                                                <i class="ace-icon fa fa-map-marker"></i>
-                                            </div>
-
-                                            <div class="infobox-data">
-                                                <span class="infobox-small">192.168.1.1</span>
-                                                <div class="infobox-content">上次登录IP</div>
-                                            </div>
-                                        </div>
-                                        <div class="space-6"></div>
+                                    <div class="col-sm-5">
+                                        <h2 >最新消息</h2>
+										 #foreach($message in $messageList.rows)
+                                         <div>
+                                            <p>标题：<span class='green'>$!{message.title}</span> </p>
+                                            <p>主题：  <span class='green'>$!{message.subject}</span> </p>
+											<span class='green'>$!{message.user}</span> &nbsp;&nbsp;&nbsp;&nbsp;<span class='green'>$dateTimeUtil.format($!{message.createTime},'yyyy-MM-dd HH:mm:ss')</span>
+											<a class="green" href="#" onclick="messageDetail($!{message.id})" style="float:right;">查看</a>
+										 </div>
+										 <hr/>
+										 #end
+                                    </div>
+									<div class="space-6"></div>
+									 
+									<div class="col-sm-7">
+										  <div id="schedule" class="row">
+											<h2 >待办事项</h2>
+    										 #foreach($schedule in $scheduleList)
+                                                <p >您有 <span class='green'> $!{schedule.num}</span> 个项目：<a href="javascript:;" onclick="addNewTabs({title:'项目管理列表',url: '/project/list'})"><span class='green'> $!{schedule.authorityStr}</span></a></p>
+											 #end
+										  </div>
+										  <hr/>
+										  <div id="projectList"  class="row">
+											<h2 >项目机会</h2>
+												<table class="table table-bordered table-striped">
+														<thead class="thin-border-bottom">
+															<tr>
+																<th>
+																	<i class="icon-caret-right blue"></i>
+																	序号
+																</th>
+																<th>
+																	<i class="icon-caret-right blue"></i>
+																	项目编码
+																</th>
+																<th>
+																	<i class="icon-caret-right blue"></i>
+																	项目名称
+																</th>
+																<th>
+																	<i class="icon-caret-right blue"></i>
+																	提报人
+																</th>
+																<th>
+																	<i class="icon-caret-right blue"></i>
+																	提报时间
+																</th>
+																<th>
+																	<i class="icon-caret-right blue"></i>
+																	招标时间
+																</th>
+																<th>
+																	<i class="icon-caret-right blue"></i>
+																	项目所在地
+																</th>
+															</tr>
+														</thead>
+														<tbody>
+															#foreach($project in $projectList.rows)
+															<tr class="green">
+																<td>$!{project.id}</td>
+																<td>$!{project.code}</td>
+																<td>$!{project.name}</td>
+																<td>$!{project.commitUser}</td>
+																<td>$dateTimeUtil.format($!{project.commitTime},'yyyy-MM-dd')</td>
+																<td>$!{project.tenderTime}</td>
+																<td>$!{project.address}</td>
+															</tr>
+															#end
+														</tbody>
+													</table>
+										  </div>
                                     </div>
                                     <div class="vspace-12-sm"></div>
                                 </div>
@@ -125,4 +187,45 @@
 </div>
 
 </body>
+<script>
+   
+     function messageDetail(id) {
+	 	$("#content").html(" ");
+        $('#messageInfoModal').modal('show');
+ 			$.ajax({
+                type: "post",
+                url: '/message/get',
+                data: {
+                  id: id
+                },
+                dataType: 'json',
+                success: function (data) {
+						if(data.value!=null){
+						  var content ="<p>标题："+data.value.title+"</p> <p>主题："+ data.value.subject+"</p> <p>内容："+data.value.content+"</p>" +data.value.user+"&nbsp;&nbsp;&nbsp;&nbsp;<span >"+formatDate(data.value.createTime)+"</span>";
+  							 $("#content").append(content); 
+							 $("#content").append("<hr/><ul>");
+			 			 	//循环添加  
+							var replyMessage = data.value.replyMessage;
+                         	if(replyMessage!=null){
+             		 	 		for(var j=0;j<replyMessage.length;j++){  
+                		 			$("#content").append(" <li class='newslist green'><div>"+formatDate(replyMessage[j].createTime)+"</div><a href='#' class='green'>"+replyMessage[j].user+"回复"+data.value.user +"：    "+ replyMessage[j].content+"</a></li>"); 
+            		 	 		}  
+						 	}   
+					 		 $("#content").append("</ul>"); 
+						}
+						 $('.info-box').show();
+                },
+                error: function (data) {
+                    if(data.msg){
+                        alertShow(data.msg);
+                    }
+                    if(data.readyState == 4){
+                        alertShow("Request Not Found");
+                    }
+                }
+            });
+            
+        }
+	
+</script>
 </html>

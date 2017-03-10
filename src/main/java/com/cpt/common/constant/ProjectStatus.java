@@ -33,4 +33,13 @@ public enum ProjectStatus {
 		this.value = value;
 	}
 	
+	public static String getValueByKey(Byte key){
+		for (ProjectStatus e : ProjectStatus.values()) {  
+			if(e.getKey().equals(key)){
+				return e.getValue();
+			}
+		}
+		return null;
+	}
+	
 }
