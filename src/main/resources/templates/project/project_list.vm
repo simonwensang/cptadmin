@@ -106,7 +106,10 @@
 					var  showPriceOffer =rowData.showPriceOffer ;
 					var  showProjectManager =rowData.showProjectManager ;
 					var  showDetail =rowData.showDetail;
-					
+					var showDelete= rowData.showDelete;
+					var showDelete = "<button class='btn btn-primary btn-sm ' style='margin-right: 6px' "
+                            + "onclick='showDelete("+ rowid+")'><i class='ace-icon fa fa-pencil'></i>删除</button>";
+							
 					var selectProjectManager = "<button class='btn btn-primary btn-sm ' style='margin-right: 6px' "
                             + "onclick=\"addNewTabs({title:'指定项目负责人',url: '/project/manager?id="
                             + rowid
@@ -129,6 +132,10 @@
                             + "'})\"><i class='ace-icon fa fa-search-plus'></i>查看明细</button>";
 
 					var opt =""  ;
+					
+					if( showDelete=="true"){
+				   		opt = opt+showDelete;
+				    }
 					if( showSelectProjectManager=="true"){
 				   		opt = opt+selectProjectManager;
 				    }
@@ -211,6 +218,31 @@
 		queryPriceOffer();
 	}
 	
+	function showDelete(id){
+		 $.ajax({
+                type: "post",
+                url: '/project/delete',
+                data: {
+                   id:id
+                },
+                dataType: 'json',
+                success: function (data) {
+                    //提示审核通过成功信息并刷新页面
+                    alertShow(data.msg, function () {
+    					  reloadTable('/project/pageList');
+                    });
+                },
+                error: function (data) {
+                    if(data.msg){
+                        alertShow(data.msg);
+                    }
+                    if(data.readyState == 4){
+                        alertShow("Request Not Found");
+                    }
+                }
+            });
+	
+	}
 	function showPriceOffer(id){
 		$('#priceModal').modal('show');
 		$('#projectId').val(id);

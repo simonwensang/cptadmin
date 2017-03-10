@@ -109,7 +109,7 @@ public class ProjectServiceImpl implements ProjectService {
 						 projectVo.setShowDetail(true);
 						
 					 }
-					 projectVo.setShowDelete(showDelete);
+					 projectVo.setShowDelete(true);
 				 }
 				 if(AuthorityStatus.PROJECT_MANAGER.getKey().equals(authority)){
 					 if(ProjectStatus.PROJECT_MANAGER.getKey().equals(projectVo.getStatus())){
