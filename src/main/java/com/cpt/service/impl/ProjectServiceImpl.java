@@ -15,6 +15,7 @@ import com.cpt.common.PageResult;
 import com.cpt.common.Result;
 import com.cpt.common.ResultCode;
 import com.cpt.common.constant.AuthorityStatus;
+import com.cpt.common.constant.Constants;
 import com.cpt.common.constant.MessageConstants;
 import com.cpt.common.constant.ProjectStatus;
 import com.cpt.common.util.CodeFactory;
@@ -143,7 +144,7 @@ public class ProjectServiceImpl implements ProjectService {
 	
 	@Override
 	public  ProjectVo  detail(Long id) {
-		ProjectVo projectVo = ProjectConvertor.toProjectVo(projectMapper.selectByPrimaryKey(id));
+		ProjectVo projectVo =this.getProject(id);
 		if(null!=projectVo){
 			projectVo.setProjectPriceList(projectPriceService.queryByProjectId(id));			
 		}
@@ -151,8 +152,19 @@ public class ProjectServiceImpl implements ProjectService {
 	}
 
 	@Override
-	public ProjectVo getProjectById(Long id) {
-		return ProjectConvertor.toProjectVo(projectMapper.selectByPrimaryKey(id));
+	public ProjectVo getProject(Long id) {
+		return ProjectConvertor.toProjectVo(getProjectById(id));
+	}
+	
+	public Project getProjectById(Long id) {
+		ProjectExample example = new ProjectExample();
+		ProjectExample.Criteria criteria = example.createCriteria();
+		criteria.andIdEqualTo(id).andIsDeletedEqualTo(Constants.ISNOTDELETEDBOLN);
+		List<Project> projects  = projectMapper.selectByExample(example);
+		if(projects.size()>0){
+			return projects.get(0);
+		}
+		return null;
 	}
 
 	@Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.DEFAULT, rollbackFor = Exception.class)
@@ -180,13 +192,16 @@ public class ProjectServiceImpl implements ProjectService {
 		if(id==null){
 			return new Result<Integer>(ResultCode.C500.getCode(),MessageConstants.PRARM_ERROR);
 		}
-		Project project = projectMapper.selectByPrimaryKey(id);
+		Project project = this.getProjectById(id);
 		if(null==project){
 			return new Result<Integer>(ResultCode.C500.getCode(),MessageConstants.PROJECT_EMPTY);
 		}
 	 
 		if (userCommonService.getUserId().longValue()==project.getCommitUserId().longValue()){
-			return new Result<Integer>(projectMapper.deleteByPrimaryKey(id));
+			Project record = new Project();
+			record.setId(id);
+			record.setIsDeleted(Constants.ISDELETEDBOLN);
+			return new Result<Integer>(projectMapper.updateByPrimaryKeySelective(record));
 		}else{
 			return new Result<Integer>(ResultCode.C500.getCode(),MessageConstants.NO_AUTHOR);
 		}
@@ -200,7 +215,7 @@ public class ProjectServiceImpl implements ProjectService {
 		if(optReq.getId()==null||optReq.getOptType()==null||optReq.getUserId()==null){
 			return new Result<Integer>(ResultCode.C500.getCode(),MessageConstants.PRARM_ERROR);
 		}
-		Project project = projectMapper.selectByPrimaryKey(optReq.getId());
+		Project project = this.getProjectById(optReq.getId());
 		if(null==project){
 			return new Result<Integer>(ResultCode.C500.getCode(),MessageConstants.PROJECT_EMPTY);
 		}
@@ -315,7 +330,7 @@ public class ProjectServiceImpl implements ProjectService {
 		if(signContractReq.getProjectId()==null||signContractReq.getSign()==null){
 			return new Result<Integer>(ResultCode.C500.getCode(),MessageConstants.PRARM_ERROR);
 		}
-		Project project = projectMapper.selectByPrimaryKey(signContractReq.getProjectId());
+		Project project = this.getProjectById(signContractReq.getProjectId());
 		if(null==project){
 			return new Result<Integer>(ResultCode.C500.getCode(),MessageConstants.PROJECT_EMPTY);
 		}

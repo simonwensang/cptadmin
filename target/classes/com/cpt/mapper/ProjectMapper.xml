@@ -30,6 +30,7 @@
     <result column="price_offer_id" jdbcType="BIGINT" property="priceOfferId" />
     <result column="price_offer_time" jdbcType="TIMESTAMP" property="priceOfferTime" />
     <result column="reason" jdbcType="VARCHAR" property="reason" />
+    <result column="is_deleted" jdbcType="BIT" property="isDeleted" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -94,7 +95,7 @@
     commit_user, commit_user_id, commit_time, update_time, update_user, update_user_id, 
     status, project_manager, project_manager_id, project_manager_time, price_manager, 
     price_manager_id, price_manager_time, price_offer, price_offer_id, price_offer_time, 
-    reason
+    reason, is_deleted
   </sql>
   <select id="selectByExample" parameterType="com.cpt.model.ProjectExample" resultMap="BaseResultMap">
     select
@@ -137,7 +138,7 @@
       project_manager, project_manager_id, project_manager_time, 
       price_manager, price_manager_id, price_manager_time, 
       price_offer, price_offer_id, price_offer_time, 
-      reason)
+      reason, is_deleted)
     values (#{id,jdbcType=BIGINT}, #{code,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
       #{report,jdbcType=VARCHAR}, #{tenderee,jdbcType=VARCHAR}, #{designer,jdbcType=VARCHAR}, 
       #{agent,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{type,jdbcType=TINYINT}, 
@@ -147,7 +148,7 @@
       #{projectManager,jdbcType=VARCHAR}, #{projectManagerId,jdbcType=BIGINT}, #{projectManagerTime,jdbcType=TIMESTAMP}, 
       #{priceManager,jdbcType=VARCHAR}, #{priceManagerId,jdbcType=BIGINT}, #{priceManagerTime,jdbcType=TIMESTAMP}, 
       #{priceOffer,jdbcType=VARCHAR}, #{priceOfferId,jdbcType=BIGINT}, #{priceOfferTime,jdbcType=TIMESTAMP}, 
-      #{reason,jdbcType=VARCHAR})
+      #{reason,jdbcType=VARCHAR}, #{isDeleted,jdbcType=BIT})
   </insert>
   <insert id="insertSelective" parameterType="com.cpt.model.Project">
     insert into t_project
@@ -236,6 +237,9 @@
       <if test="reason != null">
         reason,
       </if>
+      <if test="isDeleted != null">
+        is_deleted,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -321,6 +325,9 @@
       </if>
       <if test="reason != null">
         #{reason,jdbcType=VARCHAR},
+      </if>
+      <if test="isDeleted != null">
+        #{isDeleted,jdbcType=BIT},
       </if>
     </trim>
   </insert>
@@ -417,6 +424,9 @@
       <if test="record.reason != null">
         reason = #{record.reason,jdbcType=VARCHAR},
       </if>
+      <if test="record.isDeleted != null">
+        is_deleted = #{record.isDeleted,jdbcType=BIT},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -451,7 +461,8 @@
       price_offer = #{record.priceOffer,jdbcType=VARCHAR},
       price_offer_id = #{record.priceOfferId,jdbcType=BIGINT},
       price_offer_time = #{record.priceOfferTime,jdbcType=TIMESTAMP},
-      reason = #{record.reason,jdbcType=VARCHAR}
+      reason = #{record.reason,jdbcType=VARCHAR},
+      is_deleted = #{record.isDeleted,jdbcType=BIT}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -540,6 +551,9 @@
       <if test="reason != null">
         reason = #{reason,jdbcType=VARCHAR},
       </if>
+      <if test="isDeleted != null">
+        is_deleted = #{isDeleted,jdbcType=BIT},
+      </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
@@ -571,7 +585,8 @@
       price_offer = #{priceOffer,jdbcType=VARCHAR},
       price_offer_id = #{priceOfferId,jdbcType=BIGINT},
       price_offer_time = #{priceOfferTime,jdbcType=TIMESTAMP},
-      reason = #{reason,jdbcType=VARCHAR}
+      reason = #{reason,jdbcType=VARCHAR},
+      is_deleted = #{isDeleted,jdbcType=BIT}
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

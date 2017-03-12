@@ -60,7 +60,7 @@ public class UserLogServiceImpl implements UserLogService {
 			for (Organization organization : organizations){
 				ids.add(organization.getId());
 			}
-			departmentLogs= userLogExtMapper.selectListDepartment(ids);
+			departmentLogs= userLogExtMapper.selectListDepartment(logTime,ids);
 		}
 		userLogVo.setDepartmentLogs( departmentLogs);
 		return Result.newResult(userLogVo);

@@ -159,7 +159,7 @@ $(function () {
 								var departmentLogs = data.value.departmentLogs;
                              	if(departmentLogs!=null){
                  		 	 		for(var j=0;j<departmentLogs.length;j++){  
-                    		 		$("#departmentLog").append(departmentLogs[j].logTime+"   "+departmentLogs[j].content+"<br/>"); 
+                    		 		$("#departmentLog").append(departmentLogs[j].user+": "+departmentLogs[j].content+"<br/>"); 
                 		 	 		}  
 							 	}
 						}

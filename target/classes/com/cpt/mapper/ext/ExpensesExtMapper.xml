@@ -46,4 +46,14 @@
         </foreach>
      GROUP BY   b.`department_id` 
   </select>
+  
+  <select id="selectTotalDepartment" resultType="java.math.BigDecimal" >
+     SELECT  SUM(expenses) AS total FROM `t_expenses` a JOIN  `t_user` b 
+  	ON a.`user_id`=b.`id` WHERE b.`department_id` IN  
+    <foreach collection="list" item="departmentId" index="index"
+            open="(" close=")" separator=",">
+            #{departmentId}
+        </foreach>
+  </select>
+  
 </mapper>

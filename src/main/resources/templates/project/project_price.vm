@@ -81,11 +81,11 @@
             <div class="col-sm-2">
                  <input type="text" disabled="disabled" name="company" value="$!{projectPrice.company}"  class="input">
             </div>
-            <label class="col-sm-1 control-label"> 报价人：</label>
+            <label class="col-sm-1 control-label"> 询价人：</label>
             <div class="col-sm-2">
                 <input type="text" disabled="disabled" name="manager" value="$!{projectPrice.manager}"  class="input">
             </div>
-			<label class="col-sm-1  control-label"> 电话：</label>
+			<label class="col-sm-1  control-label"> 联系方式：</label>
             <div class="col-sm-2">
                 <input type="text" disabled="disabled" name="tel" value="$!{projectPrice.tel}"  class="input">
             </div>
@@ -163,7 +163,7 @@ var html2= "<div class='form-group' ><label class='col-sm-2 control-label'>价�
                     #end
 				+"</select>"
            +" </div>"
-            +"<label class='col-sm-2 control-label'> 报价人：</label>"
+            +"<label class='col-sm-2 control-label'> 询价人：</label>"
            +" <div class='col-sm-2'>"
                +" <input type='text' name='manager'  class='input'>"
             +"</div>"

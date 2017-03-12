@@ -65,8 +65,8 @@
                 {name: 'projectManager', index: 'projectManager', width: '6%',},
                 {name: 'priceManager', index: 'priceManager', width: '6%', sortable: false},
                	{name: 'priceOffer', index: 'priceOffer',width: '6%',sortable: false },
-				{name: 'commitTime', index: 'commitTime', width: '6%', sortable: false,formatter:formatDateToDay},
-				{name: 'tenderTime', index: 'tenderTime', width: '6%', sortable: false},
+				{name: 'commitTime', index: 'commitTime', width: '5%', sortable: false,formatter:formatDateToDay},
+				{name: 'tenderTime', index: 'tenderTime', width: '5%', sortable: false},
 				{name: 'tenderee', index: 'tenderee', width: '6%', sortable: false},
 				{name: 'designer', index: 'designer', width: '7%', sortable: false},
 				{name: 'agent', index: 'agent', width: '6%', sortable: false},
@@ -79,7 +79,7 @@
 				{name: 'showPriceOffer', index: 'showPriceOffer',  hidden:true},
 				{name: 'showProjectManager', index: 'showProjectManager',  hidden:true},
 				{name: 'showDetail', index: 'showDetail',  hidden:true},
-				{name: 'operate',index: 'rowid', width: '13%',sortable: false },
+				{name: 'operate',index: 'rowid', width: '15%',sortable: false },
             ],
             viewrecords: true,
             rowNum: 10,
@@ -107,8 +107,9 @@
 					var  showProjectManager =rowData.showProjectManager ;
 					var  showDetail =rowData.showDetail;
 					var showDelete= rowData.showDelete;
-					var showDelete = "<button class='btn btn-primary btn-sm ' style='margin-right: 6px' "
-                            + "onclick='showDelete("+ rowid+")'><i class='ace-icon fa fa-pencil'></i>删除</button>";
+					
+					var deleteProject = "<button class='btn btn-primary btn-sm ' style='margin-right: 6px' "
+                            + "onclick='deleteProject("+ rowid+")'><i class='ace-icon fa fa-pencil'></i>删除</button>";
 							
 					var selectProjectManager = "<button class='btn btn-primary btn-sm ' style='margin-right: 6px' "
                             + "onclick=\"addNewTabs({title:'指定项目负责人',url: '/project/manager?id="
@@ -134,7 +135,7 @@
 					var opt =""  ;
 					
 					if( showDelete=="true"){
-				   		opt = opt+showDelete;
+				   		opt = opt+deleteProject;
 				    }
 					if( showSelectProjectManager=="true"){
 				   		opt = opt+selectProjectManager;
@@ -218,7 +219,8 @@
 		queryPriceOffer();
 	}
 	
-	function showDelete(id){
+	function deleteProject(id){
+	 confirmShows("确认提交？", function () {
 		 $.ajax({
                 type: "post",
                 url: '/project/delete',
@@ -241,7 +243,7 @@
                     }
                 }
             });
-	
+		 });
 	}
 	function showPriceOffer(id){
 		$('#priceModal').modal('show');

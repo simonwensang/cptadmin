@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8"/>
     <title>
-		中科电ERP后台
+		中电科ERP后台
     </title>
     #parse("tags.vm")
 	<style>
@@ -38,7 +38,7 @@ a { color:#333; text-decoration:none}
             <a href="#" class="navbar-brand">
                 <small>
                     <i class="fa fa-leaf"></i>
-						中科电ERP后台
+						中电科ERP后台
                 </small>
             </a>
 		 

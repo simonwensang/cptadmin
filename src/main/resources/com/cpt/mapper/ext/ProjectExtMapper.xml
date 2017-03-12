@@ -29,6 +29,7 @@
     <result column="price_offer" jdbcType="VARCHAR" property="priceOffer" />
     <result column="price_offer_id" jdbcType="BIGINT" property="priceOfferId" />
     <result column="price_offer_time" jdbcType="TIMESTAMP" property="priceOfferTime" />
+     <result column="is_deleted" jdbcType="BIT" property="isDeleted" />
     <collection property="authority" ofType="java.lang.Byte">
 	    <result column="f_authority" jdbcType="TINYINT"/>
     </collection>
@@ -62,7 +63,7 @@
     <result column="price_offer" jdbcType="VARCHAR" property="priceOffer" />
     <result column="price_offer_id" jdbcType="BIGINT" property="priceOfferId" />
     <result column="price_offer_time" jdbcType="TIMESTAMP" property="priceOfferTime" />
-  
+     <result column="is_deleted" jdbcType="BIT" property="isDeleted" />
   </resultMap>
   <select id="selectDetailProjectList" parameterType="com.cpt.req.ProjectReq" resultMap="BaseResultMap2">
 	    select 
@@ -95,15 +96,18 @@
 	 </select>
 	 
 	  <select id="selectProjectSchedule" resultType="com.cpt.vo.ScheduleVo">
-	  	SELECT a.`authority` ,COUNT(b.id) as num ,b.`status` FROM `t_work_flow` a JOIN `t_project` b ON a.`ref_id`=b.`id` AND a.`status`=b.`status` WHERE a.`user_id`=#{id} and a.`authority` != 4 group by a.`authority` 
+	  	SELECT a.`authority` ,COUNT(b.id) as num ,b.`status` FROM `t_work_flow` a JOIN `t_project` b ON a.`ref_id`=b.`id` AND a.`status`=b.`status` 
+	  	WHERE a.`user_id`=#{id} and a.`authority` != 4 and b.is_deleted=0 group by a.`authority` 
 	  </select>
 	  
 	  <select id="selectPriceProject" resultType="java.lang.Integer" >
-	  	SELECT  COUNT(b.id) as num   FROM `t_work_flow` a JOIN `t_project` b ON a.`ref_id`=b.`id`  WHERE a.`user_id`=#{id}  and a.`authority` in (3,4) and b.status in (2,3) 
+	  	SELECT  COUNT(b.id) as num   FROM `t_work_flow` a JOIN `t_project` b ON a.`ref_id`=b.`id`  
+	  	WHERE a.`user_id`=#{id}  and a.`authority` in (3,4) and b.status in (2,3) and b.is_deleted=0
 	  </select>
 	  
 	  <select id="selectManagerProject" resultType="java.lang.Integer" >
-	  	SELECT  COUNT(b.id) as num   FROM `t_work_flow` a JOIN `t_project` b ON a.`ref_id`=b.`id`  WHERE a.`user_id`=#{id}  and a.`authority`= 2 and b.status in (1,2,3) 
+	  	SELECT  COUNT(b.id) as num   FROM `t_work_flow` a JOIN `t_project` b ON a.`ref_id`=b.`id` 
+	  	 WHERE a.`user_id`=#{id}  and a.`authority`= 2 and b.status in (1,2,3) and b.is_deleted=0
 	  </select>
 	  
 	  <select id="selectProjectList" parameterType="com.cpt.req.ProjectReq" resultMap="BaseResultMap">
@@ -135,6 +139,7 @@
           <if test="status != null ">
               AND a.status = #{status} 
           </if>
+           and a.is_deleted=0
 	      </where>
 	      ORDER BY a.status ,a.commit_time DESC 
 	 </select>

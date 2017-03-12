@@ -65,6 +65,10 @@ public class ProjectVo {
  
     private List<ProjectPriceVo> projectPriceList;
     
+    private Boolean isDeleted;
+    
+    private String reason;
+    
     //("是否显示指定项目负责人")
 	private Boolean showSelectProjectManager=false;
 	//("是否显示选择报价负责人")

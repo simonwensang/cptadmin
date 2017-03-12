@@ -1,5 +1,6 @@
 package com.cpt.model;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 public class Organization {
@@ -13,7 +14,17 @@ public class Organization {
 
     private Date createTime;
 
-    public Long getId() {
+    private BigDecimal expanse;
+    
+    public BigDecimal getExpanse() {
+		return expanse;
+	}
+
+	public void setExpanse(BigDecimal expanse) {
+		this.expanse = expanse;
+	}
+
+	public Long getId() {
         return id;
     }
 

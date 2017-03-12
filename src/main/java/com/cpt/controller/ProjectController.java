@@ -142,7 +142,7 @@ public class ProjectController {
      */
     @RequestMapping(value = "/edit", method = RequestMethod.GET)
     public ModelAndView add(ModelAndView mav, Long id) {
-    	ProjectVo projectVo = projectService.getProjectById(id);
+    	ProjectVo projectVo = projectService.getProject(id);
         mav.addObject("projectVo", projectVo);
         mav.setViewName("project/project_edit");
         return mav;

@@ -13,7 +13,7 @@
     id, user, user_id,content, log_time, create_time
   </sql>
   <select id="selectListDepartment" resultMap="BaseResultMap" >
-    SELECT a.* FROM `t_user_log`  a  JOIN `t_user` b ON a.`user_id`=b.`id` WHERE b.`department_id` IN  
+    SELECT a.* FROM `t_user_log`  a  JOIN `t_user` b ON a.`user_id`=b.`id` WHERE a.log_time=#{logTime} and b.`department_id` IN  
     <foreach collection="list" item="departmentId" index="index" open="(" close=")" separator=",">
             #{departmentId}
     </foreach>

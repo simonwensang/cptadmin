@@ -59,6 +59,8 @@ public class Project {
 
     private String reason;
 
+    private Boolean isDeleted;
+
     public Long getId() {
         return id;
     }
@@ -281,5 +283,13 @@ public class Project {
 
     public void setReason(String reason) {
         this.reason = reason == null ? null : reason.trim();
+    }
+
+    public Boolean getIsDeleted() {
+        return isDeleted;
+    }
+
+    public void setIsDeleted(Boolean isDeleted) {
+        this.isDeleted = isDeleted;
     }
 }

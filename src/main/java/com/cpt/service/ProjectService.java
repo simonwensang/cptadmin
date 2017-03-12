@@ -19,7 +19,7 @@ public interface ProjectService {
 	
 	PageResult<ProjectVo> detailPageList(PageParam pageParam,ProjectReq projectReq);
 	
-	ProjectVo getProjectById(Long id);
+	ProjectVo getProject(Long id);
 	
 	ProjectVo detail(Long id);
 	

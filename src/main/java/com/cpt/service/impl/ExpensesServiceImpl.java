@@ -1,6 +1,5 @@
 package com.cpt.service.impl;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -55,15 +54,36 @@ public class ExpensesServiceImpl implements ExpensesService {
 		return expensesMapper.selectByPrimaryKey(id);
 	}
 	
-	public EchartVo getDepartmentExpenses() {
-		EchartVo echartVo =new EchartVo();
-		 List<DepartmentExpenses> departmentExpenses= Lists.newArrayList();
-		 User user = userCommonService.getUser();
+	private  List<Organization> getOrganizationsByParentId(Long parentId){
 		 OrganizationExample example=new OrganizationExample();
 		 OrganizationExample.Criteria criteria = example.createCriteria()  ;
-		 criteria.andParentIdEqualTo(user.getDepartmentId());
-		 List<Organization> organizations = organizationMapper.selectByExample(example);
-		 
+		 criteria.andParentIdEqualTo(parentId);
+		 return  organizationMapper.selectByExample(example);
+	}
+	 //递归求下级子部门费用之和
+	private  void getDepartmentExpensesByOrganizationId(DepartmentExpenses parent){
+		List<Organization> organizations = this.getOrganizationsByParentId(parent.getDepartmentId());
+		if(organizations.size()>0){
+			 List<Long> ids = Lists.newArrayList();
+			 for (Organization organization : organizations){
+				 ids.add(organization.getId());
+			 }
+			 List<DepartmentExpenses> departmentExpensesList = expensesExtMapper.selectListDepartment(ids);
+			 for (DepartmentExpenses departmentExpenses:departmentExpensesList) {
+				 this.getDepartmentExpensesByOrganizationId(departmentExpenses);
+			 }
+			 for (DepartmentExpenses departmentExpenses:departmentExpensesList) {
+					parent.setTotal(parent.getTotal().add(departmentExpenses.getTotal()));
+			 }
+		} 
+		
+	}
+	
+	public EchartVo getDepartmentExpenses() {
+		EchartVo echartVo =new EchartVo();
+		 List<DepartmentExpenses> departmentExpensesList= Lists.newArrayList();
+		 User user = userCommonService.getUser();
+		 List<Organization> organizations = this.getOrganizationsByParentId( user.getDepartmentId());
 		 if(organizations.size()>0){
 			 List<Long> ids = Lists.newArrayList();
 			 JSONArray jsonArray=new JSONArray(); 
@@ -72,10 +92,14 @@ public class ExpensesServiceImpl implements ExpensesService {
 				 jsonArray.add(organization.getName());
 			 }
 			 echartVo.setTitle(jsonArray.toJSONString());
-			 departmentExpenses = expensesExtMapper.selectListDepartment(ids);
+			 departmentExpensesList = expensesExtMapper.selectListDepartment(ids);
+			 for (DepartmentExpenses departmentExpenses:departmentExpensesList) {
+				 //递归求下级子部门费用之和
+				 this.getDepartmentExpensesByOrganizationId(departmentExpenses);
+			}
 		 }
 		 JSONArray jsonArray=new JSONArray(); 
-		 for(DepartmentExpenses departmentExpense:departmentExpenses)  
+		 for(DepartmentExpenses departmentExpense:departmentExpensesList)  
 		    {  
 		        JSONObject jsonObject=new JSONObject();  
 		        jsonObject.put("name",departmentExpense.getDepartment());  
@@ -86,7 +110,8 @@ public class ExpensesServiceImpl implements ExpensesService {
 		 return echartVo;
 	}
 	 
-	private List<DepartmentExpenses> setRadio(List<DepartmentExpenses> list){
+	
+/*	private List<DepartmentExpenses> setRadio(List<DepartmentExpenses> list){
 		BigDecimal total = BigDecimal.ZERO;
 		for (DepartmentExpenses departmentExpenses:list) {
 			total.add(departmentExpenses.getTotal());
@@ -97,7 +122,7 @@ public class ExpensesServiceImpl implements ExpensesService {
 		}
 		return list;
 	}
-	
+	*/
 	@Override
 	public PageResult<Expenses> pageList(PageParam pageParam,
 			ExpensesQuery expensesQuery) {
