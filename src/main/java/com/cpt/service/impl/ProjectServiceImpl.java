@@ -64,6 +64,7 @@ public class ProjectServiceImpl implements ProjectService {
         PageHelper.startPage(pageParam.getPage(), pageParam.getLimit());
         //当前页列表
         projectReq.setUserId(userCommonService.getUserId());
+        projectReq.setIsDeleted(Constants.ISNOTDELETEDBOLN);
         List<ProjectVo> projectVos = projectExtMapper.selectProjectList(projectReq);
         //构造分页结果
         this.packageProjectButton(projectVos);
@@ -78,6 +79,7 @@ public class ProjectServiceImpl implements ProjectService {
 		 //分页
         PageHelper.startPage(pageParam.getPage(), pageParam.getLimit());
         //当前页列表
+        projectReq.setIsDeleted(Constants.ISNOTDELETEDBOLN);
         List<ProjectVo> projectVos = projectExtMapper.selectProjectList(projectReq);
         //构造分页结果
         this.packageProjectButton(projectVos);
@@ -92,6 +94,7 @@ public class ProjectServiceImpl implements ProjectService {
 		 //分页
         PageHelper.startPage(pageParam.getPage(), pageParam.getLimit());
         //当前页列表
+        projectReq.setIsDeleted(Constants.ISNOTDELETEDBOLN);
         List<ProjectVo> projectVos = projectExtMapper.selectDetailProjectList(projectReq);
         //构造分页结果
         PageResult<ProjectVo> pageResult = PageResult.newPageResult(projectVos, ((Page<ProjectVo>)projectVos).getTotal(), pageParam.getPage(), pageParam.getRows());
