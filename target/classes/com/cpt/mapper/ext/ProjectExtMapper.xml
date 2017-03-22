@@ -30,8 +30,11 @@
     <result column="price_offer_id" jdbcType="BIGINT" property="priceOfferId" />
     <result column="price_offer_time" jdbcType="TIMESTAMP" property="priceOfferTime" />
     <result column="is_deleted" jdbcType="BIT" property="isDeleted" />
- 	<collection property="workFlows" column="id"                       
-            select="com.cpt.mapper.ext.WorkFlowExtMapper.selectByRefId" />
+ 	<collection property="workFlows"  ofType="com.cpt.model.WorkFlow" >
+	    <id column="w_id" jdbcType="BIGINT" property="id" />
+	    <result column="ref_id" jdbcType="BIGINT" property="refId" />
+	    <result column="authority" jdbcType="TINYINT" property="authority" />
+ 	</collection>
   </resultMap>
    <resultMap id="BaseResultMap2" type="com.cpt.vo.ProjectVo">
     <id column="id" jdbcType="BIGINT" property="id" />
@@ -89,6 +92,9 @@
           <if test="status != null ">
               AND a.status = #{status} 
           </if>
+           <if test="isDeleted != null ">
+              AND a.is_deleted = #{isDeleted} 
+          </if>
 	      </where>
 	      ORDER BY a.status ,a.commit_time DESC 
 	 </select>
@@ -110,7 +116,7 @@
 	  
 	  <select id="selectProjectList" parameterType="com.cpt.req.ProjectReq" resultMap="BaseResultMap">
 	    select 
-	  	 distinct a.*   
+	  	 distinct a.*  , b.id as w_id, b.ref_id , b.authority
 	    from   t_project a join t_work_flow b  on b.ref_id=a.id
 	    <where>
 	      <if test="userId != null">
@@ -137,7 +143,9 @@
           <if test="status != null ">
               AND a.status = #{status} 
           </if>
-           and a.is_deleted=0
+          <if test="isDeleted != null ">
+              AND a.is_deleted = #{isDeleted} 
+          </if>
 	      </where>
 	      ORDER BY a.status ,a.commit_time DESC 
 	 </select>

@@ -34,7 +34,7 @@ public class PageParam implements Serializable {
     private String columnSort;
 
     private Integer offset;
-    private Integer limit=10;
+   private Integer limit ;
 
     public int getPage() {
         return page;

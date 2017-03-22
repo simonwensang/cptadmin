@@ -46,5 +46,5 @@ public class ProjectReq {
     private String priceOffer;
 
     private Long userId;
- 
+    private Boolean isDeleted;
 }
