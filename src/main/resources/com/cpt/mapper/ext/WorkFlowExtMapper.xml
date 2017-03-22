@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cpt.mapper.ext.WorkFlowExtMapper">
+  <resultMap id="BaseResultMap" type="com.cpt.model.WorkFlow">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="ref_id" jdbcType="BIGINT" property="refId" />
+    <result column="authority" jdbcType="TINYINT" property="authority" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="creator" jdbcType="BIGINT" property="creator" />
+  </resultMap>
+   
+  <sql id="Base_Column_List">
+    id, ref_id, authority, status, user_id, create_time, creator
+  </sql>
+  
+  <select id="selectByRefId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_work_flow
+    where ref_id = #{id,jdbcType=BIGINT}
+  </select>
+   
+</mapper>

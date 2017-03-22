@@ -20,16 +20,38 @@
       </collection>
   </resultMap>
   
+  <resultMap id="PageResultMap" type="com.cpt.model.Message">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="subject" jdbcType="VARCHAR" property="subject" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="reply_id" jdbcType="BIGINT" property="replyId" />
+    <result column="user" jdbcType="VARCHAR" property="user" />
+    <result column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="is_deleted" jdbcType="BIT" property="isDeleted" />
+     <collection property="replyMessage"   column="id"                       
+            select="selectByReplyId" />
+  </resultMap>
+   
   <sql id="Base_Column_List">
     id, title, subject, content, reply_id, user, user_id, create_time, is_deleted
   </sql>
   
-   <select id="pageList"   resultMap="BaseResultMap">
+   <select id="pageList"   resultMap="PageResultMap">
     select 
-     a.*,b.id as reply_id,b.content as reply_content,b.user as reply_user ,b.user_id as reply_user_id  ,b.create_time as reply_create_time 
-    from t_message a left join  t_message b on a.id= b.reply_id
+     a.* 
+    from t_message a  
      where a.is_deleted=0 AND a.`reply_id` IS NULL
      order by a.create_time desc
+  </select> 
+  
+   <select id="selectByReplyId"   resultMap="PageResultMap">
+    select 
+     a.* 
+    from   t_message a
+     where a.is_deleted=0 AND a.`reply_id` =#{id}
+     order by a.create_time  
   </select> 
   
    <update id="logicalDelete" parameterType="java.lang.Long">

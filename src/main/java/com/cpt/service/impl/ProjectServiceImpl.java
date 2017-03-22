@@ -24,6 +24,7 @@ import com.cpt.mapper.ProjectMapper;
 import com.cpt.mapper.UserMapper;
 import com.cpt.mapper.WorkFlowMapper;
 import com.cpt.mapper.ext.ProjectExtMapper;
+import com.cpt.mapper.ext.WorkFlowExtMapper;
 import com.cpt.model.Project;
 import com.cpt.model.ProjectExample;
 import com.cpt.model.User;
@@ -52,6 +53,8 @@ public class ProjectServiceImpl implements ProjectService {
 	private UserMapper userMapper;
 	@Resource
 	private WorkFlowMapper workFlowMapper;
+	@Resource
+	private WorkFlowExtMapper workFlowExtMapper;
 	@Resource
 	private ProjectPriceService projectPriceService;
 	@Override
@@ -97,10 +100,9 @@ public class ProjectServiceImpl implements ProjectService {
 
 	private void packageProjectButton(List<ProjectVo> projectVos){
 		for(ProjectVo projectVo:projectVos){
-			List<Byte> authoritys = projectVo.getAuthority();
-			for(int i =0 ;i<authoritys.size();i++){
-				Byte authority = authoritys.get(i); 
-				
+			List<WorkFlow> workFlows = projectVo.getWorkFlows();
+			for(WorkFlow workFlow : workFlows ){
+				 Byte authority= workFlow.getAuthority();
 				 if(AuthorityStatus.COMMIT_USER.getKey().equals(authority)){
 					 if(ProjectStatus.INIT_PROJECT.getKey().equals(projectVo.getStatus())){
 						 projectVo.setShowSelectProjectManager(true);

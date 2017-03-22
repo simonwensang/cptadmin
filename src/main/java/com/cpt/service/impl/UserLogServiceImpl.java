@@ -43,11 +43,10 @@ public class UserLogServiceImpl implements UserLogService {
 		criteria.andLogTimeEqualTo(logTime);
 		criteria.andUserIdEqualTo(userCommonService.getUserId());
 		List<UserLog> log = userLogMapper.selectByExample(example);
-		if(log.size()==0){
-			return Result.newResult(userLogVo);
+		if(log.size()>0){
+			userLogVo = UserLogConvertor.toUserLogVo(log.get(0));
 		}
-		userLogVo = UserLogConvertor.toUserLogVo(log.get(0));
-		
+ 
 		User user = userCommonService.getUser();
 		OrganizationExample exampleOrg=new OrganizationExample();
 		OrganizationExample.Criteria criteriaOrg = exampleOrg.createCriteria()  ;

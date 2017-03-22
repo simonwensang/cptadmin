@@ -5,6 +5,8 @@ import java.util.List;
 
 import lombok.Data;
 
+import com.cpt.model.WorkFlow;
+
 @Data
 public class ProjectVo {
     private Long id;
@@ -61,7 +63,7 @@ public class ProjectVo {
 
     private Date priceOfferTime;
     
-    private List<Byte> authority;
+    private List<WorkFlow> workFlows;
  
     private List<ProjectPriceVo> projectPriceList;
     

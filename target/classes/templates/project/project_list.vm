@@ -58,7 +58,7 @@
             colNames: ['ID','权限', '项目编码', '项目名称', '提报人', '项目负责人','报价负责人', '报价人', '提报时间','招标时间','招标单位','设计单位','招标代理','项目所在地','项目状态','是否显示删除','是否显示指定项目负责人','是否显示选择报价负责人','是否显示管理报价人','是否显示报价','是否显示项目管理','是否显示查看明细','操作'],
             colModel: [
                 {name: 'id', index: 'id', width: '3%'},
-				{name: 'authority', index: 'authority',  hidden:true},
+				{name: 'workFlows.authority', index: 'authority',  hidden:true},
                 {name: 'code', index: 'code', width: '8%'},
                 {name: 'name', index: 'name', width: '7%'},
                 {name: 'commitUser', index: 'commitUser', width: '6%'},

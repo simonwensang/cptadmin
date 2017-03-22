@@ -29,11 +29,9 @@
     <result column="price_offer" jdbcType="VARCHAR" property="priceOffer" />
     <result column="price_offer_id" jdbcType="BIGINT" property="priceOfferId" />
     <result column="price_offer_time" jdbcType="TIMESTAMP" property="priceOfferTime" />
-     <result column="is_deleted" jdbcType="BIT" property="isDeleted" />
-    <collection property="authority" ofType="java.lang.Byte">
-	    <result column="f_authority" jdbcType="TINYINT"/>
-    </collection>
-  
+    <result column="is_deleted" jdbcType="BIT" property="isDeleted" />
+ 	<collection property="workFlows" column="id"                       
+            select="com.cpt.mapper.ext.WorkFlowExtMapper.selectByRefId" />
   </resultMap>
    <resultMap id="BaseResultMap2" type="com.cpt.vo.ProjectVo">
     <id column="id" jdbcType="BIGINT" property="id" />
@@ -112,7 +110,7 @@
 	  
 	  <select id="selectProjectList" parameterType="com.cpt.req.ProjectReq" resultMap="BaseResultMap">
 	    select 
-	  	 a.*,b.authority as f_authority
+	  	 distinct a.*   
 	    from   t_project a join t_work_flow b  on b.ref_id=a.id
 	    <where>
 	      <if test="userId != null">
